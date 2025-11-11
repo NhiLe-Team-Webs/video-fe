@@ -6,4 +6,6 @@ export {GsapSlideUp} from "./gsap/SlideUp";
 export {GsapZoomPop} from "./gsap/ZoomPop";
 export {GsapRotateIn} from "./gsap/RotateIn";
 export {GsapBounce} from "./gsap/Bounce";
+export {LottieEffect} from "./lottie/LottieEffect";
+export {LottieShowcase} from "./lottie/LottieShowcase";
 export {getGsap, createTimeline} from "./gsap/gsapConfig";

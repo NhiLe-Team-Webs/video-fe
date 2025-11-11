@@ -3,6 +3,7 @@ import {Orchestrator} from "./core/Orchestrator";
 import {loadPlan} from "./core/loadPlan";
 import {getFps} from "./core/utils/fpsControl";
 import {PreviewApp} from "./preview";
+import {AnimationPreviewApp} from "./library/animations/AnimationPreviewApp";
 import {totalFrames} from "./core/utils/frameUtils";
 
 const bootstrapPlan = loadPlan();
@@ -15,6 +16,14 @@ export const RemotionRoot: React.FC = () => (
       id="live-preview"
       component={PreviewApp}
       durationInFrames={totalFrames(plan.segments, initialFps)}
+      fps={initialFps}
+      width={1080}
+      height={1920}
+    />
+    <Composition
+      id="animation-browser"
+      component={AnimationPreviewApp}
+      durationInFrames={120}
       fps={initialFps}
       width={1080}
       height={1920}

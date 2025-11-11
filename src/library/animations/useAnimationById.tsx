@@ -1,4 +1,4 @@
-import React from "react";
+import type {ComponentType} from "react";
 import manifest from "./manifest.json";
 import {
   GsapBounce,
@@ -31,6 +31,22 @@ const gsapMap = {
   GsapRotateIn,
   GsapBounce,
 } as const;
+const gsapComponentMap = gsapMap as Record<string, ComponentType<any>>;
+
+type AnimationResolver =
+  | {
+      type: "gsap";
+      id: string;
+      Component: React.ComponentType<Record<string, unknown>>;
+      tags?: string[];
+    }
+  | {
+    type: "lottie";
+    id: string;
+    Component: typeof LottieEffect;
+    tags?: string[];
+    props: {src: string};
+  };
 
 const animationIndex = (() => {
   const gsapEntries: GsapEntry[] =
@@ -52,18 +68,27 @@ const animationIndex = (() => {
 
 export const listAllAnimations = () => animationIndex;
 
-export const useAnimationById = (id: string) => {
+export const useAnimationById = (id: string): AnimationResolver | null => {
   const entry = animationIndex.find((item) => item.id === id);
   if (!entry) {
     return null;
   }
 
   if (entry.type === "gsap") {
-    const Component = (gsapMap as Record<string, typeof GsapEffect>)[entry.component] ?? GsapEffect;
-    return (props: React.ComponentProps<typeof Component>) => <Component {...props} />;
+    const Component = gsapComponentMap[entry.component] ?? GsapEffect;
+    return {
+      type: "gsap",
+      id: entry.id,
+      Component,
+      tags: entry.tags,
+    };
   }
 
-  return (props: React.ComponentProps<typeof LottieEffect>) => (
-    <LottieEffect {...props} src={entry.path} />
-  );
+  return {
+    type: "lottie",
+    id: entry.id,
+    Component: LottieEffect,
+    tags: entry.tags,
+    props: {src: entry.path},
+  };
 };

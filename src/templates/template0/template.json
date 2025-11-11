@@ -1,0 +1,15 @@
+{
+  "id": "template0",
+  "name": "Default Narrative",
+  "description": "Baseline template for experimentation",
+  "segments": [
+    {
+      "type": "clip",
+      "animation": "zoom_in"
+    },
+    {
+      "type": "clip",
+      "animation": "fade_in"
+    }
+  ]
+}

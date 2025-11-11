@@ -1,0 +1,8 @@
+{
+  "fontFamily": "Inter, sans-serif",
+  "colors": {
+    "primary": "#0f172a",
+    "accent": "#22d3ee",
+    "text": "#f8fafc"
+  }
+}

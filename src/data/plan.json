@@ -1,0 +1,17 @@
+{
+  "templateId": "template0",
+  "segments": [
+    {
+      "clip": "assets/broll/innovation_lightbulb.jpg",
+      "text": "AI sẽ thay đổi tương lai",
+      "effect": "zoom_in",
+      "duration": 90
+    },
+    {
+      "clip": "assets/broll/digital_network.jpg",
+      "text": "Công nghệ đang kết nối thế giới",
+      "effect": "fade_in",
+      "duration": 90
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "template1",
+  "name": "Template1 - Educational",
+  "description": "Dành cho video giáo dục với tone nhẹ nhàng, transition mềm.",
+  "rules": {
+    "emotion:neutral": "fadeIn",
+    "emotion:inspiring": "zoomIn",
+    "emotion:serious": "slideUp"
+  },
+  "audio": {
+    "bgm": "library/audio/bgm_soft.mp3",
+    "sfxFallback": "library/audio/whoosh.mp3"
+  }
+}

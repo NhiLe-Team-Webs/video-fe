@@ -1,0 +1,14 @@
+{
+  "id": "template2",
+  "name": "Template2 - Bold Stories",
+  "description": "Dành cho video cảm hứng mạnh, màu tối và điểm nhấn neon.",
+  "rules": {
+    "emotion:inspiring": "zoomIn",
+    "emotion:fun": "slideUp",
+    "emotion:intense": "fadeIn"
+  },
+  "audio": {
+    "bgm": "library/audio/bgm_soft.mp3",
+    "sfxFallback": "library/audio/whoosh.mp3"
+  }
+}

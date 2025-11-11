@@ -1,0 +1,14 @@
+{
+  "fontFamily": "Poppins, sans-serif",
+  "primaryColor": "#0f172a",
+  "backgroundColor": "#f4f7fb",
+  "accentColor": "#38bdf8",
+  "textStyle": {
+    "background": "rgba(255, 255, 255, 0.92)",
+    "color": "#0f172a",
+    "border": "2px solid rgba(56, 189, 248, 0.6)"
+  },
+  "overlayStyle": {
+    "background": "linear-gradient(180deg, rgba(8, 145, 178, 0.0) 15%, rgba(8, 145, 178, 0.25) 90%)"
+  }
+}

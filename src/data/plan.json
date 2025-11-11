@@ -1,21 +1,21 @@
 {
-  "templateId": "template0",
+  "templateId": "template1",
   "music": "library/audio/bgm_soft.mp3",
   "segments": [
     {
-      "clip": "assets/broll/innovation_lightbulb.jpg",
-      "text": "AI sẽ thay đổi tương lai",
-      "effect": "zoom_in",
-      "duration": 90,
-      "emotion": "inspiring",
+      "clip": "assets/broll/digital_network.jpg",
+      "text": "Học AI hiệu quả hơn mỗi ngày",
+      "effect": "fade_in",
+      "duration": 4,
+      "emotion": "neutral",
       "sfx": "library/audio/whoosh.mp3"
     },
     {
-      "clip": "assets/broll/digital_network.jpg",
-      "text": "Công nghệ đang kết nối thế giới",
-      "effect": "fade_in",
-      "duration": 90,
-      "emotion": "neutral"
+      "clip": "assets/broll/education_training.jpg",
+      "text": "Video này được sinh tự động!",
+      "effect": "slide_up",
+      "duration": 4,
+      "emotion": "serious"
     }
   ]
 }

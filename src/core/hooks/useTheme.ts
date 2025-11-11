@@ -6,18 +6,28 @@ export type ThemeConfig = {
   primaryColor?: string;
   backgroundColor?: string;
   accentColor?: string;
+  textStyle?: CSSProperties;
+  overlayStyle?: CSSProperties;
 };
 
-export type Theme = ThemeConfig & {
+export type Theme = Omit<ThemeConfig, "textStyle" | "overlayStyle"> & {
   textStyle: CSSProperties;
   overlayStyle: CSSProperties;
 };
 
-const DEFAULT_THEME: Required<ThemeConfig> = {
+const DEFAULT_THEME: Required<Omit<ThemeConfig, "textStyle" | "overlayStyle">> = {
   fontFamily: "Inter, sans-serif",
   primaryColor: "#ffffff",
   backgroundColor: "#000000",
   accentColor: "#6366f1",
+};
+
+const BASE_TEXT_STYLE: CSSProperties = {
+  fontWeight: 600,
+};
+
+const BASE_OVERLAY_STYLE: CSSProperties = {
+  borderColor: DEFAULT_THEME.accentColor,
 };
 
 export const useTheme = (theme: ThemeConfig = {}): Theme => {
@@ -27,12 +37,14 @@ export const useTheme = (theme: ThemeConfig = {}): Theme => {
     return {
       ...merged,
       textStyle: {
+        ...BASE_TEXT_STYLE,
         fontFamily: merged.fontFamily,
         color: merged.primaryColor,
-        fontWeight: 600,
+        ...theme.textStyle,
       },
       overlayStyle: {
-        borderColor: merged.accentColor,
+        ...BASE_OVERLAY_STYLE,
+        ...theme.overlayStyle,
       },
     };
   }, [theme]);

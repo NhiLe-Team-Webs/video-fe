@@ -15,6 +15,8 @@ type TemplateConfig = {
     bgm?: string;
     sfxFallback?: string;
   };
+  bgm?: string;
+  sfxFallback?: string;
 };
 
 type EffectComponent = React.FC<React.PropsWithChildren<{durationInFrames: number}>>;
@@ -71,7 +73,8 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
     );
   }
 
-  const bgmSrc = templateConfig?.audio?.bgm ?? DEFAULT_BGM;
+  const bgmSrc = plan.music ?? templateConfig?.audio?.bgm ?? templateConfig?.bgm ?? DEFAULT_BGM;
+  const sfxFallback = templateConfig?.audio?.sfxFallback ?? templateConfig?.sfxFallback;
 
   return (
     <AbsoluteFill style={{backgroundColor: theme?.backgroundColor ?? "#000"}}>
@@ -86,7 +89,7 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
               <AbsoluteFill>
                 <EffectWrapper durationInFrames={segment.durationInFrames}>
                   <VideoLayer clip={segment.clip} />
-                  <Overlay accentColor={theme?.accentColor} />
+                  <Overlay accentColor={theme?.accentColor} style={theme?.overlayStyle} />
                 </EffectWrapper>
 
                 {segment.text ? (
@@ -99,9 +102,9 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
                   />
                 ) : null}
 
-                {segment.sfx || templateConfig?.audio?.sfxFallback ? (
+                {segment.sfx || sfxFallback ? (
                   <AudioLayer
-                    src={segment.sfx ?? templateConfig?.audio?.sfxFallback ?? ""}
+                    src={segment.sfx ?? sfxFallback ?? ""}
                     startFrom={0}
                     endAt={segment.durationInFrames}
                     volume={0.65}

@@ -1,0 +1,14 @@
+{
+  "fontFamily": "Space Grotesk, sans-serif",
+  "primaryColor": "#f8fafc",
+  "backgroundColor": "#050914",
+  "accentColor": "#f97316",
+  "textStyle": {
+    "background": "rgba(2, 6, 23, 0.8)",
+    "color": "#f8fafc",
+    "border": "2px solid rgba(249, 115, 22, 0.6)"
+  },
+  "overlayStyle": {
+    "background": "radial-gradient(circle at 20% 30%, rgba(249, 115, 22, 0.25), transparent 55%)"
+  }
+}

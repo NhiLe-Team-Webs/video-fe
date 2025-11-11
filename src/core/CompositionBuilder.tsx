@@ -7,6 +7,7 @@ import type {Theme} from "./hooks/useTheme";
 import {AudioLayer} from "../library/components/AudioLayer";
 import {Overlay} from "../library/components/Overlay";
 import {FrameIndicator} from "./components/FrameIndicator";
+import {DebugProvider} from "./context/DebugContext";
 import type {AnimationResolver} from "../library/animations/useAnimationById";
 
 type TemplateRules = Record<string, string>;
@@ -87,7 +88,7 @@ const renderAnimatedContent = (
   );
 };
 
-export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
+const BuilderContent: React.FC<CompositionBuilderProps> = ({
   plan,
   theme,
   templateConfig,
@@ -130,7 +131,6 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
                   <VideoLayer clip={segment.clip} />
                   <Overlay accentColor={theme?.accentColor} style={theme?.overlayStyle} />
                 </EffectWrapper>
-
                 {segment.text
                   ? renderAnimatedContent(
                       animation,
@@ -160,5 +160,19 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
       </Series>
       <FrameIndicator />
     </AbsoluteFill>
+  );
+};
+
+export const CompositionBuilder: React.FC<CompositionBuilderProps> = (props) => {
+  const debugEnabled = true;
+
+  if (!debugEnabled) {
+    return <BuilderContent {...props} />;
+  }
+
+  return (
+    <DebugProvider fps={props.plan.fps}>
+      <BuilderContent {...props} />
+    </DebugProvider>
   );
 };

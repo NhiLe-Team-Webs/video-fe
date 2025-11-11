@@ -10,6 +10,6 @@ export const logger = {
   error: (...args: unknown[]) => log("error", ...args),
 };
 
-export const logPlan = (planSummary: {template: string; segments: number}) => {
+export const logPlan = (planSummary: {template: string; segments: number; fps?: number}) => {
   logger.info("Plan summary", planSummary);
 };

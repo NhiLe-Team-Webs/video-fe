@@ -13,7 +13,7 @@ export type Plan = {
   music?: string;
 };
 
-export type NormalizedSegment = {
+export type NormalizedSegmentCore = {
   clip: string;
   text: string;
   effect: string;
@@ -23,7 +23,13 @@ export type NormalizedSegment = {
   emotion?: string;
 };
 
+export type NormalizedSegment = NormalizedSegmentCore & {
+  startFrame: number;
+  endFrame: number;
+};
+
 export type LoadedPlan = Omit<Plan, "segments"> & {
   segments: NormalizedSegment[];
   durationInFrames: number;
+  fps: number;
 };

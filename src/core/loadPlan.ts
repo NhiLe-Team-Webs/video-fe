@@ -1,7 +1,7 @@
 import planFromBundle from "../data/plan.json";
 import {logger} from "./utils/logger";
-import {secondsToFrames, totalFrames} from "./utils/frameUtils";
-import type {Plan, Segment, LoadedPlan, NormalizedSegment} from "./types";
+import {calcFrameRange, secondsToFrames, totalFrames} from "./utils/frameUtils";
+import type {Plan, Segment, LoadedPlan, NormalizedSegmentCore} from "./types";
 
 type LoadPlanOptions = {
   fps?: number;
@@ -31,7 +31,11 @@ const readPlanFromDisk = (): Plan => {
 
 type NodeRequireFunction = (moduleName: string) => unknown;
 
-const sanitizeSegment = (segment: Partial<Segment> | undefined, index: number, fps: number): NormalizedSegment => {
+const sanitizeSegment = (
+  segment: Partial<Segment> | undefined,
+  index: number,
+  fps: number
+): NormalizedSegmentCore => {
   const clip =
     typeof segment?.clip === "string" && segment.clip.trim().length > 0
       ? segment.clip
@@ -48,7 +52,7 @@ const sanitizeSegment = (segment: Partial<Segment> | undefined, index: number, f
           return DEFAULT_DURATION_SECONDS;
         })();
 
-  const normalized: NormalizedSegment = {
+  const normalized: NormalizedSegmentCore = {
     clip,
     text: typeof segment?.text === "string" ? segment.text : "",
     effect: typeof segment?.effect === "string" ? segment.effect : DEFAULT_EFFECT,
@@ -72,12 +76,18 @@ const sanitizePlan = (plan: Plan, fps: number): LoadedPlan => {
 
   const rawSegments = Array.isArray(plan?.segments) ? plan.segments : [];
   const normalizedSegments = rawSegments.map((segment, index) => sanitizeSegment(segment, index, fps));
+  const segmentsWithTimeline = calcFrameRange(normalizedSegments, fps).map(({start, end, ...rest}) => ({
+    ...rest,
+    startFrame: start,
+    endFrame: end,
+  }));
 
   const parsedPlan: LoadedPlan = {
     templateId,
     music: typeof plan?.music === "string" ? plan.music : undefined,
-    segments: normalizedSegments,
+    segments: segmentsWithTimeline,
     durationInFrames: totalFrames(normalizedSegments, fps),
+    fps,
   };
 
   return parsedPlan;

@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {fadeInOut} from "../utils/timeUtils";
 
 type TextLayerProps = {
   text: string;
@@ -9,23 +10,10 @@ type TextLayerProps = {
   accentColor?: string;
 };
 
-const clampEnvelope = (frame: number, durationInFrames: number) => {
-  const envelopeWindow = Math.max(12, Math.floor(durationInFrames * 0.15));
-  const fadeIn = interpolate(frame, [0, envelopeWindow], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const fadeOut = interpolate(frame, [durationInFrames - envelopeWindow, durationInFrames], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  return Math.min(fadeIn, fadeOut);
-};
-
 export const TextLayer: React.FC<TextLayerProps> = ({text, durationInFrames, segmentIndex, style, accentColor}) => {
   const frame = useCurrentFrame();
-  const opacity = clampEnvelope(frame, durationInFrames);
+  const envelopeWindow = Math.max(12, Math.floor(durationInFrames * 0.2));
+  const opacity = fadeInOut(frame, durationInFrames, envelopeWindow);
   const translateY = interpolate(frame, [0, durationInFrames], [30, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",

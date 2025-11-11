@@ -7,8 +7,8 @@ import {getTemplateById} from "../core/TemplateEngine";
 import {normalizePlan} from "../core/loadPlan";
 import {getFps} from "../core/utils/fpsControl";
 
-const DEFAULT_WIDTH = 1080;
-const DEFAULT_HEIGHT = 1920;
+const DEFAULT_WIDTH = 1920;
+const DEFAULT_HEIGHT = 1080;
 const templateOptions = templateManifest.map((template) => template.id);
 
 const clampNumber = (value: number, fallback: number, min = 0.1) => {

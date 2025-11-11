@@ -16,19 +16,28 @@ const fetchPlanJson = async (): Promise<Plan | null> => {
   }
 };
 
-export const useHotReloadPlan = () => {
+export const useHotReloadPlan = (refreshKey = 0) => {
   const [plan, setPlan] = useState(planData as Plan);
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    let cancelled = false;
+
+    const loadRemotePlan = async () => {
       const remotePlan = await fetchPlanJson();
-      if (remotePlan) {
+      if (remotePlan && !cancelled) {
         setPlan(remotePlan);
       }
-    }, 2000);
+    };
 
-    return () => clearInterval(interval);
-  }, []);
+    void loadRemotePlan();
+
+    const interval = setInterval(loadRemotePlan, 4000);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [refreshKey]);
 
   return plan;
 };

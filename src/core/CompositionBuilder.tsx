@@ -7,6 +7,7 @@ import type {Theme} from "./hooks/useTheme";
 import {AudioLayer} from "../library/components/AudioLayer";
 import {Overlay} from "../library/components/Overlay";
 import {FrameIndicator} from "./components/FrameIndicator";
+import {DebugPanel} from "./components/DebugPanel";
 import {DebugProvider} from "./context/DebugContext";
 import type {AnimationResolver} from "../library/animations/useAnimationById";
 
@@ -159,6 +160,7 @@ const BuilderContent: React.FC<CompositionBuilderProps> = ({
         })}
       </Series>
       <FrameIndicator />
+      <DebugPanel />
     </AbsoluteFill>
   );
 };
@@ -171,7 +173,7 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = (props) => 
   }
 
   return (
-    <DebugProvider fps={props.plan.fps}>
+    <DebugProvider plan={props.plan}>
       <BuilderContent {...props} />
     </DebugProvider>
   );

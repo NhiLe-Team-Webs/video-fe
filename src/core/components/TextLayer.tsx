@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
 import {fadeInOut} from "../utils/timeUtils";
-import {useDebugContext} from "../context/DebugContext";
 
 type TextLayerProps = {
   text: string;
@@ -13,17 +12,12 @@ type TextLayerProps = {
 
 export const TextLayer: React.FC<TextLayerProps> = ({text, durationInFrames, segmentIndex, style, accentColor}) => {
   const frame = useCurrentFrame();
-  const debug = useDebugContext();
   const envelopeWindow = Math.max(12, Math.floor(durationInFrames * 0.2));
   const opacity = fadeInOut(frame, durationInFrames, envelopeWindow);
   const translateY = interpolate(frame, [0, durationInFrames], [30, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-
-  useEffect(() => {
-    debug.setSegmentIndex(segmentIndex);
-  }, [debug, segmentIndex]);
 
   return (
     <AbsoluteFill

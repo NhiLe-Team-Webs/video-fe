@@ -1,77 +1,58 @@
 import React, {createContext, useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {useCurrentFrame} from "remotion";
-import type {NormalizedSegment} from "../types";
+import type {LoadedPlan, NormalizedSegment} from "../types";
 
 type DebugInfo = {
   frame: number;
+  fps: number;
   segmentIndex: number | null;
   segment?: NormalizedSegment;
-  animationId?: string;
-  sfx?: string;
-  emotion?: string;
-  fps: number;
 };
 
 type DebugContextValue = {
   info: DebugInfo | null;
-  setSegment: (segmentIndex: number, segment: NormalizedSegment, animationId?: string) => void;
-  setSegmentIndex: (segmentIndex: number | null) => void;
-  toggleOverlay: () => void;
   overlayVisible: boolean;
+  toggleOverlay: () => void;
 };
 
 const DebugContext = createContext<DebugContextValue | undefined>(undefined);
 
-export const DebugProvider: React.FC<React.PropsWithChildren<{fps: number}>> = ({fps, children}) => {
+const findSegment = (segments: NormalizedSegment[], frame: number) => {
+  return segments.find((segment) => frame >= segment.startFrame && frame < segment.endFrame);
+};
+
+export const DebugProvider: React.FC<React.PropsWithChildren<{plan: LoadedPlan}>> = ({plan, children}) => {
   const frame = useCurrentFrame();
   const [overlayVisible, setOverlayVisible] = useState(false);
-  const [segmentIndex, setSegmentIndexState] = useState<number | null>(null);
-  const [segmentDetail, setSegmentDetail] = useState<{
-    segment?: NormalizedSegment;
-    animationId?: string;
-  }>({});
 
   useEffect(() => {
     const handler = (event: KeyboardEvent) => {
-      if (event.key.toLowerCase() === "d" && (event.ctrlKey || event.metaKey || event.shiftKey || !event.getModifierState("CapsLock"))) {
+      if (event.key.toLowerCase() !== "d") {
+        return;
+      }
+
+      const modifierPressed = event.ctrlKey || event.metaKey;
+      const noModifier = !event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey;
+
+      if (modifierPressed || noModifier) {
         setOverlayVisible((visible) => !visible);
       }
     };
+
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
   const info = useMemo<DebugInfo | null>(() => {
-    if (segmentIndex === null) {
-      return {
-        frame,
-        segmentIndex: null,
-        fps,
-      };
-    }
-
+    const segment = findSegment(plan.segments, frame);
+    const segmentIndex = segment ? plan.segments.indexOf(segment) : null;
     return {
       frame,
+      fps: plan.fps,
+      segment,
       segmentIndex,
-      segment: segmentDetail.segment,
-      animationId: segmentDetail.animationId ?? segmentDetail.segment?.animationId,
-      sfx: segmentDetail.segment?.sfx,
-      emotion: segmentDetail.segment?.emotion,
-      fps,
     };
-  }, [frame, fps, segmentDetail.animationId, segmentDetail.segment, segmentIndex]);
-
-  const setSegment = useCallback(
-    (index: number, segment: NormalizedSegment, animationId?: string) => {
-      setSegmentIndexState(index);
-      setSegmentDetail({segment, animationId});
-    },
-    []
-  );
-
-  const setSegmentIndex = useCallback((index: number | null) => {
-    setSegmentIndexState(index);
-  }, []);
+  }, [frame, plan]);
 
   const toggleOverlay = useCallback(() => {
     setOverlayVisible((visible) => !visible);
@@ -80,12 +61,10 @@ export const DebugProvider: React.FC<React.PropsWithChildren<{fps: number}>> = (
   const value = useMemo(
     () => ({
       info,
-      setSegment,
-      setSegmentIndex,
       overlayVisible,
       toggleOverlay,
     }),
-    [info, overlayVisible, setSegment, setSegmentIndex, toggleOverlay]
+    [info, overlayVisible, toggleOverlay]
   );
 
   return <DebugContext.Provider value={value}>{children}</DebugContext.Provider>;

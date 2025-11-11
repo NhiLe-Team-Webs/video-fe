@@ -1,22 +1,28 @@
 import React from "react";
 import {GsapEffect} from "./GsapEffect";
 
-type GsapFadeInProps = React.PropsWithChildren<{
+type RotateInProps = React.PropsWithChildren<{
   durationInFrames: number;
+  angle?: number;
 }>;
 
-export const GsapFadeIn: React.FC<GsapFadeInProps> = ({children, durationInFrames}) => {
+export const GsapRotateIn: React.FC<RotateInProps> = ({
+  children,
+  durationInFrames,
+  angle = -20,
+}) => {
   return (
     <GsapEffect
       durationInFrames={durationInFrames}
       setup={({timeline, element, fps, durationInFrames: frames}) => {
         timeline.fromTo(
           element,
-          {opacity: 0, y: 40},
+          {opacity: 0, rotate: angle, transformOrigin: "50% 50%"},
           {
             opacity: 1,
-            y: 0,
+            rotate: 0,
             duration: Math.max(frames, 1) / fps,
+            ease: "power3.out",
           }
         );
       }}

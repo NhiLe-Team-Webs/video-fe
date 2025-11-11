@@ -1,18 +1,23 @@
 import React from "react";
 import {GsapEffect} from "./GsapEffect";
 
-type GsapFadeInProps = React.PropsWithChildren<{
+type SlideUpProps = React.PropsWithChildren<{
   durationInFrames: number;
+  distance?: number;
 }>;
 
-export const GsapFadeIn: React.FC<GsapFadeInProps> = ({children, durationInFrames}) => {
+export const GsapSlideUp: React.FC<SlideUpProps> = ({
+  children,
+  durationInFrames,
+  distance = 60,
+}) => {
   return (
     <GsapEffect
       durationInFrames={durationInFrames}
       setup={({timeline, element, fps, durationInFrames: frames}) => {
         timeline.fromTo(
           element,
-          {opacity: 0, y: 40},
+          {opacity: 0, y: distance},
           {
             opacity: 1,
             y: 0,

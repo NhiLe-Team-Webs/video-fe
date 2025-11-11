@@ -1,4 +1,9 @@
 export {fadeIn as FadeIn} from "./fadeIn";
 export {zoomIn as ZoomIn} from "./zoomIn";
+export {GsapEffect} from "./gsap/GsapEffect";
 export {GsapFadeIn} from "./gsap/FadeIn";
+export {GsapSlideUp} from "./gsap/SlideUp";
+export {GsapZoomPop} from "./gsap/ZoomPop";
+export {GsapRotateIn} from "./gsap/RotateIn";
+export {GsapBounce} from "./gsap/Bounce";
 export {getGsap, createTimeline} from "./gsap/gsapConfig";

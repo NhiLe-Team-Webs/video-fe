@@ -5,6 +5,7 @@ import {getFps} from "./core/utils/fpsControl";
 import {PreviewApp} from "./preview";
 import {AnimationPreviewApp} from "./library/animations/AnimationPreviewApp";
 import {TemplatePreviewPanel} from "./preview/TemplatePreviewPanel";
+import {PlanPreviewPanel} from "./preview/PlanPreviewPanel";
 import {totalFrames} from "./core/utils/frameUtils";
 
 const inputProps = getInputProps<{devMode?: boolean}>();
@@ -36,6 +37,14 @@ export const RemotionRoot: React.FC = () => (
         <Composition
           id="template-preview"
           component={TemplatePreviewPanel}
+          durationInFrames={totalFrames(plan.segments, initialFps)}
+          fps={initialFps}
+          width={1080}
+          height={1920}
+        />
+        <Composition
+          id="plan-preview"
+          component={PlanPreviewPanel}
           durationInFrames={totalFrames(plan.segments, initialFps)}
           fps={initialFps}
           width={1080}

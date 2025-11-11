@@ -6,6 +6,7 @@ import type {LoadedPlan} from "./types";
 import type {Theme} from "./hooks/useTheme";
 import {AudioLayer} from "../library/components/AudioLayer";
 import {Overlay} from "../library/components/Overlay";
+import {FrameIndicator} from "./components/FrameIndicator";
 
 type TemplateRules = Record<string, string>;
 
@@ -115,6 +116,7 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
           );
         })}
       </Series>
+      <FrameIndicator />
     </AbsoluteFill>
   );
 };

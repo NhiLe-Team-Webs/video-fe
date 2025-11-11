@@ -1,5 +1,5 @@
 import planFromBundle from "../data/plan.json";
-import {logger} from "./utils/logger";
+import {warn} from "./utils/logger";
 import {calcFrameRange, secondsToFrames, totalFrames} from "./utils/frameUtils";
 import type {Plan, Segment, LoadedPlan, NormalizedSegmentCore} from "./types";
 
@@ -40,7 +40,7 @@ const sanitizeSegment = (
     typeof segment?.clip === "string" && segment.clip.trim().length > 0
       ? segment.clip
       : (() => {
-          logger.warn(`Segment #${index} missing clip. Falling back to ${DEFAULT_CLIP}`);
+          warn(`Segment #${index} missing clip. Falling back to ${DEFAULT_CLIP}`);
           return DEFAULT_CLIP;
         })();
 
@@ -48,7 +48,7 @@ const sanitizeSegment = (
     typeof segment?.duration === "number" && Number.isFinite(segment.duration) && segment.duration > 0
       ? segment.duration
       : (() => {
-          logger.warn(`Segment #${index} missing/invalid duration. Using ${DEFAULT_DURATION_SECONDS}s`);
+          warn(`Segment #${index} missing/invalid duration. Using ${DEFAULT_DURATION_SECONDS}s`);
           return DEFAULT_DURATION_SECONDS;
         })();
 
@@ -70,7 +70,7 @@ const sanitizePlan = (plan: Plan, fps: number): LoadedPlan => {
     typeof plan?.templateId === "string" && plan.templateId.trim().length > 0
       ? plan.templateId
       : (() => {
-          logger.warn(`Plan missing templateId. Falling back to ${DEFAULT_TEMPLATE_ID}`);
+          warn(`Plan missing templateId. Falling back to ${DEFAULT_TEMPLATE_ID}`);
           return DEFAULT_TEMPLATE_ID;
         })();
 

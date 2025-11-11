@@ -1,9 +1,7 @@
 {
-  "animations": [
-    "animations/lottie/sparkle.json",
-    "animations/lottie/confetti.json",
-    "animations/lottie/emoji_pop.json"
-  ],
+  "animations": {
+    "manifest": "src/library/animations/manifest.json"
+  },
   "audio": [],
   "text": [],
   "components": []

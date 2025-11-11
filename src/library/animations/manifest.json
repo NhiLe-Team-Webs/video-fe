@@ -1,0 +1,14 @@
+{
+  "gsap": [
+    {"id": "gsap-fade-in", "component": "GsapFadeIn", "tags": ["text", "universal"]},
+    {"id": "gsap-slide-up", "component": "GsapSlideUp", "tags": ["text", "entry"]},
+    {"id": "gsap-zoom-pop", "component": "GsapZoomPop", "tags": ["hero", "zoom"]},
+    {"id": "gsap-rotate-in", "component": "GsapRotateIn", "tags": ["icon", "rotate"]},
+    {"id": "gsap-bounce", "component": "GsapBounce", "tags": ["badge", "fun"]}
+  ],
+  "lottie": [
+    {"id": "sparkle", "path": "library/animations/lottie/sparkle.json", "tags": ["bg", "sparkle"]},
+    {"id": "confetti", "path": "library/animations/lottie/confetti.json", "tags": ["celebration"]},
+    {"id": "emoji_pop", "path": "library/animations/lottie/emoji_pop.json", "tags": ["emoji"]}
+  ]
+}

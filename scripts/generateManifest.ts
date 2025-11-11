@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import type {Dirent} from "fs";
 import path from "path";
 
 type ManifestEntry = {
@@ -48,7 +49,7 @@ const collectFiles = async (dir: string, extensions: string[]): Promise<string[]
   const files: string[] = [];
 
   const walk = async (currentDir: string) => {
-    let entries: fs.Dirent[];
+    let entries: Dirent[];
     try {
       entries = await fs.readdir(currentDir, {withFileTypes: true});
     } catch {
@@ -98,7 +99,7 @@ const main = async () => {
 
   for (const category of CATEGORY_CONFIG) {
     const categoryRoot = path.join(LIBRARY_ROOT, category.dir);
-    const files = await collectFiles(categoryRoot, category.extensions);
+    const files = await collectFiles(categoryRoot, [...category.extensions]);
     (manifest as Record<string, ManifestEntry[]>)[category.key] = toManifestEntries(files);
   }
 

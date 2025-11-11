@@ -1,21 +1,65 @@
-import React from "react";
-import {AbsoluteFill, Sequence} from "remotion";
+import React, {Fragment} from "react";
+import {AbsoluteFill, Series} from "remotion";
 import {VideoLayer} from "./components/VideoLayer";
 import {TextLayer} from "./components/TextLayer";
-import {TransitionLayer} from "./components/TransitionLayer";
 import type {LoadedPlan} from "./types";
+import type {Theme} from "./hooks/useTheme";
+import {AudioLayer} from "../library/components/AudioLayer";
+import {Overlay} from "../library/components/Overlay";
+
+type TemplateRules = Record<string, string>;
+
+type TemplateConfig = {
+  rules?: TemplateRules;
+  audio?: {
+    bgm?: string;
+    sfxFallback?: string;
+  };
+};
+
+type EffectComponent = React.FC<React.PropsWithChildren<{durationInFrames: number}>>;
 
 type CompositionBuilderProps = {
   plan: LoadedPlan;
+  theme?: Theme;
+  templateConfig?: TemplateConfig;
+  effects?: Record<string, EffectComponent>;
 };
 
-export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({plan}) => {
+const DEFAULT_EFFECT = "none";
+const DEFAULT_BGM = "library/audio/bgm_soft.mp3";
+
+const normalizeEffectKey = (value?: string) => {
+  if (!value) {
+    return DEFAULT_EFFECT;
+  }
+
+  return value
+    .replace(/[_-](\w)/g, (_, letter: string) => letter.toUpperCase())
+    .replace(/^\w/, (char) => char.toLowerCase());
+};
+
+const resolveEffect = (segmentEffect: string | undefined, emotion: string | undefined, rules?: TemplateRules) => {
+  const emotionKey = emotion ? `emotion:${emotion}` : undefined;
+  if (emotionKey && rules && rules[emotionKey]) {
+    return normalizeEffectKey(rules[emotionKey]);
+  }
+
+  return normalizeEffectKey(segmentEffect);
+};
+
+export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
+  plan,
+  theme,
+  templateConfig,
+  effects = {},
+}) => {
   if (!plan.segments.length) {
     return (
       <AbsoluteFill
         style={{
-          backgroundColor: "#020617",
-          color: "#e2e8f0",
+          backgroundColor: theme?.backgroundColor ?? "#020617",
+          color: theme?.primaryColor ?? "#e2e8f0",
           alignItems: "center",
           justifyContent: "center",
           fontSize: 48,
@@ -27,36 +71,47 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({plan}) =>
     );
   }
 
-  let cursor = 0;
+  const bgmSrc = templateConfig?.audio?.bgm ?? DEFAULT_BGM;
 
   return (
-    <AbsoluteFill style={{backgroundColor: "#000"}}>
-      {plan.segments.map((segment, index) => {
-        const from = cursor;
-        cursor += segment.durationInFrames;
+    <AbsoluteFill style={{backgroundColor: theme?.backgroundColor ?? "#000"}}>
+      <AudioLayer src={bgmSrc} loop volume={0.45} endAt={plan.durationInFrames} />
+      <Series>
+        {plan.segments.map((segment, index) => {
+          const effectKey = resolveEffect(segment.effect, segment.emotion, templateConfig?.rules);
+          const EffectWrapper = effects[effectKey] ?? effects[DEFAULT_EFFECT] ?? Fragment;
 
-        return (
-          <Sequence
-            key={`${segment.clip}-${index}-${from}`}
-            from={from}
-            durationInFrames={segment.durationInFrames}
-          >
-            <AbsoluteFill>
-              <TransitionLayer effect={segment.effect} durationInFrames={segment.durationInFrames}>
-                <VideoLayer clip={segment.clip} />
-              </TransitionLayer>
+          return (
+            <Series.Sequence key={`${segment.clip}-${index}`} durationInFrames={segment.durationInFrames}>
+              <AbsoluteFill>
+                <EffectWrapper durationInFrames={segment.durationInFrames}>
+                  <VideoLayer clip={segment.clip} />
+                  <Overlay accentColor={theme?.accentColor} />
+                </EffectWrapper>
 
-              {segment.text ? (
-                <TextLayer
-                  text={segment.text}
-                  durationInFrames={segment.durationInFrames}
-                  segmentIndex={index}
-                />
-              ) : null}
-            </AbsoluteFill>
-          </Sequence>
-        );
-      })}
+                {segment.text ? (
+                  <TextLayer
+                    text={segment.text}
+                    durationInFrames={segment.durationInFrames}
+                    segmentIndex={index}
+                    style={theme?.textStyle}
+                    accentColor={theme?.accentColor}
+                  />
+                ) : null}
+
+                {segment.sfx || templateConfig?.audio?.sfxFallback ? (
+                  <AudioLayer
+                    src={segment.sfx ?? templateConfig?.audio?.sfxFallback ?? ""}
+                    startFrom={0}
+                    endAt={segment.durationInFrames}
+                    volume={0.65}
+                  />
+                ) : null}
+              </AbsoluteFill>
+            </Series.Sequence>
+          );
+        })}
+      </Series>
     </AbsoluteFill>
   );
 };

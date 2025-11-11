@@ -5,6 +5,8 @@ type TextLayerProps = {
   text: string;
   durationInFrames: number;
   segmentIndex: number;
+  style?: React.CSSProperties;
+  accentColor?: string;
 };
 
 const clampEnvelope = (frame: number, durationInFrames: number) => {
@@ -21,7 +23,7 @@ const clampEnvelope = (frame: number, durationInFrames: number) => {
   return Math.min(fadeIn, fadeOut);
 };
 
-export const TextLayer: React.FC<TextLayerProps> = ({text, durationInFrames, segmentIndex}) => {
+export const TextLayer: React.FC<TextLayerProps> = ({text, durationInFrames, segmentIndex, style, accentColor}) => {
   const frame = useCurrentFrame();
   const opacity = clampEnvelope(frame, durationInFrames);
   const translateY = interpolate(frame, [0, durationInFrames], [30, 0], {
@@ -44,14 +46,15 @@ export const TextLayer: React.FC<TextLayerProps> = ({text, durationInFrames, seg
           opacity,
           transform: `translateY(${translateY}px)`,
           background: "rgba(15, 23, 42, 0.75)",
-          color: "#f8fafc",
           borderRadius: 24,
           padding: "32px 48px",
           fontSize: 52,
-          fontWeight: 600,
-          textAlign: "center",
           lineHeight: 1.2,
-          boxShadow: "0 20px 60px rgba(15, 23, 42, 0.4)",
+          textAlign: "center",
+          color: "#f8fafc",
+          border: accentColor ? `2px solid ${accentColor}` : undefined,
+          boxShadow: `0 20px 60px rgba(15, 23, 42, 0.4)`,
+          ...style,
         }}
       >
         {text}

@@ -16,14 +16,20 @@ const DEFAULT_DURATION_SECONDS = 3;
 const planCache = new Map<number, LoadedPlan>();
 
 const readPlanFromDisk = (): Plan => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const fs = require("fs") as typeof import("fs");
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const path = require("path") as typeof import("path");
+  const dynamicRequire = typeof window === "undefined" ? (eval("require") as NodeRequireFunction) : null;
+
+  if (!dynamicRequire) {
+    return planFromBundle as Plan;
+  }
+
+  const fs = dynamicRequire("fs") as typeof import("fs");
+  const path = dynamicRequire("path") as typeof import("path");
   const filePath = path.join(__dirname, "../data/plan.json");
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw) as Plan;
 };
+
+type NodeRequireFunction = (moduleName: string) => unknown;
 
 const sanitizeSegment = (segment: Partial<Segment> | undefined, index: number, fps: number): NormalizedSegment => {
   const clip =

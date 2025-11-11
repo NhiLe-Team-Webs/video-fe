@@ -1,4 +1,4 @@
-import {Composition} from "remotion";
+import {Composition, registerRoot} from "remotion";
 import {Orchestrator} from "./core/Orchestrator";
 import {loadPlan} from "./core/loadPlan";
 
@@ -15,3 +15,5 @@ export const RemotionRoot: React.FC = () => (
     defaultProps={{plan}}
   />
 );
+
+registerRoot(RemotionRoot);

@@ -9,3 +9,7 @@ export const logger = {
   warn: (...args: unknown[]) => log("warn", ...args),
   error: (...args: unknown[]) => log("error", ...args),
 };
+
+export const logPlan = (planSummary: {template: string; segments: number}) => {
+  logger.info("Plan summary", planSummary);
+};

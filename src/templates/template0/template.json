@@ -1,15 +1,14 @@
 {
   "id": "template0",
-  "name": "Default Narrative",
-  "description": "Baseline template for experimentation",
-  "segments": [
-    {
-      "type": "clip",
-      "animation": "zoom_in"
-    },
-    {
-      "type": "clip",
-      "animation": "fade_in"
-    }
-  ]
+  "name": "Template0",
+  "description": "Cấu trúc video cơ bản với text trung tâm và hiệu ứng zoom + fade.",
+  "rules": {
+    "emotion:inspiring": "zoomIn",
+    "emotion:neutral": "fadeIn",
+    "emotion:fun": "slideUp"
+  },
+  "audio": {
+    "bgm": "library/audio/bgm_soft.mp3",
+    "sfxFallback": "library/audio/whoosh.mp3"
+  }
 }

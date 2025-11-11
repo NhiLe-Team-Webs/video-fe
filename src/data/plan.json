@@ -1,17 +1,21 @@
 {
   "templateId": "template0",
+  "music": "library/audio/bgm_soft.mp3",
   "segments": [
     {
       "clip": "assets/broll/innovation_lightbulb.jpg",
       "text": "AI sẽ thay đổi tương lai",
       "effect": "zoom_in",
-      "duration": 90
+      "duration": 90,
+      "emotion": "inspiring",
+      "sfx": "library/audio/whoosh.mp3"
     },
     {
       "clip": "assets/broll/digital_network.jpg",
       "text": "Công nghệ đang kết nối thế giới",
       "effect": "fade_in",
-      "duration": 90
+      "duration": 90,
+      "emotion": "neutral"
     }
   ]
 }

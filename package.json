@@ -28,6 +28,7 @@
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
+    "render": "remotion render auto-video out/video.mp4",
     "lint": "eslint src && tsc",
     "plan:test": "tsx src/core/testPlanLoader.ts"
   },

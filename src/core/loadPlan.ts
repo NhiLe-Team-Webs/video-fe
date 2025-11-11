@@ -15,6 +15,8 @@ const DEFAULT_DURATION_SECONDS = 3;
 
 const planCache = new Map<number, LoadedPlan>();
 
+type NodeRequireFunction = (moduleName: string) => unknown;
+
 const readPlanFromDisk = (): Plan => {
   const dynamicRequire = typeof window === "undefined" ? (eval("require") as NodeRequireFunction) : null;
 
@@ -28,8 +30,6 @@ const readPlanFromDisk = (): Plan => {
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw) as Plan;
 };
-
-type NodeRequireFunction = (moduleName: string) => unknown;
 
 const sanitizeSegment = (
   segment: Partial<Segment> | undefined,
@@ -52,7 +52,7 @@ const sanitizeSegment = (
           return DEFAULT_DURATION_SECONDS;
         })();
 
-  const normalized: NormalizedSegmentCore = {
+  return {
     clip,
     text: typeof segment?.text === "string" ? segment.text : "",
     effect: typeof segment?.effect === "string" ? segment.effect : DEFAULT_EFFECT,
@@ -61,11 +61,9 @@ const sanitizeSegment = (
     sfx: typeof segment?.sfx === "string" && segment.sfx.length > 0 ? segment.sfx : undefined,
     emotion: typeof segment?.emotion === "string" && segment.emotion.length > 0 ? segment.emotion : undefined,
   };
-
-  return normalized;
 };
 
-const sanitizePlan = (plan: Plan, fps: number): LoadedPlan => {
+export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
   const templateId =
     typeof plan?.templateId === "string" && plan.templateId.trim().length > 0
       ? plan.templateId
@@ -82,15 +80,13 @@ const sanitizePlan = (plan: Plan, fps: number): LoadedPlan => {
     endFrame: end,
   }));
 
-  const parsedPlan: LoadedPlan = {
+  return {
     templateId,
     music: typeof plan?.music === "string" ? plan.music : undefined,
     segments: segmentsWithTimeline,
     durationInFrames: totalFrames(normalizedSegments, fps),
     fps,
   };
-
-  return parsedPlan;
 };
 
 const getRawPlan = (): Plan => {
@@ -105,7 +101,7 @@ export const loadPlan = (options: LoadPlanOptions = {}): LoadedPlan => {
   }
 
   const rawPlan = getRawPlan();
-  const normalizedPlan = sanitizePlan(rawPlan, fps);
+  const normalizedPlan = normalizePlan(rawPlan, fps);
   planCache.set(fps, normalizedPlan);
   return normalizedPlan;
 };

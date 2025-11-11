@@ -14,6 +14,8 @@ type GsapEntry = {
   id: string;
   component: keyof typeof gsapMap;
   tags?: string[];
+  animationType?: string;
+  emotions?: string[];
 };
 
 type LottieEntry = {
@@ -21,6 +23,8 @@ type LottieEntry = {
   id: string;
   path: string;
   tags?: string[];
+  animationType?: string;
+  emotions?: string[];
 };
 
 const gsapMap = {
@@ -38,12 +42,16 @@ export type AnimationResolver =
       id: string;
       Component: ComponentType<any>;
       tags?: string[];
+      animationType?: string;
+      emotions?: string[];
     }
   | {
       type: "lottie";
       id: string;
       Component: typeof LottieEffect;
       tags?: string[];
+      animationType?: string;
+      emotions?: string[];
       props: LottieEffectProps;
     };
 
@@ -54,12 +62,18 @@ const animationIndex = (() => {
       id: entry.id,
       component: entry.component as keyof typeof gsapMap,
       tags: entry.tags,
+      animationType: entry.type,
+      emotions: entry.emotions,
     })) ?? [];
 
   const lottieEntries: LottieEntry[] =
     manifest.lottie?.map((entry) => ({
       type: "lottie",
-      ...entry,
+      id: entry.id,
+      path: entry.path,
+      tags: entry.tags,
+      animationType: entry.type,
+      emotions: entry.emotions,
     })) ?? [];
 
   return [...gsapEntries, ...lottieEntries];
@@ -84,6 +98,8 @@ const resolveAnimationById = (id: string): AnimationResolver | null => {
       id: entry.id,
       Component,
       tags: entry.tags,
+      animationType: entry.animationType,
+      emotions: entry.emotions,
     };
   }
 
@@ -92,6 +108,8 @@ const resolveAnimationById = (id: string): AnimationResolver | null => {
     id: entry.id,
     Component: LottieEffect,
     tags: entry.tags,
+    animationType: entry.animationType,
+    emotions: entry.emotions,
     props: {src: entry.path},
   };
 };

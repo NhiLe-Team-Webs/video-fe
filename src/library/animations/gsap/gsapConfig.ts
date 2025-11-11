@@ -26,3 +26,5 @@ export const getGsap = () => {
 export const createTimeline = (vars?: TimelineVars): TimelineInstance => {
   return getGsap().timeline({paused: true, ...vars});
 };
+
+export type {TimelineInstance as GsapTimeline};

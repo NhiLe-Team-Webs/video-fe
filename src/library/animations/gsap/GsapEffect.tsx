@@ -1,6 +1,6 @@
-import React, {useEffect, useMemo, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {useCurrentFrame, useVideoConfig} from "remotion";
-import {createTimeline} from "./gsapConfig";
+import {createTimeline, type GsapTimeline} from "./gsapConfig";
 
 type SetupParams = {
   timeline: ReturnType<typeof createTimeline>;
@@ -26,7 +26,13 @@ export const GsapEffect: React.FC<GsapEffectProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const {fps} = useVideoConfig();
   const frame = useCurrentFrame();
-  const timeline = useMemo(() => createTimeline(), []);
+  const timelineRef = useRef<GsapTimeline | null>(null);
+
+  if (!timelineRef.current) {
+    timelineRef.current = createTimeline();
+  }
+
+  const timeline = timelineRef.current;
 
   useEffect(() => {
     const element = ref.current;

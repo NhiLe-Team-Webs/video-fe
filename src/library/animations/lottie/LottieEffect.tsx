@@ -14,18 +14,44 @@ const resolveSrc = (src: string) => {
   return staticFile(src.replace(/^\//, ""));
 };
 
-const fetchAnimation = async (src: string) => {
-  const response = await fetch(resolveSrc(src));
-  if (!response.ok) {
-    throw new Error(`Failed to fetch Lottie animation: ${response.statusText}`);
+const animationCache = new Map<string, Promise<LottieAnimationData>>();
+const animationDataCache = new Map<string, LottieAnimationData>();
+
+const fetchAnimation = (src: string) => {
+  if (animationDataCache.has(src)) {
+    return Promise.resolve(animationDataCache.get(src)!);
   }
 
-  return (await response.json()) as LottieAnimationData;
+  if (animationCache.has(src)) {
+    return animationCache.get(src)!;
+  }
+
+  const promise = fetch(resolveSrc(src))
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch Lottie animation: ${response.statusText}`);
+      }
+      return response.json() as Promise<LottieAnimationData>;
+    })
+    .then((data) => {
+      animationDataCache.set(src, data);
+      animationCache.delete(src);
+      return data;
+    })
+    .catch((error) => {
+      animationCache.delete(src);
+      throw error;
+    });
+
+  animationCache.set(src, promise);
+  return promise;
 };
 
 export const LottieEffect: React.FC<LottieEffectProps> = ({src, loader, loop = true, ...rest}) => {
   const memoizedSrc = useMemo(() => src, [src]);
-  const [animationData, setAnimationData] = useState<LottieAnimationData | null>(null);
+  const [animationData, setAnimationData] = useState<LottieAnimationData | null>(
+    animationDataCache.get(memoizedSrc) ?? null
+  );
 
   useEffect(() => {
     let active = true;

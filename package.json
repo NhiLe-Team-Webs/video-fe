@@ -28,6 +28,7 @@
   },
   "scripts": {
     "start": "remotion studio",
+    "dev:preview": "remotion studio --props scripts/dev-preview-props.json",
     "dev": "remotion studio",
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",

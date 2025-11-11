@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import {Lottie, type LottieAnimationData, type LottieProps} from "@remotion/lottie";
 import {staticFile} from "remotion";
 
-type LottieEffectProps = Omit<LottieProps, "animationData"> & {
+export type LottieEffectProps = Omit<LottieProps, "animationData"> & {
   src: string;
   loader?: React.ReactNode;
 };

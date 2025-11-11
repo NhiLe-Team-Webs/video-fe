@@ -2,11 +2,12 @@ import React, {Fragment} from "react";
 import {AbsoluteFill, Series} from "remotion";
 import {VideoLayer} from "./components/VideoLayer";
 import {TextLayer} from "./components/TextLayer";
-import type {LoadedPlan} from "./types";
+import type {LoadedPlan, NormalizedSegment} from "./types";
 import type {Theme} from "./hooks/useTheme";
 import {AudioLayer} from "../library/components/AudioLayer";
 import {Overlay} from "../library/components/Overlay";
 import {FrameIndicator} from "./components/FrameIndicator";
+import type {AnimationResolver} from "../library/animations/useAnimationById";
 
 type TemplateRules = Record<string, string>;
 
@@ -27,6 +28,7 @@ type CompositionBuilderProps = {
   theme?: Theme;
   templateConfig?: TemplateConfig;
   effects?: Record<string, EffectComponent>;
+  resolveAnimation?: (segment: NormalizedSegment) => AnimationResolver | null;
 };
 
 const DEFAULT_EFFECT = "none";
@@ -51,11 +53,46 @@ const resolveEffect = (segmentEffect: string | undefined, emotion: string | unde
   return normalizeEffectKey(segmentEffect);
 };
 
+const renderAnimatedContent = (
+  animation: AnimationResolver | null | undefined,
+  content: React.ReactNode,
+  durationInFrames: number
+) => {
+  if (!animation || !content) {
+    return content;
+  }
+
+  if (animation.type === "gsap") {
+    const Animated = animation.Component;
+    return <Animated durationInFrames={durationInFrames}>{content}</Animated>;
+  }
+
+  const Animated = animation.Component;
+  return (
+    <div style={{position: "relative", display: "inline-flex", width: "100%"}}>
+      {content}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          pointerEvents: "none",
+        }}
+      >
+        <Animated {...animation.props} style={{width: 180, height: 180, opacity: 0.85}} />
+      </div>
+    </div>
+  );
+};
+
 export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
   plan,
   theme,
   templateConfig,
   effects = {},
+  resolveAnimation,
 }) => {
   if (!plan.segments.length) {
     return (
@@ -84,6 +121,7 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
         {plan.segments.map((segment, index) => {
           const effectKey = resolveEffect(segment.effect, segment.emotion, templateConfig?.rules);
           const EffectWrapper = effects[effectKey] ?? effects[DEFAULT_EFFECT] ?? Fragment;
+          const animation = resolveAnimation?.(segment);
 
           return (
             <Series.Sequence key={`${segment.clip}-${index}`} durationInFrames={segment.durationInFrames}>
@@ -93,15 +131,19 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({
                   <Overlay accentColor={theme?.accentColor} style={theme?.overlayStyle} />
                 </EffectWrapper>
 
-                {segment.text ? (
-                  <TextLayer
-                    text={segment.text}
-                    durationInFrames={segment.durationInFrames}
-                    segmentIndex={index}
-                    style={theme?.textStyle}
-                    accentColor={theme?.accentColor}
-                  />
-                ) : null}
+                {segment.text
+                  ? renderAnimatedContent(
+                      animation,
+                      <TextLayer
+                        text={segment.text}
+                        durationInFrames={segment.durationInFrames}
+                        segmentIndex={index}
+                        style={theme?.textStyle}
+                        accentColor={theme?.accentColor}
+                      />,
+                      segment.durationInFrames
+                    )
+                  : null}
 
                 {segment.sfx || sfxFallback ? (
                   <AudioLayer

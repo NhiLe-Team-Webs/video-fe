@@ -5,12 +5,14 @@ export type Segment = {
   duration: number; // seconds
   sfx?: string;
   emotion?: string;
+  animationId?: string;
 };
 
 export type Plan = {
   templateId: string;
   segments: Segment[];
   music?: string;
+  animationId?: string;
 };
 
 export type NormalizedSegmentCore = {
@@ -21,6 +23,7 @@ export type NormalizedSegmentCore = {
   durationInFrames: number;
   sfx?: string;
   emotion?: string;
+  animationId?: string;
 };
 
 export type NormalizedSegment = NormalizedSegmentCore & {

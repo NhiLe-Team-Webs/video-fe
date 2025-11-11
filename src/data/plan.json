@@ -1,5 +1,6 @@
 {
   "templateId": "template1",
+  "animationId": "gsap-zoom-pop",
   "music": "library/audio/bgm_soft.mp3",
   "segments": [
     {
@@ -8,14 +9,16 @@
       "effect": "fade_in",
       "duration": 4,
       "emotion": "neutral",
-      "sfx": "library/audio/whoosh.mp3"
+      "sfx": "library/audio/whoosh.mp3",
+      "animationId": "gsap-slide-up"
     },
     {
       "clip": "assets/broll/education_training.jpg",
       "text": "Video này được sinh tự động!",
       "effect": "slide_up",
       "duration": 4,
-      "emotion": "serious"
+      "emotion": "serious",
+      "animationId": "confetti"
     }
   ]
 }

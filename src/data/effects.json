@@ -1,0 +1,190 @@
+{
+  "text.popUp": {
+    "key": "text.popUp",
+    "name": "Pop Up Title",
+    "category": "text",
+    "description": "Punch-in badge for hooks, CTA and emphasis titles.",
+    "tags": ["hook", "cta", "emphasis"],
+    "mood": ["bold", "energetic"],
+    "duration": 1.2,
+    "preview": "/previews/text-pop-up.mp4",
+    "props": [
+      {"name": "text", "type": "string", "required": true},
+      {"name": "accentColor", "type": "color"},
+      {"name": "delayFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/components/effects/text/PopUpTitle",
+    "version": "1.0.0"
+  },
+  "text.typeOn": {
+    "key": "text.typeOn",
+    "name": "Type-On Caption",
+    "category": "text",
+    "description": "Typewriter subtitle effect with blinking caret.",
+    "tags": ["subtitle", "quote", "narration"],
+    "mood": ["clean", "documentary"],
+    "duration": 2,
+    "preview": "/previews/text-type-on.mp4",
+    "props": [
+      {"name": "text", "type": "string", "required": true},
+      {"name": "caret", "type": "boolean"},
+      {"name": "color", "type": "color"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/components/effects/text/TypeOnCaption",
+    "version": "1.0.0"
+  },
+  "text.swipeHighlight": {
+    "key": "text.swipeHighlight",
+    "name": "Swipe Highlight",
+    "category": "text",
+    "description": "Color swipe highlights the hero words.",
+    "tags": ["emphasis", "data-point"],
+    "mood": ["dynamic", "tech"],
+    "duration": 1,
+    "preview": "/previews/text-swipe-highlight.mp4",
+    "props": [
+      {"name": "text", "type": "string", "required": true},
+      {"name": "highlightColor", "type": "color"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/components/effects/text/SwipeHighlight",
+    "version": "1.0.0"
+  },
+  "motion.zoomFocus": {
+    "key": "motion.zoomFocus",
+    "name": "Zoom Focus",
+    "category": "motion",
+    "description": "Camera punch-in for emphasis beats.",
+    "tags": ["transition", "emphasis"],
+    "mood": ["energetic"],
+    "duration": 0.8,
+    "preview": "/previews/motion-zoom-focus.mp4",
+    "props": [
+      {"name": "focus", "type": "number"}
+    ],
+    "recommendedLayer": "base",
+    "componentPath": "src/components/effects/motion/ZoomFocus",
+    "version": "1.0.0"
+  },
+  "motion.slidePan": {
+    "key": "motion.slidePan",
+    "name": "Slide Pan",
+    "category": "motion",
+    "description": "Slide translation for transitional beats.",
+    "tags": ["transition", "b-roll"],
+    "mood": ["smooth"],
+    "duration": 1.5,
+    "preview": "/previews/motion-slide-pan.mp4",
+    "props": [
+      {"name": "direction", "type": "string"}
+    ],
+    "recommendedLayer": "base",
+    "componentPath": "src/components/effects/motion/SlidePan",
+    "version": "1.0.0"
+  },
+  "chart.statCard": {
+    "key": "chart.statCard",
+    "name": "Stat Card Flip",
+    "category": "chart",
+    "description": "3D flip stat card for hero metrics.",
+    "tags": ["metric", "kpi"],
+    "mood": ["bold"],
+    "duration": 1.2,
+    "preview": "/previews/chart-stat-card.mp4",
+    "props": [
+      {"name": "label", "type": "string", "required": true},
+      {"name": "value", "type": "string", "required": true},
+      {"name": "delta", "type": "string"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/components/effects/chart/StatCard",
+    "version": "1.0.0"
+  },
+  "chart.timelineReveal": {
+    "key": "chart.timelineReveal",
+    "name": "Timeline Reveal",
+    "category": "chart",
+    "description": "Roadmap timeline draws progressively.",
+    "tags": ["roadmap", "process"],
+    "mood": ["narrative"],
+    "duration": 2.4,
+    "preview": "/previews/chart-timeline-reveal.mp4",
+    "props": [
+      {"name": "items", "type": "string", "description": "Array of timeline steps in template data."}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/components/effects/chart/TimelineReveal",
+    "version": "1.0.0"
+  },
+  "background.gradientPulse": {
+    "key": "background.gradientPulse",
+    "name": "Gradient Pulse",
+    "category": "background",
+    "description": "Ambient gradient wash for base plates.",
+    "tags": ["ambient", "loop"],
+    "mood": ["calm"],
+    "duration": 3,
+    "preview": "/previews/background-gradient-pulse.mp4",
+    "props": [
+      {"name": "colors", "type": "string"}
+    ],
+    "recommendedLayer": "base",
+    "componentPath": "src/components/effects/background/GradientPulse",
+    "version": "1.0.0"
+  },
+  "background.particleField": {
+    "key": "background.particleField",
+    "name": "Particle Field",
+    "category": "background",
+    "description": "Soft particle drift for depth & tech vibes.",
+    "tags": ["ambient", "tech"],
+    "mood": ["futuristic"],
+    "duration": 4,
+    "preview": "/previews/background-particle-field.mp4",
+    "props": [
+      {"name": "count", "type": "number"},
+      {"name": "color", "type": "color"}
+    ],
+    "recommendedLayer": "base",
+    "componentPath": "src/components/effects/background/ParticleField",
+    "version": "1.0.0"
+  },
+  "overlay.lowerThird": {
+    "key": "overlay.lowerThird",
+    "name": "Lower Third",
+    "category": "overlay",
+    "description": "Presenter ID badge with accent bar.",
+    "tags": ["speaker", "cta"],
+    "mood": ["professional"],
+    "duration": 1.5,
+    "preview": "/previews/overlay-lower-third.mp4",
+    "props": [
+      {"name": "title", "type": "string", "required": true},
+      {"name": "subtitle", "type": "string"},
+      {"name": "accentColor", "type": "color"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/components/effects/overlay/LowerThird",
+    "version": "1.0.0"
+  },
+  "overlay.badgePulse": {
+    "key": "overlay.badgePulse",
+    "name": "Badge Pulse",
+    "category": "overlay",
+    "description": "Animated badge pulse for KPI callouts.",
+    "tags": ["cta", "stat"],
+    "mood": ["energetic"],
+    "duration": 0.9,
+    "preview": "/previews/overlay-badge-pulse.mp4",
+    "props": [
+      {"name": "label", "type": "string", "required": true},
+      {"name": "color", "type": "color"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/components/effects/overlay/BadgePulse",
+    "version": "1.0.0"
+  }
+}
+

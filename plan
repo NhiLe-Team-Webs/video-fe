@@ -1,0 +1,129 @@
+Rất chuẩn 👌 — trước khi triển khai từng feature chi tiết, bạn cần **một bản mô tả tổng thể cho toàn bộ Module 1: “Effect Taxonomy & Naming”**.
+Dưới đây là bản định nghĩa module ở cấp **system design / execution plan** mà bạn có thể dùng luôn để onboard dev khác hoặc ghi vào project roadmap.
+
+---
+
+## 🎬 **Module 1: Effect Taxonomy & Naming**
+
+---
+
+### 🧠 **Mục tiêu**
+
+Thiết lập **hệ thống phân loại, định danh và cấu trúc file cho toàn bộ hiệu ứng** trong hệ thống video tự động (Remotion-based).
+Module này đóng vai trò **nền tảng (foundation layer)** giúp mọi thành phần sau (resolver, orchestrator, template engine, gallery) có thể:
+
+* Gọi hiệu ứng bằng **tên chuẩn hóa (key)** thay vì import tay.
+* Hiểu được **nhóm, loại và metadata** của mỗi hiệu ứng.
+* Duy trì khả năng mở rộng và tái sử dụng về lâu dài.
+
+> Nói cách khác: đây là “**bộ khung ngữ pháp và thư viện từ điển**” cho toàn hệ thống hiệu ứng.
+
+---
+
+### 🧩 **Phạm vi**
+
+Module này chỉ bao gồm **hiệu ứng hình ảnh (visual effects)** — không bao gồm âm thanh (SFX), b-roll hay video footage.
+Các nhóm effect chính trong taxonomy:
+
+* `text` – Hiệu ứng chữ, subtitle, highlight
+* `motion` – Hiệu ứng chuyển động, camera, zoom, slide
+* `chart` – Hiệu ứng biểu đồ, roadmap, concept map
+* `background` – Hiệu ứng nền (noise, gradient, particles)
+* `overlay` – Hiệu ứng phủ (lower-third, audio visualizer, app intro)
+
+---
+
+### ⚙️ **Các bước thực hiện**
+
+#### **Step 1 – Xây dựng Naming Schema**
+
+* Đặt quy tắc key theo dạng `<category>.<effectName>` (vd: `"text.popUp"`, `"motion.zoomFocus"`).
+* Định nghĩa file `/constants/effectTaxonomy.ts` để liệt kê tất cả các nhóm và hiệu ứng ban đầu.
+
+#### **Step 2 – Tạo cấu trúc thư mục tiêu chuẩn**
+
+* Tạo folder `/components/effects/` chia nhỏ theo nhóm:
+
+  ```
+  /components/effects/text/
+  /components/effects/motion/
+  /components/effects/chart/
+  /components/effects/background/
+  /components/effects/overlay/
+  ```
+* Mỗi nhóm có file `index.ts` export các effect con.
+
+#### **Step 3 – Định nghĩa Type và Enum**
+
+* Tạo `/types/EffectTypes.ts` và `/constants/effectCategories.ts`.
+* Tạo enum `EffectCategory` và type `EffectKey` để toàn hệ thống hiểu key nào hợp lệ.
+
+#### **Step 4 – Tạo Registry Metadata**
+
+* Tạo `/data/effects.json` lưu metadata cho từng effect:
+
+  ```json
+  {
+    "text.popUp": {
+      "name": "3D Pop-Up Text",
+      "category": "text",
+      "preview": "/previews/text-pop-up.mp4",
+      "props": ["text", "color", "delay"],
+      "duration": 1.2
+    }
+  }
+  ```
+* Dùng registry này cho resolver hoặc gallery preview.
+
+#### **Step 5 – Tạo Hook Load Effect (Dynamic Loader)**
+
+* Viết `/hooks/useEffectByKey.ts` để có thể gọi component bằng key string.
+* Hook tra trong registry / import map và trả về component + metadata.
+
+#### **Step 6 – (Optional) Tạo Classification Script**
+
+* Viết `/scripts/classifyEffects.ts` quét thư mục `/components/effects` → tự động update `/data/effects.json`.
+* Giúp giảm công cập nhật khi có nhiều effect.
+
+#### **Step 7 – (Optional) Tạo Documentation Schema**
+
+* Tạo `/docs/schema/effectDocSchema.ts` định nghĩa chuẩn metadata (key, name, category, props, duration).
+* Dùng để sync với gallery preview hoặc doc generator sau này.
+
+---
+
+### 🧱 **Các file cần tạo**
+
+| File / Folder                     | Vai trò                                       |
+| --------------------------------- | --------------------------------------------- |
+| `/constants/effectTaxonomy.ts`    | Danh sách taxonomy tổng hợp                   |
+| `/constants/effectCategories.ts`  | Enum danh mục chính                           |
+| `/types/EffectTypes.ts`           | Type & interface cho effect key               |
+| `/components/effects/`            | Thư mục chứa tất cả các effect component      |
+| `/data/effects.json`              | Registry metadata cho từng effect             |
+| `/hooks/useEffectByKey.ts`        | Hook load component theo key                  |
+| `/scripts/classifyEffects.ts`     | Script tự động cập nhật registry *(optional)* |
+| `/docs/schema/effectDocSchema.ts` | Schema cho doc / UI gallery *(optional)*      |
+
+---
+
+### 🎯 **Output cần đạt được**
+
+| Loại output                | Mô tả                                                    |
+| -------------------------- | -------------------------------------------------------- |
+| **Taxonomy Definition**    | Danh sách đầy đủ các nhóm và key hiệu ứng                |
+| **Type-safe System**       | Toàn bộ hệ thống có thể autocomplete và check key hợp lệ |
+| **Component Structure**    | Thư mục chuẩn hóa cho từng nhóm hiệu ứng                 |
+| **Effect Registry (JSON)** | File metadata mô tả tất cả hiệu ứng                      |
+| **Dynamic Loader**         | Hook `useEffectByKey()` hoạt động được                   |
+| **Optional Tooling**       | Script & schema phục vụ automation và UI gallery         |
+
+---
+
+### ✅ **Kết quả khi hoàn thành module**
+
+* Bạn có thể gọi **bất kỳ hiệu ứng nào bằng key string**, ví dụ:
+
+  ```tsx
+  const { Component } = useEffectByKey("text.popUp");
+  <Component text="Welcome back" />;

@@ -62,6 +62,14 @@ src/
      └─ template{0,1,2}/             # Template compositions, themes, rules
 ```
 
+## 🧠 Effect Taxonomy Layer
+
+- `src/constants/effectCategories.ts` + `effectTaxonomy.ts` define the canonical naming schema (`category.effectName`) and make keys type-safe.
+- `src/components/effects/` holds reusable Remotion-ready building blocks organized by category with their own indexes for tree-shaking.
+- `src/data/effects.json` is the metadata registry consumed by resolvers, galleries, and backend tooling.
+- `src/hooks/useEffectByKey.ts` exposes a simple API: `const effect = useEffectByKey("text.popUp");` which returns `{Component, metadata}`.
+- `npm run effects:classify` validates taxonomy ↔ component ↔ metadata coverage and can backfill stub entries via `--write`.
+
 ## 🧩 Manifest Generator Roadmap
 
 The CLI (`scripts/generateManifest.ts`) already covers Feature 1 (basic scanning). Planned extensions (see `generateManifest.ts` comments) include metadata parsing, versioning, configurable filters, smart updates, and optional watcher mode.

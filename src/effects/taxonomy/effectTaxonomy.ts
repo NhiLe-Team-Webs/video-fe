@@ -154,6 +154,14 @@ export const effectTaxonomy: Record<
       intents: ["roadmap", "process"],
       defaultDuration: 2.4,
     },
+    {
+      key: "chart.dataReveal",
+      label: "Data Visualization Reveal",
+      description: "Line chart with animated axes, lines, and point callouts.",
+      category: EffectCategory.Chart,
+      intents: ["reporting", "comparison", "trend"],
+      defaultDuration: 2.8,
+    },
   ],
   [EffectCategory.Background]: [
     {

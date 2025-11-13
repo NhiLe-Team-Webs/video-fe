@@ -345,6 +345,24 @@
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/BadgePulse",
     "version": "1.0.0"
+  },
+  "overlay.sectionTitle": {
+    "key": "overlay.sectionTitle",
+    "name": "Section Title Overlay",
+    "category": "overlay",
+    "description": "Dim background + centered title card for section breaks.",
+    "tags": ["divider", "section", "intro"],
+    "mood": ["professional"],
+    "duration": 2,
+    "preview": "/previews/overlay-section-title.mp4",
+    "props": [
+      {"name": "title", "type": "string"},
+      {"name": "subtitle", "type": "string"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/SectionTitleOverlay",
+    "version": "1.0.0"
   }
 }
 

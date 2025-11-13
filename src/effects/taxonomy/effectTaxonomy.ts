@@ -174,6 +174,14 @@ export const effectTaxonomy: Record<
       intents: ["cta", "stat"],
       defaultDuration: 0.9,
     },
+    {
+      key: "overlay.sectionTitle",
+      label: "Section Title Overlay",
+      description: "Dimmed background + center card for section transitions.",
+      category: EffectCategory.Overlay,
+      intents: ["divider", "section-break"],
+      defaultDuration: 2,
+    },
   ],
 };
 

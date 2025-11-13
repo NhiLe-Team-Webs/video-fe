@@ -448,6 +448,24 @@
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/IconHighlight",
     "version": "1.0.0"
+  },
+  "overlay.socialIconPop": {
+    "key": "overlay.socialIconPop",
+    "name": "Social Icon Pop",
+    "category": "overlay",
+    "description": "Platform cue that pops brand icons with glow and staggered timing.",
+    "tags": ["platform", "social", "callout"],
+    "mood": ["energetic", "modern"],
+    "duration": 1.5,
+    "preview": "/previews/overlay-social-icon-pop.mp4",
+    "props": [
+      {"name": "platforms", "type": "string", "description": "Array of {name, color, iconUrl}"},
+      {"name": "align", "type": "string"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/SocialIconPop",
+    "version": "1.0.0"
   }
 }
 

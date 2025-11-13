@@ -214,6 +214,14 @@ export const effectTaxonomy: Record<
       intents: ["callout", "concept-highlight"],
       defaultDuration: 1.8,
     },
+    {
+      key: "overlay.socialIconPop",
+      label: "Social Icon Pop",
+      description: "Platform badges pop in with glow, hover for a beat, then fade out.",
+      category: EffectCategory.Overlay,
+      intents: ["platform-callout", "social-proof"],
+      defaultDuration: 1.5,
+    },
   ],
 };
 

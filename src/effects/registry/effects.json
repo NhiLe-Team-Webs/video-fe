@@ -323,6 +323,28 @@
     "componentPath": "src/effects/components/chart/TimelineReveal",
     "version": "1.0.0"
   },
+  "chart.dataReveal": {
+    "key": "chart.dataReveal",
+    "name": "Data Visualization Reveal",
+    "category": "chart",
+    "description": "Line chart animation with axes draw, dual series, and point callouts.",
+    "tags": ["reporting", "trend", "comparison"],
+    "mood": ["analytical", "confident"],
+    "duration": 2.8,
+    "preview": "/previews/chart-data-reveal.mp4",
+    "props": [
+      {"name": "points", "type": "string", "description": "Array of {label, primary, secondary} data points."},
+      {"name": "backgroundColor", "type": "color"},
+      {"name": "gridColor", "type": "color"},
+      {"name": "primaryColor", "type": "color"},
+      {"name": "secondaryColor", "type": "color"},
+      {"name": "showSecondary", "type": "boolean"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/chart/DataVisualizationReveal",
+    "version": "1.0.0"
+  },
   "background.gradientPulse": {
     "key": "background.gradientPulse",
     "name": "Gradient Pulse",

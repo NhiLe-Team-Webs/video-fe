@@ -1,17 +1,10 @@
 import React, {useEffect, useRef} from "react";
-import {useCurrentFrame, useVideoConfig} from "remotion";
-import {createTimeline, type GsapTimeline} from "./gsapConfig";
-
-type SetupParams = {
-  timeline: ReturnType<typeof createTimeline>;
-  element: HTMLDivElement;
-  fps: number;
-  durationInFrames: number;
-};
+import {GsapAdapter, type GsapSetup} from "./GsapAdapter";
+import {useGsapFrame} from "./useGsapFrame";
 
 type GsapEffectProps = React.PropsWithChildren<{
   durationInFrames: number;
-  setup: (params: SetupParams) => void;
+  setup: GsapSetup;
   className?: string;
   style?: React.CSSProperties;
 }>;
@@ -24,15 +17,8 @@ export const GsapEffect: React.FC<GsapEffectProps> = ({
   children,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const {fps} = useVideoConfig();
-  const frame = useCurrentFrame();
-  const timelineRef = useRef<GsapTimeline | null>(null);
-
-  if (!timelineRef.current) {
-    timelineRef.current = createTimeline();
-  }
-
-  const timeline = timelineRef.current;
+  const adapterRef = useRef<GsapAdapter>(new GsapAdapter());
+  const {progress, fps} = useGsapFrame(durationInFrames);
 
   useEffect(() => {
     const element = ref.current;
@@ -40,20 +26,28 @@ export const GsapEffect: React.FC<GsapEffectProps> = ({
       return;
     }
 
-    timeline.clear();
-    timeline.pause(0);
-    setup({timeline, element, fps, durationInFrames});
+    adapterRef.current.mount({
+      element,
+      fps,
+      durationInFrames,
+      setup,
+    });
 
     return () => {
-      timeline.kill();
+      adapterRef.current.reset();
     };
-  }, [durationInFrames, fps, setup, timeline]);
+  }, [durationInFrames, fps, setup]);
 
   useEffect(() => {
-    const safeDuration = Math.max(durationInFrames - 1, 1);
-    const progress = Math.min(Math.max(frame / safeDuration, 0), 1);
-    timeline.progress(progress, false);
-  }, [frame, durationInFrames, timeline]);
+    adapterRef.current.render(progress);
+  }, [progress]);
+
+  useEffect(
+    () => () => {
+      adapterRef.current.dispose();
+    },
+    []
+  );
 
   return (
     <div ref={ref} className={className} style={{willChange: "transform, opacity", ...style}}>

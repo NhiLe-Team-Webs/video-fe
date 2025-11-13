@@ -3,7 +3,7 @@ import {PlanOrchestrator} from "./orchestrator/PlanOrchestrator";
 import {loadPlan} from "./orchestrator/loadPlan";
 import {getFps} from "./core/utils/fpsControl";
 import {PreviewApp} from "./preview";
-import {AnimationPreviewApp} from "./effects/preview/LottiePreviewPanel";
+import {EffectGallery} from "./effects/preview/EffectGallery";
 import {TemplatePreviewPanel} from "./preview/TemplatePreviewPanel";
 import {PlanPreviewPanel} from "./preview/PlanPreviewPanel";
 import {totalFrames} from "./core/utils/frameUtils";
@@ -29,9 +29,9 @@ export const RemotionRoot: React.FC = () => (
           height={PREVIEW_HEIGHT}
         />
         <Composition
-          id="animation-browser"
-          component={AnimationPreviewApp}
-          durationInFrames={120}
+          id="effects-gallery"
+          component={EffectGallery}
+          durationInFrames={180}
           fps={initialFps}
           width={PREVIEW_WIDTH}
           height={PREVIEW_HEIGHT}

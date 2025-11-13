@@ -81,8 +81,13 @@ src/
 - Run `npm run validate:lottie` to sanity-check structure, FPS, expressions, and asset references.
 - Run `npm run intake:lottie` to rebuild `src/effects/registry/lottieRegistry.json`.
 - Run `npm run manifest:lottie` (or `npm run generate:manifest`) to sync `src/effects/registry/manifest.json` so `useAnimationById` and previews can load the new assets.
-- `AnimationPreviewApp` and `LottieShowcase` automatically surface every valid Lottie entry from the registry.
 - Set `REMOTION_SOURCE_WATCH=true` when starting Remotion Studio if you want the legacy quick-reload watcher to poll `plan.json` / template files via HTTP; it is disabled by default to avoid 404 spam during renders.
+
+## 🖼 Unified Effect Gallery
+
+- The `effects-gallery` composition (Remotion Studio) renders `src/effects/preview/EffectGallery.tsx` and shows every effect from `effects.json` + `lottieRegistry.json`.
+- GSAP, Lottie, and native effects share one preview surface; filter by category to review transitions, motion, backgrounds, etc.
+- Updating registries via the intake scripts automatically refreshes the gallery—no per-engine preview pages needed.
 
 ## 🧩 Manifest Generator Roadmap
 

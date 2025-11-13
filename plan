@@ -1,388 +1,284 @@
-Dưới đây là **tài liệu đầy đủ – chuẩn hóa dạng module** cho **Module 2: Lottie Intake & Validator**, theo đúng chuẩn của một pipeline video engine chuyên nghiệp.
+
+# ✅ **Module 3 — GSAP Frame Adapter & Transition Pack (Unified Version)**
+
+**Tối ưu cho: 1 gallery preview chung + không thêm folder.**
 
 ---
 
-# #️⃣ **MODULE 2 — LOTTIE INTAKE & VALIDATOR**
+# 🎯 **1. Module này làm gì (tổng quát bản mới)**
 
-## 🎯 **1. Tổng quát: Module này làm gì?**
-
-Module 2 chịu trách nhiệm:
-
-### **A. Nhập (intake) toàn bộ file Lottie `.json`**
-
-Từ thư mục:
-
-```
-/public/assets/library/animations/lottie/*
-```
-
-### **B. Validate (kiểm tra) các Lottie trước khi cho vào hệ thống**
-
-Kiểm tra:
-
-* File JSON có hợp lệ không?
-* Có frame rate không?
-* Có expression JS không? (Remotion không hỗ trợ AE expressions)
-* Resize có phù hợp không?
-* Structure chứa layers đúng chuẩn không?
-* Asset external có thiếu không?
-* Lottie có vượt kích thước file max không?
-
-### **C. Generate manifest & registry**
-
-Tự động sinh ra 2 file:
-
-```
-src/effects/registry/lottieRegistry.json
-src/effects/registry/manifest.json   // áp dụng chung cho engines/lottie
-```
-
-### **D. Chuẩn hóa metadata cho resolver**
-
-Tạo metadata:
-
-* `id`
-* `category`
-* `durationFrames`
-* `fps`
-* `tags`
-* `componentPath`
-* `assetPath`
-
-→ Để resolver + template engine có thể dùng Lottie như 1 effect thông thường.
+Module 3 xử lý hai việc:
 
 ---
 
-# 🧠 **2. SOP — Standard Operating Procedure (các bước thực hiện chi tiết)**
+## **A) Thêm GSAP Engine vào system effects (không thêm thư mục mới)**
 
-Dưới đây là **quy trình chuẩn**, dùng cho dev hoặc automation chạy định kỳ.
+Nó bổ sung:
 
----
+* `GsapAdapter.ts` → trong `src/effects/engines/gsap/`
+* `GsapEffect.tsx` → wrapper chuẩn trong engine
+* Các primitive GSAP effect → bỏ vào `src/effects/engines/gsap/*`
 
-## ✔️ **STEP 1 — Place Lottie assets in public**
-
-Tất cả file:
-
-```
-*.json
-```
-
-được đặt vào:
-
-```
-/public/assets/library/animations/lottie/
-```
+→ Các effect GSAP sẽ trở thành **một loại effect** trong hệ thống tổng thể.
 
 ---
 
-## ✔️ **STEP 2 — Chạy script intake**
+## **B) Build Motion + Transition Pack dùng GSAP**
 
-Script:
+Nhưng tất cả output **đều đặt vào thư mục đã có**:
 
 ```
-scripts/intakeLottie.ts
+src/effects/components/motion/
+src/effects/components/transition/
+```
+
+→ Như cách bạn đang làm.
+
+---
+
+## **C) Preview cho tất cả effects chung một chỗ**
+
+Preview UI duy nhất:
+
+```
+src/effects/preview/EffectGallery.tsx
+```
+
+→ Gallery sẽ đọc từ `effects.json`, không quan tâm effect là GSAP hay Lottie hay Native.
+
+---
+
+# 🧩 **2. SOP chi tiết (đã tối ưu theo kiến trúc mới)**
+
+---
+
+# **STEP 1 — Thêm GSAP Adapter**
+
+Tạo 2 file:
+
+```
+src/effects/engines/gsap/GsapAdapter.ts
+src/effects/engines/gsap/useGsapFrame.ts
 ```
 
 Nhiệm vụ:
 
-1. Quét thư mục public/lottie
-2. Load từng JSON
-3. Extract các thông tin chính:
+* Convert **timeline → frame-based** cho Remotion
+* Cho phép mọi GSAP effect chạy chính xác từng frame
 
-   * v (version)
-   * fr (fps)
-   * ip/op (start/end frame → duration)
-   * w/h (dimension)
-   * assets
-   * layers count
-4. Chuẩn hóa tên asset → slug
+---
 
-Kết quả lưu vào object:
+# **STEP 2 — Tạo GsapEffect Wrapper**
+
+File:
+
+```
+src/effects/engines/gsap/GsapEffect.tsx
+```
+
+Nhiệm vụ:
+
+* Định nghĩa API chuẩn cho tất cả GSAP effects
+* Bọc children để apply GSAP animation
+
+---
+
+# **STEP 3 — Build Motion Pack (dùng GSAPEffect)**
+
+Thêm file vào thư mục hiện có:
+
+```
+src/effects/components/motion/FadeIn.tsx
+src/effects/components/motion/SlideUp.tsx
+src/effects/components/motion/ZoomIn.tsx
+...
+```
+
+---
+
+# **STEP 4 — Build Transition Pack**
+
+Thêm file vào thư mục:
+
+```
+src/effects/components/transition/CrossFade.tsx
+src/effects/components/transition/Wipe.tsx
+src/effects/components/transition/ZoomFocus.tsx
+```
+
+---
+
+# **STEP 5 — Generate Metadata (update existing script)**
+
+Script cần update:
+
+```
+scripts/generateEffectRegistry.ts
+```
+
+Nhiệm vụ:
+
+* Quét thư mục `src/effects/components/**`
+* Nhận diện effect engine (gsap/lottie/native)
+* Update file:
+
+```
+src/effects/registry/effects.json
+```
+
+---
+
+# **STEP 6 — Update useEffectByKey**
+
+Trong:
+
+```
+src/effects/hooks/useEffectByKey.ts
+```
+
+Thêm:
 
 ```ts
-{
-  id: "sparkle",
-  name: "Sparkle",
-  path: "/assets/library/animations/lottie/sparkle.json",
-  width: 512,
-  height: 512,
-  fps: 30,
-  durationFrames: 59,
-  tags: ["decoration", "sparkle"]
+if (effect.engine === "gsap") {
+  return dynamicImport(effect.path)
 }
 ```
 
 ---
 
-## ✔️ **STEP 3 — Validate**
+# **STEP 7 — Preview tất cả Effect chung 1 gallery**
 
-Chạy script:
+Không tạo file mới.
+
+Update:
 
 ```
-scripts/validateLottie.ts
+src/effects/preview/EffectGallery.tsx
 ```
 
-Validation gồm:
+Gallery load từ:
 
-### 🔹 1. JSON parse được?
-
-Nếu lỗi → reject ngay.
-
-### 🔹 2. Các trường bắt buộc có tồn tại?
-
-```json
-v, fr, ip, op, w, h, layers
+```
+src/effects/registry/effects.json
 ```
 
-### 🔹 3. Không chứa unsupported features?
-
-* Expressions
-* Time remap
-* Effects group
-* Masks quá phức tạp
-
-### 🔹 4. Asset external không bị missing
-
-### 🔹 5. Kích thước file không vượt 500kb
-
-→ Tùy bạn đặt threshold
-
-### 🔹 6. FPS hợp lệ (Remotion chỉ chạy từ 24–60)
-
-Nếu lỗi → in ra bảng cảnh báo.
+→ Lottie, GSAP, Native **tất cả hiển thị chung**.
 
 ---
 
-## ✔️ **STEP 4 — Generate Lottie registry**
+# 📌 **3. Checklist hoàn tất module 3 (phiên bản unified)**
 
-Tạo file:
+### 🔧 GSAP Adapter
 
-```
-src/effects/registry/lottieRegistry.json
-```
+* [ ] Có file GsapAdapter.ts
+* [ ] Có file useGsapFrame.ts
+* [ ] Timeline → frame hoạt động đúng
 
-Gồm:
+### 🎬 GSAPEffect Wrapper
 
-* Toàn bộ metadata
-* Slug chuẩn hóa
-* Category auto-detect (nếu có)
+* [ ] Nhận props
+* [ ] Apply timeline đúng
+* [ ] Dùng được trong mọi effect
 
-Ví dụ:
+### 🎨 Motion Pack
 
-```json
-{
-  "sparkle": {
-    "id": "sparkle",
-    "category": "decoration",
-    "tags": ["sparkle"],
-    "fps": 30,
-    "durationFrames": 59,
-    "path": "/assets/library/animations/lottie/sparkle.json"
-  }
-}
-```
+* [ ] FadeIn
+* [ ] SlideUp
+* [ ] SlidePan
+* [ ] ZoomFocus
+* [ ] ZoomIn
+* [ ] RotateIn
+* [ ] etc.
 
----
+### ⚡ Transition Pack
 
-## ✔️ **STEP 5 — Generate manifest**
+* [ ] CrossFade
+* [ ] ZoomFocus
+* [ ] Wipe
+* [ ] MotionBlurSlide
 
-File:
+### 🧭 Manifest
 
-```
-src/effects/registry/manifest.json
-```
+* [ ] effects.json sinh đúng
+* [ ] Có engine="gsap"
+* [ ] Path chính xác
 
-Gồm mapping để preview app + engines dùng:
+### 🖼 Unified Preview
 
-```json
-{
-  "lottie": {
-    "sparkle": {
-      "component": "@/effects/engines/lottie/LottieEffect",
-      "assetPath": "/assets/library/animations/lottie/sparkle.json"
-    }
-  }
-}
-```
+* [ ] Một gallery duy nhất
+* [ ] Preview được GSAP
+* [ ] Preview được Lottie
+* [ ] Preview được Native
+* [ ] Hiển thị đúng thumbnail + tag + category
+
+### 🔌 Tích hợp Template
+
+* [ ] <Effect name="motion.slideUp"> hoạt động
+* [ ] Plan JSON apply effect được
 
 ---
 
-## ✔️ **STEP 6 — Update engines/lottie classes**
+# 🎁 **4. Output của Module 3**
 
-`useLottieByKey.ts` cần:
-
-* Đọc lottieRegistry
-* Trả về component `<LottieEffect />`
-
----
-
-## ✔️ **STEP 7 — Preview & QA**
-
-`effects/preview/LottiePreviewPanel` yêu cầu:
-
-* Load tất cả lottie từ registry
-* Render thử từng cái
-* Hiển thị:
-
-  * duration
-  * fps
-  * bounding box
-  * warnings nếu có
-
----
-
-# 📦 **3. Output chính xác của Module 2**
-
-Sau khi module hoàn tất, bạn sẽ có 3 output:
-
----
-
-## **OUTPUT 1 — Lottie Registry (bắt buộc)**
-
-File:
+### **📦 A. Engine**
 
 ```
-src/effects/registry/lottieRegistry.json
+src/effects/engines/gsap/GsapAdapter.ts
+src/effects/engines/gsap/GsapEffect.tsx
+src/effects/engines/gsap/useGsapFrame.ts
 ```
 
-Chứa metadata đã chuẩn hoá.
+### **📦 B. GSAP Effects**
+
+```
+src/effects/components/motion/*
+src/effects/components/transition/*
+```
+
+### **📦 C. Updated Manifest**
+
+```
+src/effects/registry/effects.json
+```
+
+### **📦 D. Unified Preview**
+
+Gallery cũ được bổ sung hỗ trợ GSAP.
 
 ---
 
-## **OUTPUT 2 — Lottie manifest (bắt buộc)**
+# 🧪 **5. Cách test module này**
 
-File:
+### **Test 1 — chạy GSAP hiệu ứng trên Remotion**
 
-```
-src/effects/registry/manifest.json
-```
+* FadeIn phải chạy từ opacity 0 → 1
+* SlideUp phải chạy mượt, không jitter
 
-Mapping từ key → component.
+### **Test 2 — preview gallery**
 
----
+Gallery hiển thị thẻ:
 
-## **OUTPUT 3 — Lottie Preview Panel (optional nhưng khuyến nghị)**
+* FadeIn
+* SlideUp
+* Confetti (lottie)
+* Sparkle (lottie)
 
-Để test và xem asset.
+→ Tất cả chạy được.
 
----
+### **Test 3 — apply vào template**
 
-# ☑️ **4. Checklist hoàn thành Module 2 (có thể tick)**
-
-### 📁 File & folder
-
-* [ ] Public chứa đầy đủ lottie JSON
-* [ ] Không có file ngoài định dạng `.json`
-
-### 🔍 Intake
-
-* [ ] Script chạy được, không lỗi
-* [ ] Auto generate slug + id
-* [ ] Tính đúng fps, durationFrames
-
-### 🧪 Validator
-
-* [ ] Pass JSON format check
-* [ ] Pass required fields check
-* [ ] Không có expression
-* [ ] Không có external asset missing
-* [ ] File size < 500kb
-* [ ] FPS hợp lệ
-
-### 📑 Registry
-
-* [ ] lottieRegistry.json được cập nhật
-* [ ] manifest.json được cập nhật
-* [ ] Key → component mapping đúng
-
-### 🔧 Engines
-
-* [ ] useLottieByKey trả đúng component
-* [ ] LottieEffect nhận props đúng format
-
-### 👁 Preview
-
-* [ ] LottiePreviewPanel render được tất cả
-* [ ] Thumbnail hiển thị đúng
-* [ ] Hiển thị fps + duration chính xác
-
----
-
-# 🧪 **5. Cách test module 2 hoạt động thành công**
-
-## ✔ TEST 1 — Test CLI
-
-Chạy:
-
-```
-npm run intake:lottie
-npm run validate:lottie
-npm run manifest:lottie
-```
-
-→ Không lỗi → PASS
-
----
-
-## ✔ TEST 2 — Test preview
-
-Vô URL:
-
-```
-/preview/lottie
-```
-
-→ Render được toàn bộ asset
-→ Không báo lỗi ở console
-
----
-
-## ✔ TEST 3 — Tích hợp
-
-Tạo file test:
+Trong Template0:
 
 ```tsx
-<LottieEffect id="sparkle" />
+<Effect name="motion.fadeIn">
+   <Title />
+</Effect>
 ```
 
-→ Render animation bình thường
+Render thử → Nếu title fade đúng → OK.
 
 ---
 
-## ✔ TEST 4 — Resolver
+# ➤ Bạn muốn mình viết code mẫu cho GsapAdapter + GsapEffect không?
 
-Sau khi thêm vào effects.json:
-
-```json
-{
-  "id": "sparkle",
-  "category": "overlay"
-}
-```
-
-Dùng:
-
-```tsx
-useEffectByKey("overlay.sparkle")
-```
-
-→ Xuất ra LottieEffect đúng slug.
-
----
-
-# 🎉 KẾT LUẬN
-
-Module 2 là module **đảm bảo chất lượng của toàn bộ Lottie**, và output của nó là:
-
-* **Registry chuẩn hoá**
-* **Manifest**
-* **Preview UI**
-* **Hàm load Lottie tự động**
-
-💬 Bạn muốn mình viết luôn file code mẫu cho:
-
-* `intakeLottie.ts`
-* `validateLottie.ts`
-* `generateLottieManifest.ts`
-
-không? (viết dạng hoàn chỉnh production luôn).
+Nếu bạn muốn, mình sẽ viết full code sẵn chạy.

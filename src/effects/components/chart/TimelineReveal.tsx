@@ -6,11 +6,18 @@ type TimelineItem = {
   subtitle?: string;
 };
 
+const fallbackItems: TimelineItem[] = [
+  {title: "Phase 1", subtitle: "Kickoff & alignment"},
+  {title: "Phase 2", subtitle: "Build & iterate"},
+  {title: "Phase 3", subtitle: "Launch & measure"},
+];
+
 export type TimelineRevealProps = {
-  items: TimelineItem[];
+  items?: TimelineItem[];
 };
 
 export const TimelineReveal: React.FC<TimelineRevealProps> = ({items}) => {
+  const resolvedItems = items && items.length > 0 ? items : fallbackItems;
   const frame = useCurrentFrame();
   const lineProgress = interpolate(frame, [0, 50], [0, 100], {extrapolateRight: "clamp"});
 
@@ -35,7 +42,7 @@ export const TimelineReveal: React.FC<TimelineRevealProps> = ({items}) => {
           }}
         />
         <div style={{marginLeft: 32, display: "flex", flexDirection: "column", gap: 48}}>
-          {items.map((item, index) => (
+          {resolvedItems.map((item, index) => (
             <div key={item.title + index}>
               <div style={{fontSize: 42, fontWeight: 600}}>{item.title}</div>
               {item.subtitle && <div style={{opacity: 0.7}}>{item.subtitle}</div>}

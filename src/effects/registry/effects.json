@@ -52,6 +52,80 @@
     "componentPath": "src/effects/components/text/SwipeHighlight",
     "version": "1.0.0"
   },
+  "text.popUp3D": {
+    "key": "text.popUp3D",
+    "name": "3D Pop-Up Text",
+    "category": "text",
+    "description": "Sit-up / lay-down 3D text for bold hooks and emphasis lines.",
+    "tags": ["hook", "hero", "cta"],
+    "mood": ["bold", "dramatic"],
+    "duration": 1.5,
+    "preview": "/previews/text-pop-up-3d.mp4",
+    "props": [
+      {"name": "text", "type": "string"},
+      {"name": "subtitle", "type": "string"},
+      {"name": "color", "type": "color"},
+      {"name": "accent", "type": "color"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/PopUp3DText",
+    "version": "1.0.0"
+  },
+  "text.sideFloat": {
+    "key": "text.sideFloat",
+    "name": "Side Float Text",
+    "category": "text",
+    "description": "Soft drift + fade animation for supporting labels on left/right edges.",
+    "tags": ["supporting-text", "callout", "side"],
+    "mood": ["calm", "elegant"],
+    "duration": 1.8,
+    "preview": "/previews/text-side-float.mp4",
+    "props": [
+      {"name": "text", "type": "string"},
+      {"name": "side", "type": "string", "description": "\"left\" or \"right\""},
+      {"name": "color", "type": "color"},
+      {"name": "accent", "type": "color"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/SideFloatText",
+    "version": "1.0.0"
+  },
+  "text.sideFloatLeft": {
+    "key": "text.sideFloatLeft",
+    "name": "Side Float Text (Left)",
+    "category": "text",
+    "description": "Left-aligned supporting label that drifts into frame then fades out.",
+    "tags": ["supporting-text", "callout", "left"],
+    "mood": ["calm"],
+    "duration": 1.8,
+    "preview": "/previews/text-side-float-left.mp4",
+    "props": [
+      {"name": "text", "type": "string"},
+      {"name": "color", "type": "color"},
+      {"name": "accent", "type": "color"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/SideFloatText",
+    "version": "1.0.0"
+  },
+  "text.sideFloatRight": {
+    "key": "text.sideFloatRight",
+    "name": "Side Float Text (Right)",
+    "category": "text",
+    "description": "Right-aligned supporting label that drifts into frame then fades out.",
+    "tags": ["supporting-text", "callout", "right"],
+    "mood": ["calm"],
+    "duration": 1.8,
+    "preview": "/previews/text-side-float-right.mp4",
+    "props": [
+      {"name": "text", "type": "string"},
+      {"name": "color", "type": "color"},
+      {"name": "accent", "type": "color"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/SideFloatText",
+    "version": "1.0.0"
+  },
   "motion.zoomFocus": {
     "key": "motion.zoomFocus",
     "name": "Zoom Focus",

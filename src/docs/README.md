@@ -33,8 +33,7 @@ src/
      │    └─ transition/
      ├─ hooks/                     # useEffectByKey, useLottieByKey, etc.
      └─ preview/
-          ├─ EffectGallery.tsx
-          └─ LottiePreviewPanel.tsx
+          └─ EffectGallery.tsx
 ```
 
 ### How It Solves Current Pain Points
@@ -72,7 +71,7 @@ src/
    - `npm run manifest:lottie` (or `npm run generate:manifest`) updates `src/effects/registry/manifest.json` so engines and preview apps see the new assets.
 
 6. **Preview & Docs**
-   - Mount `LottiePreviewPanel` inside `preview/PreviewApp.tsx`.
+   - Mount the unified `EffectGallery` composition in Remotion Studio.
    - Document new structure inside `README.md` (Effect Taxonomy Layer section links to this doc).
 
 ### Naming Conventions

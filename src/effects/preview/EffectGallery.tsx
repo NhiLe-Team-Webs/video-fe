@@ -1,176 +1,151 @@
-import React, {useMemo, useState} from "react";
-import {AbsoluteFill, Series, useVideoConfig} from "remotion";
-import {listAllAnimations, useAnimationById} from "../engines/gsap/useAnimationById";
+import React, {useEffect, useMemo, useState} from "react";
+import {AbsoluteFill, useVideoConfig} from "remotion";
+import effectRegistry from "../registry/effects.json";
+import lottieRegistry from "../registry/lottieRegistry.json";
+import {useEffectByKey} from "../hooks/useEffectByKey";
+import type {EffectKey} from "../../types/EffectTypes";
+import {EffectCategory} from "../taxonomy/effectCategories";
 
-const animations = listAllAnimations();
-
-const clampNumber = (value: number, fallback: number, min = 0) => {
-  if (!Number.isFinite(value)) {
-    return fallback;
-  }
-  return Math.max(min, value);
+type RegistryEntry = {
+  key: EffectKey;
+  name: string;
+  category: string;
+  durationSeconds?: number;
 };
 
-export const AnimationPreview: React.FC = () => {
+const buildEntries = (): RegistryEntry[] => {
+  const componentEntries = Object.entries(effectRegistry).map(([key, metadata]) => ({
+    key: key as EffectKey,
+    name: metadata.name,
+    category: metadata.category,
+    durationSeconds: metadata.duration ?? 1,
+  }));
+
+  const lottieEntries = Object.values(lottieRegistry).map((entry) => ({
+    key: entry.key as EffectKey,
+    name: entry.name,
+    category: entry.category ?? EffectCategory.Overlay,
+    durationSeconds: entry.durationInSeconds ?? 1.5,
+  }));
+
+  return [...componentEntries, ...lottieEntries].sort((a, b) => a.name.localeCompare(b.name));
+};
+
+const entries = buildEntries();
+const categories = ["all", ...Array.from(new Set(entries.map((entry) => entry.category)))];
+
+const EffectPreview: React.FC<{entry: RegistryEntry}> = ({entry}) => {
   const {fps} = useVideoConfig();
-  const [animationId, setAnimationId] = useState(animations[0]?.id ?? "");
-  const [durationSeconds, setDurationSeconds] = useState(3);
-  const [delaySeconds, setDelaySeconds] = useState(0);
-  const [repeatCount, setRepeatCount] = useState(1);
+  const resolution = useEffectByKey(entry.key);
+  if (!resolution) {
+    return <div style={{opacity: 0.6}}>Effect not registered.</div>;
+  }
 
-  const animation = useAnimationById(animationId);
-  const durationInFrames = Math.max(1, Math.round(clampNumber(durationSeconds, 3, 0.2) * fps));
-  const delayInFrames = Math.max(0, Math.round(clampNumber(delaySeconds, 0, 0) * fps));
-  const repeats = Math.max(1, Math.round(clampNumber(repeatCount, 1, 1)));
+  const durationInFrames = Math.max(1, Math.round((entry.durationSeconds ?? 1) * fps));
+  const {Component} = resolution;
 
-  const renderAnimatedContent = useMemo(() => {
-    if (!animation) {
-      return null;
+  return (
+    <div
+      style={{
+        height: "100%",
+        width: "100%",
+        borderRadius: 28,
+        background: "rgba(2,6,23,0.92)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        border: "1px solid rgba(255,255,255,0.08)",
+        overflow: "hidden",
+      }}
+    >
+      <Component durationInFrames={durationInFrames} />
+    </div>
+  );
+};
+
+export const EffectGallery: React.FC = () => {
+  const [category, setCategory] = useState("all");
+  const [selectedKey, setSelectedKey] = useState<EffectKey | null>(entries[0]?.key ?? null);
+
+  const visibleEntries = useMemo(() => {
+    if (category === "all") {
+      return entries;
     }
+    return entries.filter((entry) => entry.category === category);
+  }, [category]);
 
-    if (animation.type === "gsap") {
-      const Animated = animation.Component;
-      return (
-        <Animated durationInFrames={durationInFrames}>
-          <div
-            style={{
-              padding: "24px 32px",
-              borderRadius: 24,
-              backgroundColor: "#f8fafc",
-              color: "#0f172a",
-              fontSize: 48,
-              fontWeight: 700,
-              boxShadow: "0 30px 60px rgba(15, 23, 42, 0.35)",
-            }}
-          >
-            {animationId}
-          </div>
-        </Animated>
-      );
+  useEffect(() => {
+    if (!visibleEntries.some((entry) => entry.key === selectedKey)) {
+      setSelectedKey(visibleEntries[0]?.key ?? null);
     }
+  }, [visibleEntries, selectedKey]);
 
-    const LottieComponent = animation.Component;
-    const loop = repeatCount !== 1;
-
-    return (
-      <div
-        style={{
-          padding: 32,
-          borderRadius: 24,
-          backgroundColor: "rgba(15,23,42,0.3)",
-          boxShadow: "0 25px 50px rgba(15,23,42,0.45)",
-        }}
-      >
-        <LottieComponent
-          {...animation.props}
-          loop={loop}
-          style={{width: 240, height: 240}}
-        />
-      </div>
-    );
-  }, [animation, animationId, durationInFrames, repeatCount]);
-
-  const infoPanel = useMemo(() => {
-    if (!animation) {
-      return null;
-    }
-
-    return (
-      <div style={{fontSize: 14, opacity: 0.8}}>
-        <div>Type: {animation.animationType ?? animation.type}</div>
-        {animation.tags ? <div>Tags: {animation.tags.join(", ")}</div> : null}
-        {animation.emotions ? <div>Emotions: {animation.emotions.join(", ")}</div> : null}
-      </div>
-    );
-  }, [animation]);
+  const selectedEntry =
+    visibleEntries.find((entry) => entry.key === selectedKey) ?? visibleEntries[0] ?? null;
 
   return (
     <AbsoluteFill
       style={{
         fontFamily: "Inter, sans-serif",
-        background: "radial-gradient(circle at top, rgba(56,189,248,0.35), rgba(15,23,42,1))",
+        background: "radial-gradient(circle at top, rgba(56,189,248,0.25), rgba(15,23,42,1))",
         color: "#f8fafc",
         padding: 32,
         boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 12,
-          width: 360,
-          background: "rgba(15, 23, 42, 0.55)",
-          padding: 20,
-          borderRadius: 20,
-          backdropFilter: "blur(8px)",
-        }}
-      >
-        <label style={{display: "flex", flexDirection: "column", gap: 6}}>
-          Animation
-          <select value={animationId} onChange={(e) => setAnimationId(e.target.value)}>
-            {animations.map((entry) => (
-              <option key={entry.id} value={entry.id}>
-                {entry.id}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label style={{display: "flex", flexDirection: "column", gap: 6}}>
-          Duration (seconds)
-          <input
-            type="number"
-            min={0.2}
-            step={0.1}
-            value={durationSeconds}
-            onChange={(e) => setDurationSeconds(parseFloat(e.target.value))}
-          />
-        </label>
-        <label style={{display: "flex", flexDirection: "column", gap: 6}}>
-          Delay (seconds)
-          <input
-            type="number"
-            min={0}
-            step={0.1}
-            value={delaySeconds}
-            onChange={(e) => setDelaySeconds(parseFloat(e.target.value))}
-          />
-        </label>
-        <label style={{display: "flex", flexDirection: "column", gap: 6}}>
-          Repeat count
-          <input
-            type="number"
-            min={1}
-            step={1}
-            value={repeatCount}
-            onChange={(e) => setRepeatCount(parseInt(e.target.value, 10))}
-          />
-        </label>
-        {infoPanel}
+      <div style={{display: "flex", gap: 12, flexWrap: "wrap"}}>
+        <select
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+          style={{
+            padding: "8px 12px",
+            borderRadius: 12,
+            border: "1px solid rgba(255,255,255,0.15)",
+            background: "rgba(15,23,42,0.65)",
+            color: "#f8fafc",
+            position: "relative",
+            zIndex: 2,
+          }}
+        >
+          {categories.map((option) => (
+            <option key={option} value={option}>
+              {option.charAt(0).toUpperCase() + option.slice(1)}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={selectedKey ?? ""}
+          onChange={(event) => setSelectedKey(event.target.value as EffectKey)}
+          style={{
+            padding: "8px 12px",
+            borderRadius: 12,
+            border: "1px solid rgba(255,255,255,0.15)",
+            background: "rgba(15,23,42,0.65)",
+            color: "#f8fafc",
+            minWidth: 220,
+            position: "relative",
+            zIndex: 2,
+          }}
+        >
+          {visibleEntries.map((entry) => (
+            <option key={entry.key} value={entry.key}>
+              {entry.name}
+            </option>
+          ))}
+        </select>
       </div>
 
-      <AbsoluteFill style={{alignItems: "center", justifyContent: "center"}}>
-        {animation ? (
-          <Series>
-            {delayInFrames > 0 ? (
-              <Series.Sequence durationInFrames={delayInFrames}>
-                <AbsoluteFill style={{alignItems: "center", justifyContent: "center"}}>
-                  <div style={{opacity: 0.5}}>Delay...</div>
-                </AbsoluteFill>
-              </Series.Sequence>
-            ) : null}
-            {Array.from({length: repeats}).map((_, index) => (
-              <Series.Sequence key={`${animationId}-${index}`} durationInFrames={durationInFrames}>
-                <AbsoluteFill style={{alignItems: "center", justifyContent: "center"}}>
-                  {renderAnimatedContent}
-                </AbsoluteFill>
-              </Series.Sequence>
-            ))}
-          </Series>
+      <div style={{flex: 1, position: "relative", zIndex: 1}}>
+        {selectedEntry ? (
+          <EffectPreview entry={selectedEntry} />
         ) : (
-          <div>No animation selected</div>
+          <div style={{opacity: 0.6}}>No effect found for this filter.</div>
         )}
-      </AbsoluteFill>
+      </div>
     </AbsoluteFill>
   );
 };

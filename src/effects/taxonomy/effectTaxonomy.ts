@@ -31,6 +31,14 @@ export const effectTaxonomy: Record<
       defaultDuration: 1,
     },
     {
+      key: "text.keywordSubtitleHighlight",
+      label: "Keyword Subtitle Highlight",
+      description: "Glowing keyword subtitle with a sweeping underline pop.",
+      category: EffectCategory.Text,
+      intents: ["subtitle", "keyword", "emphasis"],
+      defaultDuration: 1.8,
+    },
+    {
       key: "text.popUp3D",
       label: "3D Pop-Up Text",
       description: "Sit-up / lay-down 3D text animation for bold hooks.",

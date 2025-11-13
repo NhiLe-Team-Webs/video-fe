@@ -7,6 +7,7 @@ import {SideFloatText, SideFloatLeftText, SideFloatRightText} from "./SideFloatT
 import {SequentialListReveal} from "./SequentialListReveal";
 import {StepBreakdownTransition} from "./StepBreakdownTransition";
 import {CentralConceptMap} from "./CentralConceptMap";
+import {KeywordSubtitleHighlight} from "./KeywordSubtitleHighlight";
 
 export {
   PopUpTitle,
@@ -19,6 +20,7 @@ export {
   SequentialListReveal,
   StepBreakdownTransition,
   CentralConceptMap,
+  KeywordSubtitleHighlight,
 };
 
 export const textEffectComponents: EffectComponentMap = {
@@ -32,5 +34,6 @@ export const textEffectComponents: EffectComponentMap = {
   "text.sequentialList": SequentialListReveal,
   "text.stepBreakdown": StepBreakdownTransition,
   "text.centralConcept": CentralConceptMap,
+  "text.keywordSubtitleHighlight": KeywordSubtitleHighlight,
 };
 

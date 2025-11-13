@@ -363,6 +363,24 @@
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/SectionTitleOverlay",
     "version": "1.0.0"
+  },
+  "overlay.iconHighlight": {
+    "key": "overlay.iconHighlight",
+    "name": "Icon Highlight",
+    "category": "overlay",
+    "description": "Animated icon cue that fades in, floats, then fades out to reinforce key concepts.",
+    "tags": ["callout", "concept", "cue"],
+    "mood": ["informational", "polished"],
+    "duration": 1.8,
+    "preview": "/previews/overlay-icon-highlight.mp4",
+    "props": [
+      {"name": "iconSrc", "type": "string", "description": "Lottie JSON or animation path"},
+      {"name": "position", "type": "string", "description": "\"left\" or \"right\""},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/IconHighlight",
+    "version": "1.0.0"
   }
 }
 

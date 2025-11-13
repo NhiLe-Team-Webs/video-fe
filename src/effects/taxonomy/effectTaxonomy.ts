@@ -182,6 +182,14 @@ export const effectTaxonomy: Record<
       intents: ["divider", "section-break"],
       defaultDuration: 2,
     },
+    {
+      key: "overlay.iconHighlight",
+      label: "Icon Highlight",
+      description: "Animated icon cue that fades in, floats, then fades out to reinforce concepts.",
+      category: EffectCategory.Overlay,
+      intents: ["callout", "concept-highlight"],
+      defaultDuration: 1.8,
+    },
   ],
 };
 

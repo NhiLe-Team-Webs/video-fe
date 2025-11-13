@@ -3,13 +3,15 @@ import {LowerThird} from "./LowerThird";
 import {BadgePulse} from "./BadgePulse";
 import {SectionTitleOverlay} from "./SectionTitleOverlay";
 import {IconHighlight} from "./IconHighlight";
+import {SocialIconPop} from "./SocialIconPop";
 
-export {LowerThird, BadgePulse, SectionTitleOverlay, IconHighlight};
+export {LowerThird, BadgePulse, SectionTitleOverlay, IconHighlight, SocialIconPop};
 
 export const overlayEffectComponents: EffectComponentMap = {
   "overlay.lowerThird": LowerThird,
   "overlay.badgePulse": BadgePulse,
   "overlay.sectionTitle": SectionTitleOverlay,
   "overlay.iconHighlight": IconHighlight,
+  "overlay.socialIconPop": SocialIconPop,
 };
 

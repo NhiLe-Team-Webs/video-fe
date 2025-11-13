@@ -162,6 +162,14 @@ export const effectTaxonomy: Record<
       intents: ["reporting", "comparison", "trend"],
       defaultDuration: 2.8,
     },
+    {
+      key: "chart.branchTree",
+      label: "Branch Tree Expansion",
+      description: "Flowchart branches draw out from the root while each node fades and slides into place.",
+      category: EffectCategory.Chart,
+      intents: ["flowchart", "structure", "strategy"],
+      defaultDuration: 3,
+    },
   ],
   [EffectCategory.Background]: [
     {
@@ -213,6 +221,14 @@ export const effectTaxonomy: Record<
       category: EffectCategory.Overlay,
       intents: ["callout", "concept-highlight"],
       defaultDuration: 1.8,
+    },
+    {
+      key: "overlay.socialIconPop",
+      label: "Social Icon Pop",
+      description: "Platform badges pop in with glow, hover for a beat, then fade out.",
+      category: EffectCategory.Overlay,
+      intents: ["platform-callout", "social-proof"],
+      defaultDuration: 1.5,
     },
   ],
 };

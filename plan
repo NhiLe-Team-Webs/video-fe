@@ -1,129 +1,388 @@
-Rất chuẩn 👌 — trước khi triển khai từng feature chi tiết, bạn cần **một bản mô tả tổng thể cho toàn bộ Module 1: “Effect Taxonomy & Naming”**.
-Dưới đây là bản định nghĩa module ở cấp **system design / execution plan** mà bạn có thể dùng luôn để onboard dev khác hoặc ghi vào project roadmap.
+Dưới đây là **tài liệu đầy đủ – chuẩn hóa dạng module** cho **Module 2: Lottie Intake & Validator**, theo đúng chuẩn của một pipeline video engine chuyên nghiệp.
 
 ---
 
-## 🎬 **Module 1: Effect Taxonomy & Naming**
+# #️⃣ **MODULE 2 — LOTTIE INTAKE & VALIDATOR**
+
+## 🎯 **1. Tổng quát: Module này làm gì?**
+
+Module 2 chịu trách nhiệm:
+
+### **A. Nhập (intake) toàn bộ file Lottie `.json`**
+
+Từ thư mục:
+
+```
+/public/assets/library/animations/lottie/*
+```
+
+### **B. Validate (kiểm tra) các Lottie trước khi cho vào hệ thống**
+
+Kiểm tra:
+
+* File JSON có hợp lệ không?
+* Có frame rate không?
+* Có expression JS không? (Remotion không hỗ trợ AE expressions)
+* Resize có phù hợp không?
+* Structure chứa layers đúng chuẩn không?
+* Asset external có thiếu không?
+* Lottie có vượt kích thước file max không?
+
+### **C. Generate manifest & registry**
+
+Tự động sinh ra 2 file:
+
+```
+src/effects/registry/lottieRegistry.json
+src/effects/registry/manifest.json   // áp dụng chung cho engines/lottie
+```
+
+### **D. Chuẩn hóa metadata cho resolver**
+
+Tạo metadata:
+
+* `id`
+* `category`
+* `durationFrames`
+* `fps`
+* `tags`
+* `componentPath`
+* `assetPath`
+
+→ Để resolver + template engine có thể dùng Lottie như 1 effect thông thường.
 
 ---
 
-### 🧠 **Mục tiêu**
+# 🧠 **2. SOP — Standard Operating Procedure (các bước thực hiện chi tiết)**
 
-Thiết lập **hệ thống phân loại, định danh và cấu trúc file cho toàn bộ hiệu ứng** trong hệ thống video tự động (Remotion-based).
-Module này đóng vai trò **nền tảng (foundation layer)** giúp mọi thành phần sau (resolver, orchestrator, template engine, gallery) có thể:
-
-* Gọi hiệu ứng bằng **tên chuẩn hóa (key)** thay vì import tay.
-* Hiểu được **nhóm, loại và metadata** của mỗi hiệu ứng.
-* Duy trì khả năng mở rộng và tái sử dụng về lâu dài.
-
-> Nói cách khác: đây là “**bộ khung ngữ pháp và thư viện từ điển**” cho toàn hệ thống hiệu ứng.
+Dưới đây là **quy trình chuẩn**, dùng cho dev hoặc automation chạy định kỳ.
 
 ---
 
-### 🧩 **Phạm vi**
+## ✔️ **STEP 1 — Place Lottie assets in public**
 
-Module này chỉ bao gồm **hiệu ứng hình ảnh (visual effects)** — không bao gồm âm thanh (SFX), b-roll hay video footage.
-Các nhóm effect chính trong taxonomy:
+Tất cả file:
 
-* `text` – Hiệu ứng chữ, subtitle, highlight
-* `motion` – Hiệu ứng chuyển động, camera, zoom, slide
-* `chart` – Hiệu ứng biểu đồ, roadmap, concept map
-* `background` – Hiệu ứng nền (noise, gradient, particles)
-* `overlay` – Hiệu ứng phủ (lower-third, audio visualizer, app intro)
+```
+*.json
+```
+
+được đặt vào:
+
+```
+/public/assets/library/animations/lottie/
+```
 
 ---
 
-### ⚙️ **Các bước thực hiện**
+## ✔️ **STEP 2 — Chạy script intake**
 
-#### **Step 1 – Xây dựng Naming Schema**
+Script:
 
-* Đặt quy tắc key theo dạng `<category>.<effectName>` (vd: `"text.popUp"`, `"motion.zoomFocus"`).
-* Định nghĩa file `/constants/effectTaxonomy.ts` để liệt kê tất cả các nhóm và hiệu ứng ban đầu.
+```
+scripts/intakeLottie.ts
+```
 
-#### **Step 2 – Tạo cấu trúc thư mục tiêu chuẩn**
+Nhiệm vụ:
 
-* Tạo folder `/components/effects/` chia nhỏ theo nhóm:
+1. Quét thư mục public/lottie
+2. Load từng JSON
+3. Extract các thông tin chính:
 
-  ```
-  /components/effects/text/
-  /components/effects/motion/
-  /components/effects/chart/
-  /components/effects/background/
-  /components/effects/overlay/
-  ```
-* Mỗi nhóm có file `index.ts` export các effect con.
+   * v (version)
+   * fr (fps)
+   * ip/op (start/end frame → duration)
+   * w/h (dimension)
+   * assets
+   * layers count
+4. Chuẩn hóa tên asset → slug
 
-#### **Step 3 – Định nghĩa Type và Enum**
+Kết quả lưu vào object:
 
-* Tạo `/types/EffectTypes.ts` và `/constants/effectCategories.ts`.
-* Tạo enum `EffectCategory` và type `EffectKey` để toàn hệ thống hiểu key nào hợp lệ.
+```ts
+{
+  id: "sparkle",
+  name: "Sparkle",
+  path: "/assets/library/animations/lottie/sparkle.json",
+  width: 512,
+  height: 512,
+  fps: 30,
+  durationFrames: 59,
+  tags: ["decoration", "sparkle"]
+}
+```
 
-#### **Step 4 – Tạo Registry Metadata**
+---
 
-* Tạo `/data/effects.json` lưu metadata cho từng effect:
+## ✔️ **STEP 3 — Validate**
 
-  ```json
-  {
-    "text.popUp": {
-      "name": "3D Pop-Up Text",
-      "category": "text",
-      "preview": "/previews/text-pop-up.mp4",
-      "props": ["text", "color", "delay"],
-      "duration": 1.2
+Chạy script:
+
+```
+scripts/validateLottie.ts
+```
+
+Validation gồm:
+
+### 🔹 1. JSON parse được?
+
+Nếu lỗi → reject ngay.
+
+### 🔹 2. Các trường bắt buộc có tồn tại?
+
+```json
+v, fr, ip, op, w, h, layers
+```
+
+### 🔹 3. Không chứa unsupported features?
+
+* Expressions
+* Time remap
+* Effects group
+* Masks quá phức tạp
+
+### 🔹 4. Asset external không bị missing
+
+### 🔹 5. Kích thước file không vượt 500kb
+
+→ Tùy bạn đặt threshold
+
+### 🔹 6. FPS hợp lệ (Remotion chỉ chạy từ 24–60)
+
+Nếu lỗi → in ra bảng cảnh báo.
+
+---
+
+## ✔️ **STEP 4 — Generate Lottie registry**
+
+Tạo file:
+
+```
+src/effects/registry/lottieRegistry.json
+```
+
+Gồm:
+
+* Toàn bộ metadata
+* Slug chuẩn hóa
+* Category auto-detect (nếu có)
+
+Ví dụ:
+
+```json
+{
+  "sparkle": {
+    "id": "sparkle",
+    "category": "decoration",
+    "tags": ["sparkle"],
+    "fps": 30,
+    "durationFrames": 59,
+    "path": "/assets/library/animations/lottie/sparkle.json"
+  }
+}
+```
+
+---
+
+## ✔️ **STEP 5 — Generate manifest**
+
+File:
+
+```
+src/effects/registry/manifest.json
+```
+
+Gồm mapping để preview app + engines dùng:
+
+```json
+{
+  "lottie": {
+    "sparkle": {
+      "component": "@/effects/engines/lottie/LottieEffect",
+      "assetPath": "/assets/library/animations/lottie/sparkle.json"
     }
   }
-  ```
-* Dùng registry này cho resolver hoặc gallery preview.
-
-#### **Step 5 – Tạo Hook Load Effect (Dynamic Loader)**
-
-* Viết `/hooks/useEffectByKey.ts` để có thể gọi component bằng key string.
-* Hook tra trong registry / import map và trả về component + metadata.
-
-#### **Step 6 – (Optional) Tạo Classification Script**
-
-* Viết `/scripts/classifyEffects.ts` quét thư mục `/components/effects` → tự động update `/data/effects.json`.
-* Giúp giảm công cập nhật khi có nhiều effect.
-
-#### **Step 7 – (Optional) Tạo Documentation Schema**
-
-* Tạo `/docs/schema/effectDocSchema.ts` định nghĩa chuẩn metadata (key, name, category, props, duration).
-* Dùng để sync với gallery preview hoặc doc generator sau này.
+}
+```
 
 ---
 
-### 🧱 **Các file cần tạo**
+## ✔️ **STEP 6 — Update engines/lottie classes**
 
-| File / Folder                     | Vai trò                                       |
-| --------------------------------- | --------------------------------------------- |
-| `/constants/effectTaxonomy.ts`    | Danh sách taxonomy tổng hợp                   |
-| `/constants/effectCategories.ts`  | Enum danh mục chính                           |
-| `/types/EffectTypes.ts`           | Type & interface cho effect key               |
-| `/components/effects/`            | Thư mục chứa tất cả các effect component      |
-| `/data/effects.json`              | Registry metadata cho từng effect             |
-| `/hooks/useEffectByKey.ts`        | Hook load component theo key                  |
-| `/scripts/classifyEffects.ts`     | Script tự động cập nhật registry *(optional)* |
-| `/docs/schema/effectDocSchema.ts` | Schema cho doc / UI gallery *(optional)*      |
+`useLottieByKey.ts` cần:
+
+* Đọc lottieRegistry
+* Trả về component `<LottieEffect />`
 
 ---
 
-### 🎯 **Output cần đạt được**
+## ✔️ **STEP 7 — Preview & QA**
 
-| Loại output                | Mô tả                                                    |
-| -------------------------- | -------------------------------------------------------- |
-| **Taxonomy Definition**    | Danh sách đầy đủ các nhóm và key hiệu ứng                |
-| **Type-safe System**       | Toàn bộ hệ thống có thể autocomplete và check key hợp lệ |
-| **Component Structure**    | Thư mục chuẩn hóa cho từng nhóm hiệu ứng                 |
-| **Effect Registry (JSON)** | File metadata mô tả tất cả hiệu ứng                      |
-| **Dynamic Loader**         | Hook `useEffectByKey()` hoạt động được                   |
-| **Optional Tooling**       | Script & schema phục vụ automation và UI gallery         |
+`effects/preview/LottiePreviewPanel` yêu cầu:
+
+* Load tất cả lottie từ registry
+* Render thử từng cái
+* Hiển thị:
+
+  * duration
+  * fps
+  * bounding box
+  * warnings nếu có
 
 ---
 
-### ✅ **Kết quả khi hoàn thành module**
+# 📦 **3. Output chính xác của Module 2**
 
-* Bạn có thể gọi **bất kỳ hiệu ứng nào bằng key string**, ví dụ:
+Sau khi module hoàn tất, bạn sẽ có 3 output:
 
-  ```tsx
-  const { Component } = useEffectByKey("text.popUp");
-  <Component text="Welcome back" />;
+---
+
+## **OUTPUT 1 — Lottie Registry (bắt buộc)**
+
+File:
+
+```
+src/effects/registry/lottieRegistry.json
+```
+
+Chứa metadata đã chuẩn hoá.
+
+---
+
+## **OUTPUT 2 — Lottie manifest (bắt buộc)**
+
+File:
+
+```
+src/effects/registry/manifest.json
+```
+
+Mapping từ key → component.
+
+---
+
+## **OUTPUT 3 — Lottie Preview Panel (optional nhưng khuyến nghị)**
+
+Để test và xem asset.
+
+---
+
+# ☑️ **4. Checklist hoàn thành Module 2 (có thể tick)**
+
+### 📁 File & folder
+
+* [ ] Public chứa đầy đủ lottie JSON
+* [ ] Không có file ngoài định dạng `.json`
+
+### 🔍 Intake
+
+* [ ] Script chạy được, không lỗi
+* [ ] Auto generate slug + id
+* [ ] Tính đúng fps, durationFrames
+
+### 🧪 Validator
+
+* [ ] Pass JSON format check
+* [ ] Pass required fields check
+* [ ] Không có expression
+* [ ] Không có external asset missing
+* [ ] File size < 500kb
+* [ ] FPS hợp lệ
+
+### 📑 Registry
+
+* [ ] lottieRegistry.json được cập nhật
+* [ ] manifest.json được cập nhật
+* [ ] Key → component mapping đúng
+
+### 🔧 Engines
+
+* [ ] useLottieByKey trả đúng component
+* [ ] LottieEffect nhận props đúng format
+
+### 👁 Preview
+
+* [ ] LottiePreviewPanel render được tất cả
+* [ ] Thumbnail hiển thị đúng
+* [ ] Hiển thị fps + duration chính xác
+
+---
+
+# 🧪 **5. Cách test module 2 hoạt động thành công**
+
+## ✔ TEST 1 — Test CLI
+
+Chạy:
+
+```
+npm run intake:lottie
+npm run validate:lottie
+npm run manifest:lottie
+```
+
+→ Không lỗi → PASS
+
+---
+
+## ✔ TEST 2 — Test preview
+
+Vô URL:
+
+```
+/preview/lottie
+```
+
+→ Render được toàn bộ asset
+→ Không báo lỗi ở console
+
+---
+
+## ✔ TEST 3 — Tích hợp
+
+Tạo file test:
+
+```tsx
+<LottieEffect id="sparkle" />
+```
+
+→ Render animation bình thường
+
+---
+
+## ✔ TEST 4 — Resolver
+
+Sau khi thêm vào effects.json:
+
+```json
+{
+  "id": "sparkle",
+  "category": "overlay"
+}
+```
+
+Dùng:
+
+```tsx
+useEffectByKey("overlay.sparkle")
+```
+
+→ Xuất ra LottieEffect đúng slug.
+
+---
+
+# 🎉 KẾT LUẬN
+
+Module 2 là module **đảm bảo chất lượng của toàn bộ Lottie**, và output của nó là:
+
+* **Registry chuẩn hoá**
+* **Manifest**
+* **Preview UI**
+* **Hàm load Lottie tự động**
+
+💬 Bạn muốn mình viết luôn file code mẫu cho:
+
+* `intakeLottie.ts`
+* `validateLottie.ts`
+* `generateLottieManifest.ts`
+
+không? (viết dạng hoàn chỉnh production luôn).

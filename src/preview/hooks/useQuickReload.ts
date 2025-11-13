@@ -18,13 +18,16 @@ const fetchHash = async (url: string) => {
   return hashString(text);
 };
 
+const SHOULD_WATCH =
+  typeof window !== "undefined" && process.env.NODE_ENV !== "production";
+
 export const useQuickReload = (sources: string[], intervalMs = 2000) => {
   const normalizedSources = useMemo(() => Array.from(new Set(sources)).filter(Boolean), [sources]);
   const [version, setVersion] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!normalizedSources.length) {
+    if (!SHOULD_WATCH || !normalizedSources.length) {
       return;
     }
 

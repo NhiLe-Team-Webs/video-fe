@@ -14,11 +14,11 @@ const initialFps = getFps(bootstrapPlan.templateId);
 const plan = bootstrapPlan.fps === initialFps ? bootstrapPlan : loadPlan({fps: initialFps});
 const PREVIEW_WIDTH = 1920;
 const PREVIEW_HEIGHT = 1080;
-const isDevMode = Boolean(inputProps.devMode);
+const showDevCompositions = inputProps.devMode ?? true;
 
 export const RemotionRoot: React.FC = () => (
   <>
-    {isDevMode ? (
+    {showDevCompositions ? (
       <>
         <Composition
           id="live-preview"
@@ -54,17 +54,15 @@ export const RemotionRoot: React.FC = () => (
         />
       </>
     ) : null}
-    {!isDevMode ? (
-      <Composition
-        id="auto-video"
-        component={PlanOrchestrator}
-        durationInFrames={plan.durationInFrames}
-        fps={initialFps}
-        width={PREVIEW_WIDTH}
-        height={PREVIEW_HEIGHT}
-        defaultProps={{plan, fps: initialFps}}
-      />
-    ) : null}
+    <Composition
+      id="auto-video"
+      component={PlanOrchestrator}
+      durationInFrames={plan.durationInFrames}
+      fps={initialFps}
+      width={PREVIEW_WIDTH}
+      height={PREVIEW_HEIGHT}
+      defaultProps={{plan, fps: initialFps}}
+    />
   </>
 );
 

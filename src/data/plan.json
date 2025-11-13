@@ -1,7 +1,7 @@
 {
   "templateId": "template1",
   "animationId": "gsap-zoom-pop",
-  "music": "library/audio/bgm_soft.mp3",
+  "music": "assets/sfx/emotion/applause.mp3",
   "segments": [
     {
       "clip": "assets/broll/digital_network.jpg",
@@ -9,7 +9,7 @@
       "effect": "fade_in",
       "duration": 4,
       "emotion": "neutral",
-      "sfx": "library/audio/whoosh.mp3",
+      "sfx": "assets/sfx/whoosh/woosh.mp3",
       "animationId": "gsap-slide-up"
     },
     {

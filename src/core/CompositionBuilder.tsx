@@ -34,7 +34,7 @@ type CompositionBuilderProps = {
 };
 
 const DEFAULT_EFFECT = "none";
-const DEFAULT_BGM = "library/audio/bgm_soft.mp3";
+const DEFAULT_BGM = "assets/sfx/emotion/applause.mp3";
 
 const normalizeEffectKey = (value?: string) => {
   if (!value) {

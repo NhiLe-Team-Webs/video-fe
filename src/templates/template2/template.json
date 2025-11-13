@@ -8,7 +8,7 @@
     "emotion:intense": "fadeIn"
   },
   "audio": {
-    "bgm": "library/audio/bgm_soft.mp3",
-    "sfxFallback": "library/audio/whoosh.mp3"
+    "bgm": "assets/sfx/emotion/applause.mp3",
+    "sfxFallback": "assets/sfx/whoosh/woosh.mp3"
   }
 }

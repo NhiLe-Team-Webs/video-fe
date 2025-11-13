@@ -4,6 +4,7 @@ import {BadgePulse} from "./BadgePulse";
 import {SectionTitleOverlay} from "./SectionTitleOverlay";
 import {IconHighlight} from "./IconHighlight";
 import {SocialIconPop} from "./SocialIconPop";
+import {AppIntroLowerThird} from "./AppIntroLowerThird";
 
 export {LowerThird, BadgePulse, SectionTitleOverlay, IconHighlight, SocialIconPop};
 
@@ -13,5 +14,6 @@ export const overlayEffectComponents: EffectComponentMap = {
   "overlay.sectionTitle": SectionTitleOverlay,
   "overlay.iconHighlight": IconHighlight,
   "overlay.socialIconPop": SocialIconPop,
+  "overlay.appIntro": AppIntroLowerThird,
 };
 

@@ -261,35 +261,31 @@ export const KeywordColorHighlight: React.FC<KeywordColorHighlightProps> = ({
                   );
             const highlightIntensity = Math.min(riseProgress, fadeProgress);
             const currentColor = mixColors(baseColor, targetColor, highlightIntensity);
-            const glowColor = blendWithWhite(targetColor, 0.6);
+            const glowColor = targetColor;
             const gradientWidth = 0.4 + highlightIntensity * 0.6;
 
             return (
-              <span
-                key={`${segment.text}-${index}`}
-                style={{
-                  position: "relative",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "0 4px",
-                  whiteSpace: "pre-wrap",
-                  color: currentColor,
-                  textShadow: `0 0 ${8 + highlightIntensity * 24}px ${glowColor}`,
-                  filter: `brightness(${1 + highlightIntensity * 0.4})`,
-                  transition: "color 80ms linear",
-                }}
-              >
+                <span
+                  key={`${segment.text}-${index}`}
+                  style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "0 4px",
+                    whiteSpace: "pre-wrap",
+                    color: currentColor,
+                  }}
+                >
                 <span
                   style={{
                     position: "absolute",
                     inset: "0",
                     borderRadius: 6,
                     background: `linear-gradient(90deg, transparent, ${glowColor}, transparent)`,
-                    opacity: highlightIntensity * 0.7,
+                    opacity: highlightIntensity * 0.4,
                     transform: `scaleX(${gradientWidth})`,
                     transformOrigin: "left",
-                    filter: `blur(${highlightIntensity * 4}px)`,
                     pointerEvents: "none",
                   }}
                 />

@@ -246,6 +246,14 @@ export const effectTaxonomy: Record<
       intents: ["platform-callout", "social-proof"],
       defaultDuration: 1.5,
     },
+    {
+      key: "overlay.appIntro",
+      label: "App Intro Lower Third",
+      description: "Gradient lower-third with icon, name, tagline, and link for platform spotlight.",
+      category: EffectCategory.Overlay,
+      intents: ["brand-callout", "intro", "platform"],
+      defaultDuration: 2.5,
+    },
   ],
 };
 

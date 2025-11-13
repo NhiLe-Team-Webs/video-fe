@@ -145,6 +145,30 @@
     "componentPath": "src/effects/components/text/SequentialListReveal",
     "version": "1.0.0"
   },
+  "text.stepBreakdown": {
+    "key": "text.stepBreakdown",
+    "name": "Step Breakdown Transition",
+    "category": "text",
+    "description": "Topic overview with slash list and spotlight card per step.",
+    "tags": ["process", "curriculum", "roadmap"],
+    "mood": ["structured", "educational"],
+    "duration": 3,
+    "preview": "/previews/text-step-breakdown.mp4",
+    "props": [
+      {"name": "topic", "type": "string"},
+      {
+        "name": "steps",
+        "type": "string",
+        "description": "Array of {title, description} entries pulled from plan data."
+      },
+      {"name": "accentColor", "type": "color"},
+      {"name": "backgroundColor", "type": "color"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/StepBreakdownTransition",
+    "version": "1.0.0"
+  },
   "motion.zoomFocus": {
     "key": "motion.zoomFocus",
     "name": "Zoom Focus",

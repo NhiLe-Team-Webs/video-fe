@@ -70,6 +70,14 @@ export const effectTaxonomy: Record<
       intents: ["list", "callout"],
       defaultDuration: 2.5,
     },
+    {
+      key: "text.stepBreakdown",
+      label: "Step Breakdown Transition",
+      description: "Highlight topic list entries, then spotlight each step with its own card.",
+      category: EffectCategory.Text,
+      intents: ["curriculum", "process", "chapter-break"],
+      defaultDuration: 3,
+    },
   ],
   [EffectCategory.Motion]: [
     {

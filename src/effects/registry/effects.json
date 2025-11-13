@@ -345,6 +345,24 @@
     "componentPath": "src/effects/components/chart/DataVisualizationReveal",
     "version": "1.0.0"
   },
+  "chart.branchTree": {
+    "key": "chart.branchTree",
+    "name": "Branch Tree Expansion",
+    "category": "chart",
+    "description": "Flowchart branches draw out from the root while nodes fade and slide into place.",
+    "tags": ["flowchart", "strategy", "structure"],
+    "mood": ["guided", "calm"],
+    "duration": 3,
+    "preview": "/previews/chart-branch-tree.mp4",
+    "props": [
+      {"name": "tree", "type": "string", "description": "JSON tree that defines node labels, colors, and children."},
+      {"name": "accentColor", "type": "color", "description": "Accent for nodes and connector glow."},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/chart/BranchTreeExpansion",
+    "version": "1.0.0"
+  },
   "background.gradientPulse": {
     "key": "background.gradientPulse",
     "name": "Gradient Pulse",

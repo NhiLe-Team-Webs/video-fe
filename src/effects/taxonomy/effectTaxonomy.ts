@@ -162,6 +162,14 @@ export const effectTaxonomy: Record<
       intents: ["reporting", "comparison", "trend"],
       defaultDuration: 2.8,
     },
+    {
+      key: "chart.branchTree",
+      label: "Branch Tree Expansion",
+      description: "Flowchart branches draw out from the root while each node fades and slides into place.",
+      category: EffectCategory.Chart,
+      intents: ["flowchart", "structure", "strategy"],
+      defaultDuration: 3,
+    },
   ],
   [EffectCategory.Background]: [
     {

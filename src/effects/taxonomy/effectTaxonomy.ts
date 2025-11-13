@@ -112,6 +112,14 @@ export const effectTaxonomy: Record<
       intents: ["emphasis", "hero"],
       defaultDuration: 1,
     },
+    {
+      key: "motion.cameraZoomFocus",
+      label: "Camera Zoom Focus",
+      description: "Punch-in / punch-out camera style move to highlight speaker.",
+      category: EffectCategory.Motion,
+      intents: ["emphasis", "hero"],
+      defaultDuration: 2,
+    },
   ],
   [EffectCategory.Chart]: [
     {
@@ -165,6 +173,22 @@ export const effectTaxonomy: Record<
       category: EffectCategory.Overlay,
       intents: ["cta", "stat"],
       defaultDuration: 0.9,
+    },
+    {
+      key: "overlay.sectionTitle",
+      label: "Section Title Overlay",
+      description: "Dimmed background + center card for section transitions.",
+      category: EffectCategory.Overlay,
+      intents: ["divider", "section-break"],
+      defaultDuration: 2,
+    },
+    {
+      key: "overlay.iconHighlight",
+      label: "Icon Highlight",
+      description: "Animated icon cue that fades in, floats, then fades out to reinforce concepts.",
+      category: EffectCategory.Overlay,
+      intents: ["callout", "concept-highlight"],
+      defaultDuration: 1.8,
     },
   ],
 };

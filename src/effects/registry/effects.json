@@ -225,6 +225,25 @@
     "componentPath": "src/effects/components/motion/ZoomIn",
     "version": "1.0.0"
   },
+  "motion.cameraZoomFocus": {
+    "key": "motion.cameraZoomFocus",
+    "name": "Camera Zoom Focus",
+    "category": "motion",
+    "description": "Dynamic punch-in / punch-out to emphasize the speaker.",
+    "tags": ["camera", "zoom", "focus"],
+    "mood": ["intense", "spotlight"],
+    "duration": 2,
+    "preview": "/previews/motion-camera-zoom-focus.mp4",
+    "props": [
+      {"name": "durationInFrames", "type": "number"},
+      {"name": "focus", "type": "number"},
+      {"name": "offsetX", "type": "number"},
+      {"name": "offsetY", "type": "number"}
+    ],
+    "recommendedLayer": "base",
+    "componentPath": "src/effects/components/motion/CameraZoomFocus",
+    "version": "1.0.0"
+  },
   "chart.statCard": {
     "key": "chart.statCard",
     "name": "Stat Card Flip",
@@ -325,6 +344,42 @@
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/BadgePulse",
+    "version": "1.0.0"
+  },
+  "overlay.sectionTitle": {
+    "key": "overlay.sectionTitle",
+    "name": "Section Title Overlay",
+    "category": "overlay",
+    "description": "Dim background + centered title card for section breaks.",
+    "tags": ["divider", "section", "intro"],
+    "mood": ["professional"],
+    "duration": 2,
+    "preview": "/previews/overlay-section-title.mp4",
+    "props": [
+      {"name": "title", "type": "string"},
+      {"name": "subtitle", "type": "string"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/SectionTitleOverlay",
+    "version": "1.0.0"
+  },
+  "overlay.iconHighlight": {
+    "key": "overlay.iconHighlight",
+    "name": "Icon Highlight",
+    "category": "overlay",
+    "description": "Animated icon cue that fades in, floats, then fades out to reinforce key concepts.",
+    "tags": ["callout", "concept", "cue"],
+    "mood": ["informational", "polished"],
+    "duration": 1.8,
+    "preview": "/previews/overlay-icon-highlight.mp4",
+    "props": [
+      {"name": "iconSrc", "type": "string", "description": "Lottie JSON or animation path"},
+      {"name": "position", "type": "string", "description": "\"left\" or \"right\""},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/IconHighlight",
     "version": "1.0.0"
   }
 }

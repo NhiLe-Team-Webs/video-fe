@@ -34,15 +34,41 @@ const buildEntries = (): RegistryEntry[] => {
 const entries = buildEntries();
 const categories = ["all", ...Array.from(new Set(entries.map((entry) => entry.category)))];
 
+const SampleScene: React.FC = () => (
+  <div
+    style={{
+      width: "100%",
+      height: "100%",
+      borderRadius: 36,
+      background:
+        "linear-gradient(135deg, rgba(51,65,85,0.9), rgba(15,23,42,0.9)), url(https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=60) center/cover",
+      color: "#f8fafc",
+      fontSize: 48,
+      fontWeight: 800,
+      letterSpacing: 1,
+      textTransform: "uppercase",
+      textShadow: "0 10px 25px rgba(0,0,0,0.5)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    Speaker
+  </div>
+);
+
 const EffectPreview: React.FC<{entry: RegistryEntry}> = ({entry}) => {
   const {fps} = useVideoConfig();
   const resolution = useEffectByKey(entry.key);
   if (!resolution) {
     return <div style={{opacity: 0.6}}>Effect not registered.</div>;
   }
-
+  const {Component, metadata} = resolution;
   const durationInFrames = Math.max(1, Math.round((entry.durationSeconds ?? 1) * fps));
-  const {Component} = resolution;
+  const needsChildren =
+    metadata?.category === "motion" ||
+    metadata?.recommendedLayer === "base" ||
+    entry.key.startsWith("motion.");
 
   return (
     <div
@@ -58,7 +84,13 @@ const EffectPreview: React.FC<{entry: RegistryEntry}> = ({entry}) => {
         overflow: "hidden",
       }}
     >
-      <Component durationInFrames={durationInFrames} />
+      {needsChildren ? (
+        <Component durationInFrames={durationInFrames}>
+          <SampleScene />
+        </Component>
+      ) : (
+        <Component durationInFrames={durationInFrames} />
+      )}
     </div>
   );
 };

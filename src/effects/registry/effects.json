@@ -71,6 +71,26 @@
     "componentPath": "src/effects/components/text/KeywordSubtitleHighlight",
     "version": "1.0.0"
   },
+  "text.keywordColorHighlight": {
+    "key": "text.keywordColorHighlight",
+    "name": "Keyword Color Highlight",
+    "category": "text",
+    "description": "Keyword words flash into color with gradient glow shimmer.",
+    "tags": ["subtitle", "keyword", "glow"],
+    "mood": ["energetic", "impact"],
+    "duration": 1.8,
+    "preview": "/previews/text-keyword-color-highlight.mp4",
+    "props": [
+      {"name": "text", "type": "string", "required": true},
+      {"name": "keywords", "type": "string", "description": "Comma-separated keywords for the color flash."},
+      {"name": "highlightColors", "type": "string", "description": "JSON array of highlight colors."},
+      {"name": "baseColor", "type": "color"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/KeywordColorHighlight",
+    "version": "1.0.0"
+  },
   "text.popUp3D": {
     "key": "text.popUp3D",
     "name": "3D Pop-Up Text",

@@ -8,6 +8,7 @@ import {SequentialListReveal} from "./SequentialListReveal";
 import {StepBreakdownTransition} from "./StepBreakdownTransition";
 import {CentralConceptMap} from "./CentralConceptMap";
 import {KeywordSubtitleHighlight} from "./KeywordSubtitleHighlight";
+import {KeywordColorHighlight} from "./KeywordColorHighlight";
 
 export {
   PopUpTitle,
@@ -21,6 +22,7 @@ export {
   StepBreakdownTransition,
   CentralConceptMap,
   KeywordSubtitleHighlight,
+  KeywordColorHighlight,
 };
 
 export const textEffectComponents: EffectComponentMap = {
@@ -35,5 +37,6 @@ export const textEffectComponents: EffectComponentMap = {
   "text.stepBreakdown": StepBreakdownTransition,
   "text.centralConcept": CentralConceptMap,
   "text.keywordSubtitleHighlight": KeywordSubtitleHighlight,
+  "text.keywordColorHighlight": KeywordColorHighlight,
 };
 

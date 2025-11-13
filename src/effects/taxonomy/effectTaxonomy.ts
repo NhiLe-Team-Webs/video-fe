@@ -39,6 +39,14 @@ export const effectTaxonomy: Record<
       defaultDuration: 1.8,
     },
     {
+      key: "text.keywordColorHighlight",
+      label: "Keyword Color Highlight",
+      description: "Keyword-specific color flash with gradient glow.",
+      category: EffectCategory.Text,
+      intents: ["subtitle", "keyword", "emphasis"],
+      defaultDuration: 1.8,
+    },
+    {
       key: "text.popUp3D",
       label: "3D Pop-Up Text",
       description: "Sit-up / lay-down 3D text animation for bold hooks.",

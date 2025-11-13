@@ -3,7 +3,13 @@ import planData from "../data/plan.json";
 import type {Plan} from "../core/types";
 import {warn} from "../core/utils/logger";
 
+const CAN_FETCH_REMOTE_PLAN =
+  typeof window !== "undefined" && process.env.REMOTION_SOURCE_WATCH === "true";
+
 const fetchPlanJson = async (): Promise<Plan | null> => {
+  if (!CAN_FETCH_REMOTE_PLAN) {
+    return null;
+  }
   try {
     const response = await fetch(`/src/data/plan.json?cachebust=${Date.now()}`);
     if (!response.ok) {
@@ -22,6 +28,10 @@ export const useHotReloadPlan = (refreshKey = 0) => {
   useEffect(() => {
     let cancelled = false;
 
+    if (!CAN_FETCH_REMOTE_PLAN) {
+      return;
+    }
+
     const loadRemotePlan = async () => {
       const remotePlan = await fetchPlanJson();
       if (remotePlan && !cancelled) {
@@ -35,7 +45,9 @@ export const useHotReloadPlan = (refreshKey = 0) => {
 
     return () => {
       cancelled = true;
-      clearInterval(interval);
+      if (CAN_FETCH_REMOTE_PLAN) {
+        clearInterval(interval);
+      }
     };
   }, [refreshKey]);
 

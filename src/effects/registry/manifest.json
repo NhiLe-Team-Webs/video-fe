@@ -1,10 +1,99 @@
 {
   "gsap": [
-    {"id": "gsap-fade-in", "component": "GsapFadeInPrimitive", "tags": ["text", "universal"], "type": "text", "emotions": ["neutral", "calm"]},
-    {"id": "gsap-slide-up", "component": "GsapSlideUpPrimitive", "tags": ["text", "entry"], "type": "text", "emotions": ["inspiring"]},
-    {"id": "gsap-zoom-pop", "component": "GsapZoomPop", "tags": ["hero", "zoom"], "type": "hero", "emotions": ["inspiring", "fun"]},
-    {"id": "gsap-rotate-in", "component": "GsapRotateIn", "tags": ["icon", "rotate"], "type": "icon", "emotions": ["serious"]},
-    {"id": "gsap-bounce", "component": "GsapBounce", "tags": ["badge", "fun"], "type": "badge", "emotions": ["fun", "playful"]}
+    {
+      "id": "gsap-fade-in",
+      "component": "GsapFadeInPrimitive",
+      "tags": [
+        "text",
+        "universal"
+      ],
+      "type": "text",
+      "emotions": [
+        "neutral",
+        "calm"
+      ]
+    },
+    {
+      "id": "gsap-slide-up",
+      "component": "GsapSlideUpPrimitive",
+      "tags": [
+        "text",
+        "entry"
+      ],
+      "type": "text",
+      "emotions": [
+        "inspiring"
+      ]
+    },
+    {
+      "id": "gsap-zoom-pop",
+      "component": "GsapZoomPop",
+      "tags": [
+        "hero",
+        "zoom"
+      ],
+      "type": "hero",
+      "emotions": [
+        "inspiring",
+        "fun"
+      ]
+    },
+    {
+      "id": "gsap-rotate-in",
+      "component": "GsapRotateIn",
+      "tags": [
+        "icon",
+        "rotate"
+      ],
+      "type": "icon",
+      "emotions": [
+        "serious"
+      ]
+    },
+    {
+      "id": "gsap-bounce",
+      "component": "GsapBounce",
+      "tags": [
+        "badge",
+        "fun"
+      ],
+      "type": "badge",
+      "emotions": [
+        "fun",
+        "playful"
+      ]
+    }
   ],
-  "lottie": []
+  "lottie": [
+    {
+      "id": "confetti",
+      "path": "assets/library/animations/lottie/overlay/confetti.json",
+      "tags": [
+        "overlay",
+        "confetti"
+      ],
+      "type": "overlay",
+      "emotions": [
+        "overlay",
+        "confetti"
+      ],
+      "durationInFrames": 45,
+      "frameRate": 30
+    },
+    {
+      "id": "sparkle",
+      "path": "assets/library/animations/lottie/overlay/sparkle.json",
+      "tags": [
+        "overlay",
+        "sparkle"
+      ],
+      "type": "overlay",
+      "emotions": [
+        "overlay",
+        "sparkle"
+      ],
+      "durationInFrames": 60,
+      "frameRate": 30
+    }
+  ]
 }

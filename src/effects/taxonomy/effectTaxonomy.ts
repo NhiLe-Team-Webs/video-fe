@@ -254,6 +254,14 @@ export const effectTaxonomy: Record<
       intents: ["brand-callout", "intro", "platform"],
       defaultDuration: 2.5,
     },
+    {
+      key: "overlay.audioVisualizer",
+      label: "Audio Visualizer",
+      description: "Voice interaction waveform overlay with glowing spectrum and transcript label.",
+      category: EffectCategory.Overlay,
+      intents: ["audio", "voice", "ai-interface"],
+      defaultDuration: 2.5,
+    },
   ],
 };
 

@@ -5,8 +5,9 @@ import {SectionTitleOverlay} from "./SectionTitleOverlay";
 import {IconHighlight} from "./IconHighlight";
 import {SocialIconPop} from "./SocialIconPop";
 import {AppIntroLowerThird} from "./AppIntroLowerThird";
+import {AudioVisualizer} from "./AudioVisualizer";
 
-export {LowerThird, BadgePulse, SectionTitleOverlay, IconHighlight, SocialIconPop};
+export {LowerThird, BadgePulse, SectionTitleOverlay, IconHighlight, SocialIconPop, AppIntroLowerThird, AudioVisualizer};
 
 export const overlayEffectComponents: EffectComponentMap = {
   "overlay.lowerThird": LowerThird,
@@ -15,5 +16,6 @@ export const overlayEffectComponents: EffectComponentMap = {
   "overlay.iconHighlight": IconHighlight,
   "overlay.socialIconPop": SocialIconPop,
   "overlay.appIntro": AppIntroLowerThird,
+  "overlay.audioVisualizer": AudioVisualizer,
 };
 

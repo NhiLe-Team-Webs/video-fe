@@ -523,6 +523,28 @@
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/SocialIconPop",
     "version": "1.0.0"
+  },
+  "overlay.appIntro": {
+    "key": "overlay.appIntro",
+    "name": "App Intro Lower Third",
+    "category": "overlay",
+    "description": "Lower third with icon, name, tagline, and website link that slides up and shimmers.",
+    "tags": ["brand", "app", "intro"],
+    "mood": ["clean", "confident"],
+    "duration": 2.5,
+    "preview": "/previews/overlay-app-intro.mp4",
+    "props": [
+      {"name": "appName", "type": "string"},
+      {"name": "tagline", "type": "string"},
+      {"name": "link", "type": "string"},
+      {"name": "iconSrc", "type": "string"},
+      {"name": "colorTheme", "type": "color"},
+      {"name": "align", "type": "string", "description": "\"left\" or \"right\""},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/AppIntroLowerThird",
+    "version": "1.0.0"
   }
 }
 

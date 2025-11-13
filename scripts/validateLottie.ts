@@ -1,3 +1,7 @@
+import fs from "node:fs/promises";
+import path from "node:path";
+import {fileURLToPath} from "node:url";
+
 export type RawLottieAnimation = {
   v?: string;
   fr?: number;
@@ -172,6 +176,7 @@ export const validateLottie = (
 
 export type LottieRegistryEntry = {
   key: string;
+  id: string;
   name: string;
   category: string;
   sourcePath: string;
@@ -210,8 +215,10 @@ export const createRegistryEntry = ({
   validation: LottieValidationResult;
 }): LottieRegistryEntry => {
   const {metadata, warnings, errors, valid} = validation;
+  const derivedId = key.includes(".") ? key.split(".").slice(1).join(".") : key;
   return {
     key,
+    id: derivedId || slugify(key),
     name: metadata.name || slugify(key),
     category,
     sourcePath,
@@ -232,4 +239,66 @@ export const createRegistryEntry = ({
     updatedAt: new Date().toISOString(),
   };
 };
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const collectJsonFiles = async (target: string): Promise<string[]> => {
+  const stats = await fs.stat(target);
+  if (stats.isDirectory()) {
+    const entries = await fs.readdir(target, {withFileTypes: true});
+    const nested = await Promise.all(
+      entries.map((entry) => collectJsonFiles(path.join(target, entry.name)))
+    );
+    return nested.flat();
+  }
+  return target.toLowerCase().endsWith(".json") ? [target] : [];
+};
+
+const runCli = async () => {
+  const args = process.argv.slice(2);
+  const defaultDir = path.resolve(__dirname, "../public/assets/library/animations/lottie");
+  const targets = args.length ? args : [defaultDir];
+  const files = (await Promise.all(targets.map((target) => collectJsonFiles(target)))).flat();
+
+  if (!files.length) {
+    console.warn("⚠️  No Lottie JSON files to validate.");
+    return;
+  }
+
+  let hasErrors = false;
+  for (const file of files) {
+    try {
+      const raw = await fs.readFile(file, "utf-8");
+      const animation = JSON.parse(raw) as RawLottieAnimation;
+      const result = validateLottie(animation, raw);
+      const relative = path.relative(process.cwd(), file);
+      if (result.valid) {
+        console.log(`✅ ${relative} (${result.metadata.frameRate}fps, ${result.metadata.durationInFrames} frames)`);
+        if (result.warnings.length) {
+          result.warnings.forEach((warning) => console.warn(`   ⚠️  ${warning}`));
+        }
+      } else {
+        hasErrors = true;
+        console.error(`❌ ${relative}`);
+        result.errors.forEach((error) => console.error(`   - ${error}`));
+      }
+    } catch (error) {
+      hasErrors = true;
+      console.error(`❌ Failed to validate ${file}`, error);
+    }
+  }
+
+  if (hasErrors) {
+    process.exit(1);
+  }
+};
+
+if (process.argv[1] === __filename) {
+  runCli().catch((error) => {
+    console.error("Validate Lottie failed:", error);
+    process.exit(1);
+  });
+}
+
 

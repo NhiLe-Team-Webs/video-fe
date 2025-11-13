@@ -75,6 +75,15 @@ src/
 - `src/effects/hooks/useEffectByKey.ts` exposes a simple API: `const effect = useEffectByKey("text.popUp");` which returns `{Component, metadata}`.
 - `npm run effects:classify` validates taxonomy ↔ component ↔ metadata coverage and can backfill stub entries via `--write`.
 
+## 🎞 Lottie Intake Pipeline
+
+- Place any `.json` animations inside `public/assets/library/animations/lottie/<category>/`.
+- Run `npm run validate:lottie` to sanity-check structure, FPS, expressions, and asset references.
+- Run `npm run intake:lottie` to rebuild `src/effects/registry/lottieRegistry.json`.
+- Run `npm run manifest:lottie` (or `npm run generate:manifest`) to sync `src/effects/registry/manifest.json` so `useAnimationById` and previews can load the new assets.
+- `AnimationPreviewApp` and `LottieShowcase` automatically surface every valid Lottie entry from the registry.
+- Set `REMOTION_SOURCE_WATCH=true` when starting Remotion Studio if you want the legacy quick-reload watcher to poll `plan.json` / template files via HTTP; it is disabled by default to avoid 404 spam during renders.
+
 ## 🧩 Manifest Generator Roadmap
 
 The CLI (`scripts/generateEffectRegistry.ts`) already covers Feature 1 (basic scanning). Planned extensions (see `generateEffectRegistry.ts` comments) include metadata parsing, versioning, configurable filters, smart updates, and optional watcher mode.

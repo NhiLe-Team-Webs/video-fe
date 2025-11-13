@@ -19,7 +19,7 @@ const fetchHash = async (url: string) => {
 };
 
 const SHOULD_WATCH =
-  typeof window !== "undefined" && process.env.NODE_ENV !== "production";
+  typeof window !== "undefined" && process.env.REMOTION_SOURCE_WATCH === "true";
 
 export const useQuickReload = (sources: string[], intervalMs = 2000) => {
   const normalizedSources = useMemo(() => Array.from(new Set(sources)).filter(Boolean), [sources]);

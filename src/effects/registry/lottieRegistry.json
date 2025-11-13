@@ -1,2 +1,56 @@
-{}
-
+{
+  "overlay.confetti": {
+    "key": "overlay.confetti",
+    "id": "confetti",
+    "name": "Confetti Burst",
+    "category": "overlay",
+    "sourcePath": "public/assets/library/animations/lottie/overlay/confetti.json",
+    "publicPath": "assets/library/animations/lottie/overlay/confetti.json",
+    "frameRate": 30,
+    "durationInFrames": 45,
+    "durationInSeconds": 1.5,
+    "width": 512,
+    "height": 512,
+    "version": "5.7.4",
+    "layerCount": 1,
+    "assetCount": 0,
+    "markerCount": 0,
+    "valid": true,
+    "warnings": [
+      "No assets array found (pure vector animation)."
+    ],
+    "errors": [],
+    "tags": [
+      "overlay",
+      "confetti"
+    ],
+    "updatedAt": "2025-11-13T10:41:18.259Z"
+  },
+  "overlay.sparkle": {
+    "key": "overlay.sparkle",
+    "id": "sparkle",
+    "name": "Sparkle Pulse",
+    "category": "overlay",
+    "sourcePath": "public/assets/library/animations/lottie/overlay/sparkle.json",
+    "publicPath": "assets/library/animations/lottie/overlay/sparkle.json",
+    "frameRate": 30,
+    "durationInFrames": 60,
+    "durationInSeconds": 2,
+    "width": 512,
+    "height": 512,
+    "version": "5.7.4",
+    "layerCount": 1,
+    "assetCount": 0,
+    "markerCount": 0,
+    "valid": true,
+    "warnings": [
+      "No assets array found (pure vector animation)."
+    ],
+    "errors": [],
+    "tags": [
+      "overlay",
+      "sparkle"
+    ],
+    "updatedAt": "2025-11-13T10:41:18.261Z"
+  }
+}

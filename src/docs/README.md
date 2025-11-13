@@ -67,9 +67,9 @@ src/
    - Add `useLottieByKey` reading from `lottieRegistry.json` and returning `<LottieEffect />`.
 
 5. **Tooling Updates**
-   - `scripts/intakeLottie.ts` (future) reads `/public/assets/lottie`, validates using `scripts/validateLottie.ts`, writes `src/effects/registry/lottieRegistry.json`.
-   - `scripts/generateLottieManifest.ts` consumes the registry to produce `src/effects/registry/manifest.json`.
-   - Add `npm run intake:lottie` and `npm run manifest:lottie`.
+   - `npm run validate:lottie` wraps `scripts/validateLottie.ts` to lint all JSON.
+   - `npm run intake:lottie` executes `scripts/intakeLottie.ts`, rebuilding `src/effects/registry/lottieRegistry.json`.
+   - `npm run manifest:lottie` (or `npm run generate:manifest`) updates `src/effects/registry/manifest.json` so engines and preview apps see the new assets.
 
 6. **Preview & Docs**
    - Mount `LottiePreviewPanel` inside `preview/PreviewApp.tsx`.

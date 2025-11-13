@@ -1,4 +1,4 @@
-import {loadPlan} from "./loadPlan";
+import {loadPlan} from "../orchestrator/loadPlan";
 import {getFps} from "./utils/fpsControl";
 
 const bootstrapPlan = loadPlan();

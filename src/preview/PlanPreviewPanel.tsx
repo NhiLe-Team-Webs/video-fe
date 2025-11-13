@@ -2,7 +2,7 @@ import React, {useCallback, useMemo, useState} from "react";
 import {AbsoluteFill} from "remotion";
 import defaultPlan from "../data/plan.json";
 import type {Plan} from "../core/types";
-import {normalizePlan} from "../core/loadPlan";
+import {normalizePlan} from "../orchestrator/loadPlan";
 import {getFps} from "../core/utils/fpsControl";
 import {getTemplateById} from "../core/TemplateEngine";
 

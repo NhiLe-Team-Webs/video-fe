@@ -5,11 +5,11 @@ import {useTheme} from "../../core/hooks/useTheme";
 import type {LoadedPlan} from "../../core/types";
 import themeConfig from "./theme.json";
 import templateConfig from "./template.json";
-import {Background} from "../../library/components/Background";
-import {FadeIn} from "./effects/fadeIn";
-import {ZoomIn} from "./effects/zoomIn";
-import {SlideUp} from "./effects/slideUp";
-import {useAnimationById} from "../../library/animations/useAnimationById";
+import {Background} from "../../core/Background";
+import {FadeIn} from "../../effects/components/motion/FadeIn";
+import {ZoomIn} from "../../effects/components/motion/ZoomIn";
+import {SlideUp} from "../../effects/components/motion/SlideUp";
+import {useAnimationById} from "../../effects/engines/gsap/useAnimationById";
 
 type TemplateCompositionProps = {
   plan: LoadedPlan;

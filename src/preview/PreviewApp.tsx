@@ -3,7 +3,7 @@ import {AbsoluteFill} from "remotion";
 import {useHotReloadPlan} from "./useHotReloadPlan";
 import {TemplateSelector} from "./TemplateSelector";
 import {getTemplateById} from "../core/TemplateEngine";
-import {normalizePlan} from "../core/loadPlan";
+import {normalizePlan} from "../orchestrator/loadPlan";
 import {getFps} from "../core/utils/fpsControl";
 import {useQuickReload} from "./hooks/useQuickReload";
 
@@ -12,7 +12,7 @@ export const PreviewApp: React.FC = () => {
   const watchSources = useMemo(
     () => [
       "/src/data/plan.json",
-      "/src/library/animations/manifest.json",
+      "/src/effects/registry/manifest.json",
       `/src/templates/${templateId}/template.json`,
     ],
     [templateId]

@@ -33,7 +33,7 @@
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "render": "remotion render auto-video out/video.mp4",
-    "generate:manifest": "tsx scripts/generateManifest.ts",
+    "generate:manifest": "tsx scripts/generateEffectRegistry.ts",
     "effects:classify": "tsx scripts/classifyEffects.ts",
     "lint": "eslint src && tsc",
     "plan:test": "tsx src/core/testPlanLoader.ts"

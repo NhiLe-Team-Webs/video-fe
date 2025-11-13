@@ -1,11 +1,11 @@
 import {writeFileSync} from "node:fs";
 import path from "node:path";
-import effectsJson from "../src/data/effects.json";
-import {effectTaxonomy} from "../src/constants/effectTaxonomy";
-import {effectComponentMap} from "../src/components/effects";
+import effectsJson from "../src/effects/registry/effects.json";
+import {effectTaxonomy} from "../src/effects/taxonomy/effectTaxonomy";
+import {effectComponentMap} from "../src/effects/components";
 import {EffectKey, EffectRegistryRecord} from "../src/types/EffectTypes";
 
-const registryPath = path.resolve(__dirname, "../src/data/effects.json");
+const registryPath = path.resolve(__dirname, "../src/effects/registry/effects.json");
 const registry = effectsJson as Record<EffectKey, EffectRegistryRecord>;
 
 const taxonomyEntries = Object.values(effectTaxonomy).flat();
@@ -80,4 +80,3 @@ logList("Orphan registry entries", orphanRegistry);
 if (!shouldWrite) {
   console.log('\nPass "--write" to add stub metadata for missing keys.');
 }
-

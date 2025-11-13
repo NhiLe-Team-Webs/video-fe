@@ -5,11 +5,11 @@ import {useTheme} from "../../core/hooks/useTheme";
 import type {LoadedPlan} from "../../core/types";
 import themeConfig from "./theme.json";
 import templateConfig from "./template.json";
-import {Background} from "../../library/components/Background";
-import {FadeIn as BaseFadeIn} from "../template0/effects/fadeIn";
-import {ZoomIn as BaseZoomIn} from "../template0/effects/zoomIn";
-import {SlideUp as BaseSlideUp} from "../template0/effects/slideUp";
-import {useAnimationById} from "../../library/animations/useAnimationById";
+import {Background} from "../../core/Background";
+import {FadeIn as BaseFadeIn} from "../../effects/components/motion/FadeIn";
+import {ZoomIn as BaseZoomIn} from "../../effects/components/motion/ZoomIn";
+import {SlideUp as BaseSlideUp} from "../../effects/components/motion/SlideUp";
+import {useAnimationById} from "../../effects/engines/gsap/useAnimationById";
 
 const effects = {
   fadeIn: BaseFadeIn,

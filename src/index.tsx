@@ -66,4 +66,7 @@ export const RemotionRoot: React.FC = () => (
   </>
 );
 
-registerRoot(RemotionRoot);
+if (!(globalThis as {__remotionRootRegistered?: boolean}).__remotionRootRegistered) {
+  registerRoot(RemotionRoot);
+  (globalThis as {__remotionRootRegistered?: boolean}).__remotionRootRegistered = true;
+}

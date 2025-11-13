@@ -545,6 +545,27 @@
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/AppIntroLowerThird",
     "version": "1.0.0"
+  },
+  "overlay.audioVisualizer": {
+    "key": "overlay.audioVisualizer",
+    "name": "Audio Visualizer",
+    "category": "overlay",
+    "description": "Animated audio waveform overlay with glowing label and transcript cues.",
+    "tags": ["audio", "voice", "ai"],
+    "mood": ["dynamic", "tech"],
+    "duration": 2.5,
+    "preview": "/previews/overlay-audio-visualizer.mp4",
+    "props": [
+      {"name": "caption", "type": "string"},
+      {"name": "voiceLabel", "type": "string"},
+      {"name": "colorTheme", "type": "color"},
+      {"name": "accentColor", "type": "color"},
+      {"name": "align", "type": "string"},
+      {"name": "audioId", "type": "string"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/AudioVisualizer",
+    "version": "1.0.0"
   }
 }
-

@@ -6,6 +6,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import {useAudioData, visualizeAudio} from "@remotion/media-utils";
+import {noise3D} from "@remotion/noise";
 
 export type AudioVisualizerProps = {
   caption?: string;
@@ -112,8 +113,46 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
           opacity,
           display: "flex",
           justifyContent: "center",
+          position: "relative",
         }}
       >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(circle at 40% 40%, rgba(255,255,255,0.12), transparent 65%)`,
+            mixBlendMode: "screen",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `rgba(0,0,0,0)`,
+          }}
+        >
+          {Array.from({length: 16}).map((_, idx) => {
+            const noiseValue = noise3D(frame / 40, idx / 6, 0);
+            const opacity = 0.02 + Math.abs(noiseValue) * 0.08;
+            const blur = 18 + Math.abs(noiseValue) * 12;
+            return (
+              <div
+                key={`noise-${idx}`}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: `radial-gradient(circle at ${Math.sin(
+                    frame / 40 + idx
+                  ) * 50 + 50}% ${Math.cos(frame / 40 + idx) * 40 + 50}%, rgba(255,255,255,${opacity}), transparent 60%)`,
+                  filter: `blur(${blur}px)`,
+                  opacity,
+                  mixBlendMode: "screen",
+                }}
+              />
+            );
+          })}
+        </div>
         <svg
           width="100%"
           height={waveformHeight}

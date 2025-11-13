@@ -4,7 +4,7 @@ import rawPlan from "../data/plan.json";
 import type {Plan} from "../core/types";
 import {templateManifest} from "../core/utils/manifest";
 import {getTemplateById} from "../core/TemplateEngine";
-import {normalizePlan} from "../core/loadPlan";
+import {normalizePlan} from "../orchestrator/loadPlan";
 import {getFps} from "../core/utils/fpsControl";
 
 const DEFAULT_WIDTH = 1920;

@@ -12,7 +12,7 @@
   - `template-preview`: swap templates, tweak FPS/resolution, edit plan JSON inline.
   - `plan-preview`: drag‑and‑drop plan files or load from URL and see a timeline of segments.
 - **Quick Reload & Debug Overlay** – File watchers refresh previews, with on-screen toasts and per-frame debug info (active segment, animation, emotion, SFX). Toggle overlay via `D` or `Ctrl+D`.
-- **Manifest Generator** – `npm run generate:manifest` scans `/src/library`, extracts metadata, and rewrites `manifest.json` for backend sync. Tag/type/emotion fields are ready for AI selection heuristics.
+- **Manifest Generator** – `npm run generate:manifest` scans `/src/effects`, extracts metadata, and rewrites `manifest.json` for backend sync. Tag/type/emotion fields are ready for AI selection heuristics.
 
 ## 🚀 Getting Started
 
@@ -48,31 +48,36 @@ npm run render
 src/
  ├─ core/
  │   ├─ CompositionBuilder.tsx       # Handles timeline + animations per segment
- │   ├─ context/DebugContext.tsx     # Debug overlay state & hotkeys
- │   └─ components/DebugPanel.tsx    # Overlay UI
- ├─ library/
- │   ├─ animations/                  # GSAP & Lottie implementations
- │   ├─ animations/manifest.json     # Unified metadata for effects
- │   └─ manifest.json                # Generated asset manifest
- ├─ preview/                         # Remotion preview panels
+ │   ├─ layers/                      # Video/Text/Transition overlay primitives
+ │   └─ context/DebugContext.tsx     # Debug overlay state & hotkeys
+ ├─ effects/
+ │   ├─ taxonomy/                    # Naming schema & enums (Module 1)
+ │   ├─ registry/                    # effects.json + lottie/manifest data
+ │   ├─ engines/                     # GSAP + Lottie primitives
+ │   ├─ components/                  # Category-specific reusable effects
+ │   └─ hooks/                       # useEffectByKey, future loaders
+ ├─ preview/                         # Remotion preview panels + galleries
  │   ├─ TemplatePreviewPanel.tsx
  │   ├─ PlanPreviewPanel.tsx
  │   └─ hooks/useQuickReload.ts
+ ├─ orchestrator/                    # Plan loader + runtime resolver
+ │   ├─ loadPlan.ts                  # Normalizes plan JSON + FPS
+ │   └─ PlanOrchestrator.tsx         # Entry composition
  └─ templates/
      └─ template{0,1,2}/             # Template compositions, themes, rules
 ```
 
 ## 🧠 Effect Taxonomy Layer
 
-- `src/constants/effectCategories.ts` + `effectTaxonomy.ts` define the canonical naming schema (`category.effectName`) and make keys type-safe.
-- `src/components/effects/` holds reusable Remotion-ready building blocks organized by category with their own indexes for tree-shaking.
-- `src/data/effects.json` is the metadata registry consumed by resolvers, galleries, and backend tooling.
-- `src/hooks/useEffectByKey.ts` exposes a simple API: `const effect = useEffectByKey("text.popUp");` which returns `{Component, metadata}`.
+- `src/effects/taxonomy/effectCategories.ts` + `effectTaxonomy.ts` define the canonical naming schema (`category.effectName`) and make keys type-safe.
+- `src/effects/components/` holds reusable Remotion-ready building blocks organized by category with their own indexes for tree-shaking.
+- `src/effects/registry/effects.json` is the metadata registry consumed by resolvers, galleries, and backend tooling.
+- `src/effects/hooks/useEffectByKey.ts` exposes a simple API: `const effect = useEffectByKey("text.popUp");` which returns `{Component, metadata}`.
 - `npm run effects:classify` validates taxonomy ↔ component ↔ metadata coverage and can backfill stub entries via `--write`.
 
 ## 🧩 Manifest Generator Roadmap
 
-The CLI (`scripts/generateManifest.ts`) already covers Feature 1 (basic scanning). Planned extensions (see `generateManifest.ts` comments) include metadata parsing, versioning, configurable filters, smart updates, and optional watcher mode.
+The CLI (`scripts/generateEffectRegistry.ts`) already covers Feature 1 (basic scanning). Planned extensions (see `generateEffectRegistry.ts` comments) include metadata parsing, versioning, configurable filters, smart updates, and optional watcher mode.
 
 ## 🤝 Contributing
 

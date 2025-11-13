@@ -1,9 +1,9 @@
 import {Composition, getInputProps, registerRoot} from "remotion";
-import {Orchestrator} from "./core/Orchestrator";
-import {loadPlan} from "./core/loadPlan";
+import {PlanOrchestrator} from "./orchestrator/PlanOrchestrator";
+import {loadPlan} from "./orchestrator/loadPlan";
 import {getFps} from "./core/utils/fpsControl";
 import {PreviewApp} from "./preview";
-import {AnimationPreviewApp} from "./library/animations/AnimationPreviewApp";
+import {AnimationPreviewApp} from "./effects/preview/LottiePreviewPanel";
 import {TemplatePreviewPanel} from "./preview/TemplatePreviewPanel";
 import {PlanPreviewPanel} from "./preview/PlanPreviewPanel";
 import {totalFrames} from "./core/utils/frameUtils";
@@ -57,7 +57,7 @@ export const RemotionRoot: React.FC = () => (
     {!isDevMode ? (
       <Composition
         id="auto-video"
-        component={Orchestrator}
+        component={PlanOrchestrator}
         durationInFrames={plan.durationInFrames}
         fps={initialFps}
         width={PREVIEW_WIDTH}

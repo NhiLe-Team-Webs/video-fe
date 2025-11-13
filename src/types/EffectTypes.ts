@@ -1,5 +1,5 @@
 import {ComponentType} from "react";
-import {EffectCategory} from "../constants/effectCategories";
+import {EffectCategory} from "../effects/taxonomy/effectCategories";
 
 export type EffectKey = `${EffectCategory}.${string}`;
 

@@ -1,0 +1,14 @@
+{
+  "gsap": [
+    {"id": "gsap-fade-in", "component": "GsapFadeInPrimitive", "tags": ["text", "universal"], "type": "text", "emotions": ["neutral", "calm"]},
+    {"id": "gsap-slide-up", "component": "GsapSlideUpPrimitive", "tags": ["text", "entry"], "type": "text", "emotions": ["inspiring"]},
+    {"id": "gsap-zoom-pop", "component": "GsapZoomPop", "tags": ["hero", "zoom"], "type": "hero", "emotions": ["inspiring", "fun"]},
+    {"id": "gsap-rotate-in", "component": "GsapRotateIn", "tags": ["icon", "rotate"], "type": "icon", "emotions": ["serious"]},
+    {"id": "gsap-bounce", "component": "GsapBounce", "tags": ["badge", "fun"], "type": "badge", "emotions": ["fun", "playful"]}
+  ],
+  "lottie": [
+    {"id": "sparkle", "path": "library/animations/lottie/sparkle.json", "tags": ["bg", "sparkle"], "type": "overlay", "emotions": ["inspiring"]},
+    {"id": "confetti", "path": "library/animations/lottie/confetti.json", "tags": ["celebration"], "type": "overlay", "emotions": ["fun"]},
+    {"id": "emoji_pop", "path": "library/animations/lottie/emoji_pop.json", "tags": ["emoji"], "type": "overlay", "emotions": ["playful"]}
+  ]
+}

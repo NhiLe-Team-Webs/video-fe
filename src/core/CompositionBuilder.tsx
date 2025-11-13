@@ -1,15 +1,15 @@
 import React, {Fragment} from "react";
 import {AbsoluteFill, Series} from "remotion";
-import {VideoLayer} from "./components/VideoLayer";
-import {TextLayer} from "./components/TextLayer";
+import {VideoLayer} from "./layers/VideoLayer";
+import {TextLayer} from "./layers/TextLayer";
 import type {LoadedPlan, NormalizedSegment} from "./types";
 import type {Theme} from "./hooks/useTheme";
-import {AudioLayer} from "../library/components/AudioLayer";
-import {Overlay} from "../library/components/Overlay";
-import {FrameIndicator} from "./components/FrameIndicator";
-import {DebugPanel} from "./components/DebugPanel";
+import {AudioLayer} from "./AudioLayer";
+import {Overlay} from "./Overlay";
+import {FrameIndicator} from "./layers/FrameIndicator";
+import {DebugPanel} from "./layers/DebugPanel";
 import {DebugProvider} from "./context/DebugContext";
-import type {AnimationResolver} from "../library/animations/useAnimationById";
+import type {AnimationResolver} from "../effects/engines/gsap/useAnimationById";
 
 type TemplateRules = Record<string, string>;
 

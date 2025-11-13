@@ -2,20 +2,21 @@ import React from "react";
 import {AbsoluteFill, useCurrentFrame, useVideoConfig} from "remotion";
 
 export type TypeOnCaptionProps = {
-  text: string;
+  text?: string;
   caret?: boolean;
   color?: string;
 };
 
 export const TypeOnCaption: React.FC<TypeOnCaptionProps> = ({
-  text,
+  text = "Type on caption",
   caret = true,
   color = "#ffffff",
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
+  const safeText = text ?? "";
   const charsPerSecond = 12;
-  const visibleChars = Math.min(text.length, Math.floor((frame / fps) * charsPerSecond));
+  const visibleChars = Math.min(safeText.length, Math.floor((frame / fps) * charsPerSecond));
 
   return (
     <AbsoluteFill
@@ -29,7 +30,7 @@ export const TypeOnCaption: React.FC<TypeOnCaptionProps> = ({
       }}
     >
       <span>
-        {text.slice(0, visibleChars)}
+        {safeText.slice(0, visibleChars)}
         {caret && <span style={{opacity: frame % 30 < 15 ? 1 : 0}}>▋</span>}
       </span>
     </AbsoluteFill>

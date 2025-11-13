@@ -30,6 +30,14 @@ export const effectTaxonomy: Record<
       intents: ["emphasis", "data-point"],
       defaultDuration: 1,
     },
+    {
+      key: "text.popUp3D",
+      label: "3D Pop-Up Text",
+      description: "Sit-up / lay-down 3D text animation for bold hooks.",
+      category: EffectCategory.Text,
+      intents: ["hook", "cta", "hero"],
+      defaultDuration: 1.5,
+    },
   ],
   [EffectCategory.Motion]: [
     {

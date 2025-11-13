@@ -78,6 +78,14 @@ export const effectTaxonomy: Record<
       intents: ["curriculum", "process", "chapter-break"],
       defaultDuration: 3,
     },
+    {
+      key: "text.centralConcept",
+      label: "Central Concept Map",
+      description: "Circular concept map with a bold core idea and orbiting sub-topics.",
+      category: EffectCategory.Text,
+      intents: ["concept-map", "structure"],
+      defaultDuration: 2.8,
+    },
   ],
   [EffectCategory.Motion]: [
     {

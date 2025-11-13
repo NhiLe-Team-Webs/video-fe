@@ -4,14 +4,31 @@
     "name": "Pop Up Title",
     "category": "text",
     "description": "Punch-in badge for hooks, CTA and emphasis titles.",
-    "tags": ["hook", "cta", "emphasis"],
-    "mood": ["bold", "energetic"],
+    "tags": [
+      "hook",
+      "cta",
+      "emphasis"
+    ],
+    "mood": [
+      "bold",
+      "energetic"
+    ],
     "duration": 1.2,
     "preview": "/previews/text-pop-up.mp4",
     "props": [
-      {"name": "text", "type": "string", "required": true},
-      {"name": "accentColor", "type": "color"},
-      {"name": "delayFrames", "type": "number"}
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "accentColor",
+        "type": "color"
+      },
+      {
+        "name": "delayFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/PopUpTitle",
@@ -22,14 +39,31 @@
     "name": "Type-On Caption",
     "category": "text",
     "description": "Typewriter subtitle effect with blinking caret.",
-    "tags": ["subtitle", "quote", "narration"],
-    "mood": ["clean", "documentary"],
+    "tags": [
+      "subtitle",
+      "quote",
+      "narration"
+    ],
+    "mood": [
+      "clean",
+      "documentary"
+    ],
     "duration": 2,
     "preview": "/previews/text-type-on.mp4",
     "props": [
-      {"name": "text", "type": "string", "required": true},
-      {"name": "caret", "type": "boolean"},
-      {"name": "color", "type": "color"}
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "caret",
+        "type": "boolean"
+      },
+      {
+        "name": "color",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/TypeOnCaption",
@@ -40,13 +74,26 @@
     "name": "Swipe Highlight",
     "category": "text",
     "description": "Color swipe highlights the hero words.",
-    "tags": ["emphasis", "data-point"],
-    "mood": ["dynamic", "tech"],
+    "tags": [
+      "emphasis",
+      "data-point"
+    ],
+    "mood": [
+      "dynamic",
+      "tech"
+    ],
     "duration": 1,
     "preview": "/previews/text-swipe-highlight.mp4",
     "props": [
-      {"name": "text", "type": "string", "required": true},
-      {"name": "highlightColor", "type": "color"}
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "highlightColor",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/SwipeHighlight",
@@ -57,15 +104,36 @@
     "name": "Keyword Subtitle Highlight",
     "category": "text",
     "description": "Fade-in subtitle with a glowing underline that sweeps across keywords.",
-    "tags": ["subtitle", "highlight", "keyword"],
-    "mood": ["energetic", "guided"],
+    "tags": [
+      "subtitle",
+      "highlight",
+      "keyword"
+    ],
+    "mood": [
+      "energetic",
+      "guided"
+    ],
     "duration": 1.8,
     "preview": "/previews/text-keyword-subtitle-highlight.mp4",
     "props": [
-      {"name": "text", "type": "string", "required": true},
-      {"name": "keywords", "type": "string", "description": "Comma-separated keywords or JSON array used to drive the underline."},
-      {"name": "accentColor", "type": "color"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "keywords",
+        "type": "string",
+        "description": "Comma-separated keywords or JSON array used to drive the underline."
+      },
+      {
+        "name": "accentColor",
+        "type": "color"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/KeywordSubtitleHighlight",
@@ -76,16 +144,41 @@
     "name": "Keyword Color Highlight",
     "category": "text",
     "description": "Keyword words flash into color with gradient glow shimmer.",
-    "tags": ["subtitle", "keyword", "glow"],
-    "mood": ["energetic", "impact"],
+    "tags": [
+      "subtitle",
+      "keyword",
+      "glow"
+    ],
+    "mood": [
+      "energetic",
+      "impact"
+    ],
     "duration": 1.8,
     "preview": "/previews/text-keyword-color-highlight.mp4",
     "props": [
-      {"name": "text", "type": "string", "required": true},
-      {"name": "keywords", "type": "string", "description": "Comma-separated keywords for the color flash."},
-      {"name": "highlightColors", "type": "string", "description": "JSON array of highlight colors."},
-      {"name": "baseColor", "type": "color"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "keywords",
+        "type": "string",
+        "description": "Comma-separated keywords for the color flash."
+      },
+      {
+        "name": "highlightColors",
+        "type": "string",
+        "description": "JSON array of highlight colors."
+      },
+      {
+        "name": "baseColor",
+        "type": "color"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/KeywordColorHighlight",
@@ -96,15 +189,34 @@
     "name": "3D Pop-Up Text",
     "category": "text",
     "description": "Sit-up / lay-down 3D text for bold hooks and emphasis lines.",
-    "tags": ["hook", "hero", "cta"],
-    "mood": ["bold", "dramatic"],
+    "tags": [
+      "hook",
+      "hero",
+      "cta"
+    ],
+    "mood": [
+      "bold",
+      "dramatic"
+    ],
     "duration": 1.5,
     "preview": "/previews/text-pop-up-3d.mp4",
     "props": [
-      {"name": "text", "type": "string"},
-      {"name": "subtitle", "type": "string"},
-      {"name": "color", "type": "color"},
-      {"name": "accent", "type": "color"}
+      {
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "name": "color",
+        "type": "color"
+      },
+      {
+        "name": "accent",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/PopUp3DText",
@@ -115,15 +227,35 @@
     "name": "Side Float Text",
     "category": "text",
     "description": "Soft drift + fade animation for supporting labels on left/right edges.",
-    "tags": ["supporting-text", "callout", "side"],
-    "mood": ["calm", "elegant"],
+    "tags": [
+      "supporting-text",
+      "callout",
+      "side"
+    ],
+    "mood": [
+      "calm",
+      "elegant"
+    ],
     "duration": 1.8,
     "preview": "/previews/text-side-float.mp4",
     "props": [
-      {"name": "text", "type": "string"},
-      {"name": "side", "type": "string", "description": "\"left\" or \"right\""},
-      {"name": "color", "type": "color"},
-      {"name": "accent", "type": "color"}
+      {
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "name": "side",
+        "type": "string",
+        "description": "\"left\" or \"right\""
+      },
+      {
+        "name": "color",
+        "type": "color"
+      },
+      {
+        "name": "accent",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/SideFloatText",
@@ -134,14 +266,29 @@
     "name": "Side Float Text (Left)",
     "category": "text",
     "description": "Left-aligned supporting label that drifts into frame then fades out.",
-    "tags": ["supporting-text", "callout", "left"],
-    "mood": ["calm"],
+    "tags": [
+      "supporting-text",
+      "callout",
+      "left"
+    ],
+    "mood": [
+      "calm"
+    ],
     "duration": 1.8,
     "preview": "/previews/text-side-float-left.mp4",
     "props": [
-      {"name": "text", "type": "string"},
-      {"name": "color", "type": "color"},
-      {"name": "accent", "type": "color"}
+      {
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "name": "color",
+        "type": "color"
+      },
+      {
+        "name": "accent",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/SideFloatText",
@@ -152,14 +299,29 @@
     "name": "Side Float Text (Right)",
     "category": "text",
     "description": "Right-aligned supporting label that drifts into frame then fades out.",
-    "tags": ["supporting-text", "callout", "right"],
-    "mood": ["calm"],
+    "tags": [
+      "supporting-text",
+      "callout",
+      "right"
+    ],
+    "mood": [
+      "calm"
+    ],
     "duration": 1.8,
     "preview": "/previews/text-side-float-right.mp4",
     "props": [
-      {"name": "text", "type": "string"},
-      {"name": "color", "type": "color"},
-      {"name": "accent", "type": "color"}
+      {
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "name": "color",
+        "type": "color"
+      },
+      {
+        "name": "accent",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/SideFloatText",
@@ -170,15 +332,34 @@
     "name": "Sequential List Reveal",
     "category": "text",
     "description": "Stacked list that zooms/fades each entry sequentially from top to bottom.",
-    "tags": ["list", "sequence", "callout"],
-    "mood": ["informative"],
+    "tags": [
+      "list",
+      "sequence",
+      "callout"
+    ],
+    "mood": [
+      "informative"
+    ],
     "duration": 2.5,
     "preview": "/previews/text-sequential-list.mp4",
     "props": [
-      {"name": "items", "type": "string", "description": "Array of strings in template data"},
-      {"name": "color", "type": "color"},
-      {"name": "accent", "type": "color"},
-      {"name": "align", "type": "string"}
+      {
+        "name": "items",
+        "type": "string",
+        "description": "Array of strings in template data"
+      },
+      {
+        "name": "color",
+        "type": "color"
+      },
+      {
+        "name": "accent",
+        "type": "color"
+      },
+      {
+        "name": "align",
+        "type": "string"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/SequentialListReveal",
@@ -189,20 +370,39 @@
     "name": "Step Breakdown Transition",
     "category": "text",
     "description": "Topic overview with slash list and spotlight card per step.",
-    "tags": ["process", "curriculum", "roadmap"],
-    "mood": ["structured", "educational"],
+    "tags": [
+      "process",
+      "curriculum",
+      "roadmap"
+    ],
+    "mood": [
+      "structured",
+      "educational"
+    ],
     "duration": 3,
     "preview": "/previews/text-step-breakdown.mp4",
     "props": [
-      {"name": "topic", "type": "string"},
+      {
+        "name": "topic",
+        "type": "string"
+      },
       {
         "name": "steps",
         "type": "string",
         "description": "Array of {title, description} entries pulled from plan data."
       },
-      {"name": "accentColor", "type": "color"},
-      {"name": "backgroundColor", "type": "color"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "accentColor",
+        "type": "color"
+      },
+      {
+        "name": "backgroundColor",
+        "type": "color"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/StepBreakdownTransition",
@@ -213,17 +413,43 @@
     "name": "Central Concept Map",
     "category": "text",
     "description": "Circular concept map that draws a dashed ring and orbits related topics.",
-    "tags": ["concept", "structure", "mind-map"],
-    "mood": ["informative", "bold"],
+    "tags": [
+      "concept",
+      "structure",
+      "mind-map"
+    ],
+    "mood": [
+      "informative",
+      "bold"
+    ],
     "duration": 2.8,
     "preview": "/previews/text-central-concept.mp4",
     "props": [
-      {"name": "centralLabel", "type": "string"},
-      {"name": "nodes", "type": "string", "description": "Array of {label} entries from plan data."},
-      {"name": "accentColor", "type": "color"},
-      {"name": "backgroundColor", "type": "color"},
-      {"name": "textColor", "type": "color"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "centralLabel",
+        "type": "string"
+      },
+      {
+        "name": "nodes",
+        "type": "string",
+        "description": "Array of {label} entries from plan data."
+      },
+      {
+        "name": "accentColor",
+        "type": "color"
+      },
+      {
+        "name": "backgroundColor",
+        "type": "color"
+      },
+      {
+        "name": "textColor",
+        "type": "color"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/text/CentralConceptMap",
@@ -234,12 +460,20 @@
     "name": "Zoom Focus",
     "category": "motion",
     "description": "Camera punch-in for emphasis beats.",
-    "tags": ["transition", "emphasis"],
-    "mood": ["energetic"],
+    "tags": [
+      "transition",
+      "emphasis"
+    ],
+    "mood": [
+      "energetic"
+    ],
     "duration": 0.8,
     "preview": "/previews/motion-zoom-focus.mp4",
     "props": [
-      {"name": "focus", "type": "number"}
+      {
+        "name": "focus",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "base",
     "componentPath": "src/effects/components/motion/ZoomFocus",
@@ -250,12 +484,20 @@
     "name": "Slide Pan",
     "category": "motion",
     "description": "Slide translation for transitional beats.",
-    "tags": ["transition", "b-roll"],
-    "mood": ["smooth"],
+    "tags": [
+      "transition",
+      "b-roll"
+    ],
+    "mood": [
+      "smooth"
+    ],
     "duration": 1.5,
     "preview": "/previews/motion-slide-pan.mp4",
     "props": [
-      {"name": "direction", "type": "string"}
+      {
+        "name": "direction",
+        "type": "string"
+      }
     ],
     "recommendedLayer": "base",
     "componentPath": "src/effects/components/motion/SlidePan",
@@ -266,12 +508,21 @@
     "name": "Hero Fade-In",
     "category": "motion",
     "description": "Soft opacity fade for scene openers and transitions.",
-    "tags": ["transition", "intro"],
-    "mood": ["calm", "neutral"],
+    "tags": [
+      "transition",
+      "intro"
+    ],
+    "mood": [
+      "calm",
+      "neutral"
+    ],
     "duration": 1,
     "preview": "/previews/motion-fade-in.mp4",
     "props": [
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/motion/FadeIn",
@@ -282,12 +533,22 @@
     "name": "Slide Up Reveal",
     "category": "motion",
     "description": "Vertical slide plus opacity reveal for text or media cards.",
-    "tags": ["reveal", "text", "entry"],
-    "mood": ["energetic", "bold"],
+    "tags": [
+      "reveal",
+      "text",
+      "entry"
+    ],
+    "mood": [
+      "energetic",
+      "bold"
+    ],
     "duration": 1,
     "preview": "/previews/motion-slide-up.mp4",
     "props": [
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/motion/SlideUp",
@@ -298,12 +559,20 @@
     "name": "Zoom In Pulse",
     "category": "motion",
     "description": "Subtle scale punch-in for emphasis moments.",
-    "tags": ["emphasis", "hero"],
-    "mood": ["bold"],
+    "tags": [
+      "emphasis",
+      "hero"
+    ],
+    "mood": [
+      "bold"
+    ],
     "duration": 1,
     "preview": "/previews/motion-zoom-in.mp4",
     "props": [
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/motion/ZoomIn",
@@ -314,15 +583,34 @@
     "name": "Camera Zoom Focus",
     "category": "motion",
     "description": "Dynamic punch-in / punch-out to emphasize the speaker.",
-    "tags": ["camera", "zoom", "focus"],
-    "mood": ["intense", "spotlight"],
+    "tags": [
+      "camera",
+      "zoom",
+      "focus"
+    ],
+    "mood": [
+      "intense",
+      "spotlight"
+    ],
     "duration": 2,
     "preview": "/previews/motion-camera-zoom-focus.mp4",
     "props": [
-      {"name": "durationInFrames", "type": "number"},
-      {"name": "focus", "type": "number"},
-      {"name": "offsetX", "type": "number"},
-      {"name": "offsetY", "type": "number"}
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      },
+      {
+        "name": "focus",
+        "type": "number"
+      },
+      {
+        "name": "offsetX",
+        "type": "number"
+      },
+      {
+        "name": "offsetY",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "base",
     "componentPath": "src/effects/components/motion/CameraZoomFocus",
@@ -333,14 +621,30 @@
     "name": "Stat Card Flip",
     "category": "chart",
     "description": "3D flip stat card for hero metrics.",
-    "tags": ["metric", "kpi"],
-    "mood": ["bold"],
+    "tags": [
+      "metric",
+      "kpi"
+    ],
+    "mood": [
+      "bold"
+    ],
     "duration": 1.2,
     "preview": "/previews/chart-stat-card.mp4",
     "props": [
-      {"name": "label", "type": "string", "required": true},
-      {"name": "value", "type": "string", "required": true},
-      {"name": "delta", "type": "string"}
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "delta",
+        "type": "string"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/chart/StatCard",
@@ -351,12 +655,21 @@
     "name": "Timeline Reveal",
     "category": "chart",
     "description": "Roadmap timeline draws progressively.",
-    "tags": ["roadmap", "process"],
-    "mood": ["narrative"],
+    "tags": [
+      "roadmap",
+      "process"
+    ],
+    "mood": [
+      "narrative"
+    ],
     "duration": 2.4,
     "preview": "/previews/chart-timeline-reveal.mp4",
     "props": [
-      {"name": "items", "type": "string", "description": "Array of timeline steps in template data."}
+      {
+        "name": "items",
+        "type": "string",
+        "description": "Array of timeline steps in template data."
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/chart/TimelineReveal",
@@ -367,18 +680,47 @@
     "name": "Data Visualization Reveal",
     "category": "chart",
     "description": "Line chart animation with axes draw, dual series, and point callouts.",
-    "tags": ["reporting", "trend", "comparison"],
-    "mood": ["analytical", "confident"],
+    "tags": [
+      "reporting",
+      "trend",
+      "comparison"
+    ],
+    "mood": [
+      "analytical",
+      "confident"
+    ],
     "duration": 2.8,
     "preview": "/previews/chart-data-reveal.mp4",
     "props": [
-      {"name": "points", "type": "string", "description": "Array of {label, primary, secondary} data points."},
-      {"name": "backgroundColor", "type": "color"},
-      {"name": "gridColor", "type": "color"},
-      {"name": "primaryColor", "type": "color"},
-      {"name": "secondaryColor", "type": "color"},
-      {"name": "showSecondary", "type": "boolean"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "points",
+        "type": "string",
+        "description": "Array of {label, primary, secondary} data points."
+      },
+      {
+        "name": "backgroundColor",
+        "type": "color"
+      },
+      {
+        "name": "gridColor",
+        "type": "color"
+      },
+      {
+        "name": "primaryColor",
+        "type": "color"
+      },
+      {
+        "name": "secondaryColor",
+        "type": "color"
+      },
+      {
+        "name": "showSecondary",
+        "type": "boolean"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "foreground",
     "componentPath": "src/effects/components/chart/DataVisualizationReveal",
@@ -389,14 +731,32 @@
     "name": "Branch Tree Expansion",
     "category": "chart",
     "description": "Flowchart branches draw out from the root while nodes fade and slide into place.",
-    "tags": ["flowchart", "strategy", "structure"],
-    "mood": ["guided", "calm"],
+    "tags": [
+      "flowchart",
+      "strategy",
+      "structure"
+    ],
+    "mood": [
+      "guided",
+      "calm"
+    ],
     "duration": 3,
     "preview": "/previews/chart-branch-tree.mp4",
     "props": [
-      {"name": "tree", "type": "string", "description": "JSON tree that defines node labels, colors, and children."},
-      {"name": "accentColor", "type": "color", "description": "Accent for nodes and connector glow."},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "tree",
+        "type": "string",
+        "description": "JSON tree that defines node labels, colors, and children."
+      },
+      {
+        "name": "accentColor",
+        "type": "color",
+        "description": "Accent for nodes and connector glow."
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/chart/BranchTreeExpansion",
@@ -407,12 +767,20 @@
     "name": "Gradient Pulse",
     "category": "background",
     "description": "Ambient gradient wash for base plates.",
-    "tags": ["ambient", "loop"],
-    "mood": ["calm"],
+    "tags": [
+      "ambient",
+      "loop"
+    ],
+    "mood": [
+      "calm"
+    ],
     "duration": 3,
     "preview": "/previews/background-gradient-pulse.mp4",
     "props": [
-      {"name": "colors", "type": "string"}
+      {
+        "name": "colors",
+        "type": "string"
+      }
     ],
     "recommendedLayer": "base",
     "componentPath": "src/effects/components/background/GradientPulse",
@@ -423,13 +791,24 @@
     "name": "Particle Field",
     "category": "background",
     "description": "Soft particle drift for depth & tech vibes.",
-    "tags": ["ambient", "tech"],
-    "mood": ["futuristic"],
+    "tags": [
+      "ambient",
+      "tech"
+    ],
+    "mood": [
+      "futuristic"
+    ],
     "duration": 4,
     "preview": "/previews/background-particle-field.mp4",
     "props": [
-      {"name": "count", "type": "number"},
-      {"name": "color", "type": "color"}
+      {
+        "name": "count",
+        "type": "number"
+      },
+      {
+        "name": "color",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "base",
     "componentPath": "src/effects/components/background/ParticleField",
@@ -440,14 +819,29 @@
     "name": "Lower Third",
     "category": "overlay",
     "description": "Presenter ID badge with accent bar.",
-    "tags": ["speaker", "cta"],
-    "mood": ["professional"],
+    "tags": [
+      "speaker",
+      "cta"
+    ],
+    "mood": [
+      "professional"
+    ],
     "duration": 1.5,
     "preview": "/previews/overlay-lower-third.mp4",
     "props": [
-      {"name": "title", "type": "string", "required": true},
-      {"name": "subtitle", "type": "string"},
-      {"name": "accentColor", "type": "color"}
+      {
+        "name": "title",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "name": "accentColor",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/LowerThird",
@@ -458,13 +852,25 @@
     "name": "Badge Pulse",
     "category": "overlay",
     "description": "Animated badge pulse for KPI callouts.",
-    "tags": ["cta", "stat"],
-    "mood": ["energetic"],
+    "tags": [
+      "cta",
+      "stat"
+    ],
+    "mood": [
+      "energetic"
+    ],
     "duration": 0.9,
     "preview": "/previews/overlay-badge-pulse.mp4",
     "props": [
-      {"name": "label", "type": "string", "required": true},
-      {"name": "color", "type": "color"}
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "color",
+        "type": "color"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/BadgePulse",
@@ -475,14 +881,29 @@
     "name": "Section Title Overlay",
     "category": "overlay",
     "description": "Dim background + centered title card for section breaks.",
-    "tags": ["divider", "section", "intro"],
-    "mood": ["professional"],
+    "tags": [
+      "divider",
+      "section",
+      "intro"
+    ],
+    "mood": [
+      "professional"
+    ],
     "duration": 2,
     "preview": "/previews/overlay-section-title.mp4",
     "props": [
-      {"name": "title", "type": "string"},
-      {"name": "subtitle", "type": "string"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "subtitle",
+        "type": "string"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/SectionTitleOverlay",
@@ -493,14 +914,32 @@
     "name": "Icon Highlight",
     "category": "overlay",
     "description": "Animated icon cue that fades in, floats, then fades out to reinforce key concepts.",
-    "tags": ["callout", "concept", "cue"],
-    "mood": ["informational", "polished"],
+    "tags": [
+      "callout",
+      "concept",
+      "cue"
+    ],
+    "mood": [
+      "informational",
+      "polished"
+    ],
     "duration": 1.8,
     "preview": "/previews/overlay-icon-highlight.mp4",
     "props": [
-      {"name": "iconSrc", "type": "string", "description": "Lottie JSON or animation path"},
-      {"name": "position", "type": "string", "description": "\"left\" or \"right\""},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "iconSrc",
+        "type": "string",
+        "description": "Lottie JSON or animation path"
+      },
+      {
+        "name": "position",
+        "type": "string",
+        "description": "\"left\" or \"right\""
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/IconHighlight",
@@ -511,14 +950,31 @@
     "name": "Social Icon Pop",
     "category": "overlay",
     "description": "Platform cue that pops brand icons with glow and staggered timing.",
-    "tags": ["platform", "social", "callout"],
-    "mood": ["energetic", "modern"],
+    "tags": [
+      "platform",
+      "social",
+      "callout"
+    ],
+    "mood": [
+      "energetic",
+      "modern"
+    ],
     "duration": 1.5,
     "preview": "/previews/overlay-social-icon-pop.mp4",
     "props": [
-      {"name": "platforms", "type": "string", "description": "Array of {name, color, iconUrl}"},
-      {"name": "align", "type": "string"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "platforms",
+        "type": "string",
+        "description": "Array of {name, color, iconUrl}"
+      },
+      {
+        "name": "align",
+        "type": "string"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/SocialIconPop",
@@ -529,18 +985,47 @@
     "name": "App Intro Lower Third",
     "category": "overlay",
     "description": "Lower third with icon, name, tagline, and website link that slides up and shimmers.",
-    "tags": ["brand", "app", "intro"],
-    "mood": ["clean", "confident"],
+    "tags": [
+      "brand",
+      "app",
+      "intro"
+    ],
+    "mood": [
+      "clean",
+      "confident"
+    ],
     "duration": 2.5,
     "preview": "/previews/overlay-app-intro.mp4",
     "props": [
-      {"name": "appName", "type": "string"},
-      {"name": "tagline", "type": "string"},
-      {"name": "link", "type": "string"},
-      {"name": "iconSrc", "type": "string"},
-      {"name": "colorTheme", "type": "color"},
-      {"name": "align", "type": "string", "description": "\"left\" or \"right\""},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "appName",
+        "type": "string"
+      },
+      {
+        "name": "tagline",
+        "type": "string"
+      },
+      {
+        "name": "link",
+        "type": "string"
+      },
+      {
+        "name": "iconSrc",
+        "type": "string"
+      },
+      {
+        "name": "colorTheme",
+        "type": "color"
+      },
+      {
+        "name": "align",
+        "type": "string",
+        "description": "\"left\" or \"right\""
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/AppIntroLowerThird",
@@ -551,21 +1036,91 @@
     "name": "Audio Visualizer",
     "category": "overlay",
     "description": "Animated audio waveform overlay with glowing label and transcript cues.",
-    "tags": ["audio", "voice", "ai"],
-    "mood": ["dynamic", "tech"],
+    "tags": [
+      "audio",
+      "voice",
+      "ai"
+    ],
+    "mood": [
+      "dynamic",
+      "tech"
+    ],
     "duration": 2.5,
     "preview": "/previews/overlay-audio-visualizer.mp4",
     "props": [
-      {"name": "caption", "type": "string"},
-      {"name": "voiceLabel", "type": "string"},
-      {"name": "colorTheme", "type": "color"},
-      {"name": "accentColor", "type": "color"},
-      {"name": "align", "type": "string"},
-      {"name": "audioId", "type": "string"},
-      {"name": "durationInFrames", "type": "number"}
+      {
+        "name": "caption",
+        "type": "string"
+      },
+      {
+        "name": "voiceLabel",
+        "type": "string"
+      },
+      {
+        "name": "colorTheme",
+        "type": "color"
+      },
+      {
+        "name": "accentColor",
+        "type": "color"
+      },
+      {
+        "name": "align",
+        "type": "string"
+      },
+      {
+        "name": "audioId",
+        "type": "string"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
     ],
     "recommendedLayer": "overlay",
     "componentPath": "src/effects/components/overlay/AudioVisualizer",
+    "version": "1.0.0"
+  },
+  "background.noiseBackdrop": {
+    "key": "background.noiseBackdrop",
+    "name": "Noise Backdrop",
+    "category": "background",
+    "description": "Noise-driven glow backdrop with animated texture panels.",
+    "tags": [
+      "ambient",
+      "noise",
+      "tech"
+    ],
+    "mood": [
+      "ambient",
+      "tech"
+    ],
+    "duration": 3.5,
+    "preview": "/previews/background-noise-backdrop.mp4",
+    "props": [
+      {
+        "name": "baseColor",
+        "type": "color"
+      },
+      {
+        "name": "accentColor",
+        "type": "color"
+      },
+      {
+        "name": "intensity",
+        "type": "number"
+      },
+      {
+        "name": "speed",
+        "type": "number"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
+    ],
+    "recommendedLayer": "background",
+    "componentPath": "src/effects/components/background/NoiseBackdrop",
     "version": "1.0.0"
   }
 }

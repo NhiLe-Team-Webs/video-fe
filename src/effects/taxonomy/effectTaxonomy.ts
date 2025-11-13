@@ -204,6 +204,14 @@ export const effectTaxonomy: Record<
       intents: ["ambient", "tech"],
       defaultDuration: 4,
     },
+    {
+      key: "background.noiseBackdrop",
+      label: "Noise Backdrop",
+      description: "Noise-driven glow backdrop with animated streaks.",
+      category: EffectCategory.Background,
+      intents: ["ambient", "tech"],
+      defaultDuration: 4,
+    },
   ],
   [EffectCategory.Overlay]: [
     {

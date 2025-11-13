@@ -5,6 +5,8 @@ import {SwipeHighlight} from "./SwipeHighlight";
 import {PopUp3DText} from "./PopUp3DText";
 import {SideFloatText, SideFloatLeftText, SideFloatRightText} from "./SideFloatText";
 import {SequentialListReveal} from "./SequentialListReveal";
+import {StepBreakdownTransition} from "./StepBreakdownTransition";
+import {CentralConceptMap} from "./CentralConceptMap";
 
 export {
   PopUpTitle,
@@ -15,6 +17,8 @@ export {
   SideFloatLeftText,
   SideFloatRightText,
   SequentialListReveal,
+  StepBreakdownTransition,
+  CentralConceptMap,
 };
 
 export const textEffectComponents: EffectComponentMap = {
@@ -26,5 +30,7 @@ export const textEffectComponents: EffectComponentMap = {
   "text.sideFloatLeft": SideFloatLeftText,
   "text.sideFloatRight": SideFloatRightText,
   "text.sequentialList": SequentialListReveal,
+  "text.stepBreakdown": StepBreakdownTransition,
+  "text.centralConcept": CentralConceptMap,
 };
 

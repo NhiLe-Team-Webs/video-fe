@@ -145,6 +145,51 @@
     "componentPath": "src/effects/components/text/SequentialListReveal",
     "version": "1.0.0"
   },
+  "text.stepBreakdown": {
+    "key": "text.stepBreakdown",
+    "name": "Step Breakdown Transition",
+    "category": "text",
+    "description": "Topic overview with slash list and spotlight card per step.",
+    "tags": ["process", "curriculum", "roadmap"],
+    "mood": ["structured", "educational"],
+    "duration": 3,
+    "preview": "/previews/text-step-breakdown.mp4",
+    "props": [
+      {"name": "topic", "type": "string"},
+      {
+        "name": "steps",
+        "type": "string",
+        "description": "Array of {title, description} entries pulled from plan data."
+      },
+      {"name": "accentColor", "type": "color"},
+      {"name": "backgroundColor", "type": "color"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/StepBreakdownTransition",
+    "version": "1.0.0"
+  },
+  "text.centralConcept": {
+    "key": "text.centralConcept",
+    "name": "Central Concept Map",
+    "category": "text",
+    "description": "Circular concept map that draws a dashed ring and orbits related topics.",
+    "tags": ["concept", "structure", "mind-map"],
+    "mood": ["informative", "bold"],
+    "duration": 2.8,
+    "preview": "/previews/text-central-concept.mp4",
+    "props": [
+      {"name": "centralLabel", "type": "string"},
+      {"name": "nodes", "type": "string", "description": "Array of {label} entries from plan data."},
+      {"name": "accentColor", "type": "color"},
+      {"name": "backgroundColor", "type": "color"},
+      {"name": "textColor", "type": "color"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/CentralConceptMap",
+    "version": "1.0.0"
+  },
   "motion.zoomFocus": {
     "key": "motion.zoomFocus",
     "name": "Zoom Focus",

@@ -62,6 +62,14 @@ export const effectTaxonomy: Record<
       intents: ["supporting-text"],
       defaultDuration: 1.8,
     },
+    {
+      key: "text.sequentialList",
+      label: "Sequential List Reveal",
+      description: "Stacked list appearing sequentially with zoom + fade.",
+      category: EffectCategory.Text,
+      intents: ["list", "callout"],
+      defaultDuration: 2.5,
+    },
   ],
   [EffectCategory.Motion]: [
     {

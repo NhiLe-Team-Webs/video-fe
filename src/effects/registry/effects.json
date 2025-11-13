@@ -52,6 +52,25 @@
     "componentPath": "src/effects/components/text/SwipeHighlight",
     "version": "1.0.0"
   },
+  "text.keywordSubtitleHighlight": {
+    "key": "text.keywordSubtitleHighlight",
+    "name": "Keyword Subtitle Highlight",
+    "category": "text",
+    "description": "Fade-in subtitle with a glowing underline that sweeps across keywords.",
+    "tags": ["subtitle", "highlight", "keyword"],
+    "mood": ["energetic", "guided"],
+    "duration": 1.8,
+    "preview": "/previews/text-keyword-subtitle-highlight.mp4",
+    "props": [
+      {"name": "text", "type": "string", "required": true},
+      {"name": "keywords", "type": "string", "description": "Comma-separated keywords or JSON array used to drive the underline."},
+      {"name": "accentColor", "type": "color"},
+      {"name": "durationInFrames", "type": "number"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/KeywordSubtitleHighlight",
+    "version": "1.0.0"
+  },
   "text.popUp3D": {
     "key": "text.popUp3D",
     "name": "3D Pop-Up Text",

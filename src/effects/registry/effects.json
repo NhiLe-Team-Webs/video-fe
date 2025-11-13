@@ -225,6 +225,25 @@
     "componentPath": "src/effects/components/motion/ZoomIn",
     "version": "1.0.0"
   },
+  "motion.cameraZoomFocus": {
+    "key": "motion.cameraZoomFocus",
+    "name": "Camera Zoom Focus",
+    "category": "motion",
+    "description": "Dynamic punch-in / punch-out to emphasize the speaker.",
+    "tags": ["camera", "zoom", "focus"],
+    "mood": ["intense", "spotlight"],
+    "duration": 2,
+    "preview": "/previews/motion-camera-zoom-focus.mp4",
+    "props": [
+      {"name": "durationInFrames", "type": "number"},
+      {"name": "focus", "type": "number"},
+      {"name": "offsetX", "type": "number"},
+      {"name": "offsetY", "type": "number"}
+    ],
+    "recommendedLayer": "base",
+    "componentPath": "src/effects/components/motion/CameraZoomFocus",
+    "version": "1.0.0"
+  },
   "chart.statCard": {
     "key": "chart.statCard",
     "name": "Stat Card Flip",

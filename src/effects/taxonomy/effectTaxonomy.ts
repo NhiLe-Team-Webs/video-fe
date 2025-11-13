@@ -112,6 +112,14 @@ export const effectTaxonomy: Record<
       intents: ["emphasis", "hero"],
       defaultDuration: 1,
     },
+    {
+      key: "motion.cameraZoomFocus",
+      label: "Camera Zoom Focus",
+      description: "Punch-in / punch-out camera style move to highlight speaker.",
+      category: EffectCategory.Motion,
+      intents: ["emphasis", "hero"],
+      defaultDuration: 2,
+    },
   ],
   [EffectCategory.Chart]: [
     {

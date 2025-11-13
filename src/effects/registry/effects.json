@@ -126,6 +126,25 @@
     "componentPath": "src/effects/components/text/SideFloatText",
     "version": "1.0.0"
   },
+  "text.sequentialList": {
+    "key": "text.sequentialList",
+    "name": "Sequential List Reveal",
+    "category": "text",
+    "description": "Stacked list that zooms/fades each entry sequentially from top to bottom.",
+    "tags": ["list", "sequence", "callout"],
+    "mood": ["informative"],
+    "duration": 2.5,
+    "preview": "/previews/text-sequential-list.mp4",
+    "props": [
+      {"name": "items", "type": "string", "description": "Array of strings in template data"},
+      {"name": "color", "type": "color"},
+      {"name": "accent", "type": "color"},
+      {"name": "align", "type": "string"}
+    ],
+    "recommendedLayer": "foreground",
+    "componentPath": "src/effects/components/text/SequentialListReveal",
+    "version": "1.0.0"
+  },
   "motion.zoomFocus": {
     "key": "motion.zoomFocus",
     "name": "Zoom Focus",

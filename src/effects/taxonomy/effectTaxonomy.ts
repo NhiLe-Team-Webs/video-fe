@@ -38,6 +38,30 @@ export const effectTaxonomy: Record<
       intents: ["hook", "cta", "hero"],
       defaultDuration: 1.5,
     },
+    {
+      key: "text.sideFloat",
+      label: "Side Float Text",
+      description: "Soft drift labels that float in from screen edges.",
+      category: EffectCategory.Text,
+      intents: ["supporting-text", "callout"],
+      defaultDuration: 1.8,
+    },
+    {
+      key: "text.sideFloatLeft",
+      label: "Side Float Left",
+      description: "Preset for left-side supporting text.",
+      category: EffectCategory.Text,
+      intents: ["supporting-text"],
+      defaultDuration: 1.8,
+    },
+    {
+      key: "text.sideFloatRight",
+      label: "Side Float Right",
+      description: "Preset for right-side supporting text.",
+      category: EffectCategory.Text,
+      intents: ["supporting-text"],
+      defaultDuration: 1.8,
+    },
   ],
   [EffectCategory.Motion]: [
     {

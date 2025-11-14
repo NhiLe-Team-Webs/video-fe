@@ -11,7 +11,7 @@ export type TransitionDefinition = {
   tags: string[];
   durationInFrames: number;
   timing: TransitionTiming;
-  presentation?: TransitionPresentation<any>;
+  presentation?: TransitionPresentation<Record<string, unknown>>;
   sample?: {
     enteringLabel: string;
     exitingLabel: string;

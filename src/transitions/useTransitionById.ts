@@ -1,7 +1,7 @@
 import {DEFAULT_TRANSITION_ID, getTransitionById, listRegisteredTransitions} from "./transitionRegistry";
 import type {TransitionDefinition} from "./transitionRegistry";
 
-export const useTransitionById = (id?: string | null): TransitionDefinition | null => {
+export const resolveTransitionById = (id?: string | null): TransitionDefinition | null => {
   if (!id) {
     return null;
   }

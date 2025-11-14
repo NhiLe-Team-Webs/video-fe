@@ -71,12 +71,20 @@ export const TemplatePreviewPanel: React.FC = () => {
   };
 
   const previewScale = useMemo(() => {
-    const maxWidth = 500;
-    const maxHeight = 800;
+    const maxWidth = 760;
+    const maxHeight = 1000;
     const scaleX = maxWidth / widthInput;
     const scaleY = maxHeight / heightInput;
     return Math.min(scaleX, scaleY, 1);
   }, [widthInput, heightInput]);
+
+  const previewFrame = useMemo(
+    () => ({
+      width: widthInput * previewScale,
+      height: heightInput * previewScale,
+    }),
+    [widthInput, heightInput, previewScale]
+  );
 
   return (
     <AbsoluteFill
@@ -198,17 +206,26 @@ export const TemplatePreviewPanel: React.FC = () => {
       <div style={{flex: 1, position: "relative", display: "flex", alignItems: "center", justifyContent: "center"}}>
         <div
           style={{
-            width: widthInput,
-            height: heightInput,
-            transform: `scale(${previewScale})`,
-            transformOrigin: "center",
-            boxShadow: "0 40px 80px rgba(15,23,42,0.55)",
+            width: previewFrame.width,
+            height: previewFrame.height,
             borderRadius: 24,
             overflow: "hidden",
             background: "#000",
+            boxShadow: "0 40px 80px rgba(15,23,42,0.55)",
+            position: "relative",
           }}
         >
-          <TemplateComponent plan={previewPlan} />
+          <div
+            style={{
+              width: widthInput,
+              height: heightInput,
+              transform: `scale(${previewScale})`,
+              transformOrigin: "top left",
+              position: "relative",
+            }}
+          >
+            <TemplateComponent plan={previewPlan} />
+          </div>
         </div>
       </div>
     </AbsoluteFill>

@@ -1,27 +1,67 @@
 {
-  "templateId": "template1",
-  "animationId": "gsap-zoom-pop",
+  "templateId": "template0",
+  "animationId": "gsap-fade-in",
   "transitionId": "transition.cross-fade",
   "music": "assets/sfx/emotion/applause.mp3",
   "segments": [
     {
       "clip": "assets/broll/digital_network.jpg",
-      "text": "Học AI hiệu quả hơn mỗi ngày",
+      "text": "5 bước dựng chiến lược AI cho doanh nghiệp của bạn",
       "effect": "fade_in",
       "duration": 4,
-      "emotion": "neutral",
+      "emotion": "excited",
       "sfx": "assets/sfx/whoosh/woosh.mp3",
-      "animationId": "gsap-slide-up",
+      "animationId": "gsap-zoom-pop",
       "transitionId": "transition.slide-right"
     },
     {
-      "clip": "assets/broll/education_training.jpg",
-      "text": "Video này được sinh tự động!",
+      "clip": "assets/broll/modern_office.jpg",
+      "text": "Các team đang làm việc rời rạc, dữ liệu nằm rải rác trong từng phòng ban?",
+      "effect": "slide_up",
+      "duration": 5,
+      "emotion": "serious",
+      "sfx": "assets/sfx/ui/keyboard-typing.mp3",
+      "animationId": "gsap-slide-up",
+      "transitionId": "transition.soft-wipe"
+    },
+    {
+      "clip": "assets/broll/data_visualization.jpg",
+      "text": "Bước 1: Audit dữ liệu & stack hiện tại — xác định nguồn nào đủ sạch để huấn luyện mô hình.",
+      "effect": "zoom_in",
+      "duration": 4,
+      "emotion": "focused",
+      "sfx": "assets/sfx/ui/swipe.mp3",
+      "animationId": "gsap-fade-in",
+      "transitionId": "transition.flash-cut"
+    },
+    {
+      "clip": "assets/broll/ai_brain.jpg",
+      "text": "Bước 2: Chọn nền tảng AI phù hợp (in-house vs. dịch vụ) và chuẩn hóa quy trình bảo mật.",
+      "effect": "fade_in",
+      "duration": 4,
+      "emotion": "inspiring",
+      "sfx": "assets/sfx/tech/notification.mp3",
+      "animationId": "gsap-rotate-in",
+      "transitionId": "transition.slide-right"
+    },
+    {
+      "clip": "assets/broll/business_strategy.jpg",
+      "text": "Bước 3: Ưu tiên các use case ROI cao — tự động hóa báo cáo, trợ lý sale, chăm sóc khách hàng.",
       "effect": "slide_up",
       "duration": 4,
-      "emotion": "serious",
-      "animationId": "confetti",
+      "emotion": "confident",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "animationId": "gsap-slide-up",
       "transitionId": "transition.soft-wipe"
+    },
+    {
+      "clip": "assets/broll/innovation_lightbulb.jpg",
+      "text": "Kết thúc: đo lường, tối ưu và chia sẻ chiến thắng đầu tiên để lan tỏa văn hóa AI-first.",
+      "effect": "fade_in",
+      "duration": 5,
+      "emotion": "uplifting",
+      "sfx": "assets/sfx/tech/camera-click.mp3",
+      "animationId": "gsap-zoom-pop"
     }
   ]
 }

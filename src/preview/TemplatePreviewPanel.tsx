@@ -6,6 +6,7 @@ import {templateManifest} from "../core/utils/manifest";
 import {getTemplateById} from "../core/TemplateEngine";
 import {normalizePlan} from "../orchestrator/loadPlan";
 import {getFps} from "../core/utils/fpsControl";
+import {PreviewViewport} from "./PreviewViewport";
 
 const DEFAULT_WIDTH = 1920;
 const DEFAULT_HEIGHT = 1080;
@@ -69,22 +70,6 @@ export const TemplatePreviewPanel: React.FC = () => {
   const handleResetPlan = () => {
     setPlanText(INITIAL_PLAN_TEXT);
   };
-
-  const previewScale = useMemo(() => {
-    const maxWidth = 760;
-    const maxHeight = 1000;
-    const scaleX = maxWidth / widthInput;
-    const scaleY = maxHeight / heightInput;
-    return Math.min(scaleX, scaleY, 1);
-  }, [widthInput, heightInput]);
-
-  const previewFrame = useMemo(
-    () => ({
-      width: widthInput * previewScale,
-      height: heightInput * previewScale,
-    }),
-    [widthInput, heightInput, previewScale]
-  );
 
   return (
     <AbsoluteFill
@@ -203,30 +188,10 @@ export const TemplatePreviewPanel: React.FC = () => {
         </div>
       </div>
 
-      <div style={{flex: 1, position: "relative", display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <div
-          style={{
-            width: previewFrame.width,
-            height: previewFrame.height,
-            borderRadius: 24,
-            overflow: "hidden",
-            background: "#000",
-            boxShadow: "0 40px 80px rgba(15,23,42,0.55)",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              width: widthInput,
-              height: heightInput,
-              transform: `scale(${previewScale})`,
-              transformOrigin: "top left",
-              position: "relative",
-            }}
-          >
-            <TemplateComponent plan={previewPlan} />
-          </div>
-        </div>
+      <div style={{flex: 1, display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <PreviewViewport frameWidth={widthInput} frameHeight={heightInput}>
+          <TemplateComponent plan={previewPlan} />
+        </PreviewViewport>
       </div>
     </AbsoluteFill>
   );

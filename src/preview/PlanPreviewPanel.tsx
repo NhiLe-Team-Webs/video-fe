@@ -5,6 +5,7 @@ import type {Plan} from "../core/types";
 import {normalizePlan} from "../orchestrator/loadPlan";
 import {getFps} from "../core/utils/fpsControl";
 import {getTemplateById} from "../core/TemplateEngine";
+import {PreviewViewport} from "./PreviewViewport";
 
 const dropZoneStyle: React.CSSProperties = {
   border: "1px dashed rgba(148,163,184,0.8)",
@@ -14,12 +15,6 @@ const dropZoneStyle: React.CSSProperties = {
   fontSize: 12,
   cursor: "pointer",
 };
-
-const COMPOSITION_WIDTH = 1920;
-const COMPOSITION_HEIGHT = 1080;
-const PREVIEW_WIDTH = 360;
-const PREVIEW_SCALE = PREVIEW_WIDTH / COMPOSITION_WIDTH;
-const PREVIEW_HEIGHT = COMPOSITION_HEIGHT * PREVIEW_SCALE;
 
 const toPlan = (raw: Plan): Plan => ({
   ...raw,
@@ -215,30 +210,10 @@ export const PlanPreviewPanel: React.FC = () => {
         </div>
       </div>
 
-      <div style={{flex: 1, position: "relative", display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <div
-          style={{
-            width: PREVIEW_WIDTH,
-            height: PREVIEW_HEIGHT,
-            borderRadius: 24,
-            overflow: "hidden",
-            boxShadow: "0 40px 80px rgba(15,23,42,0.6)",
-            background: "#000",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{
-              width: COMPOSITION_WIDTH,
-              height: COMPOSITION_HEIGHT,
-              transform: `scale(${PREVIEW_SCALE})`,
-              transformOrigin: "top left",
-              position: "relative",
-            }}
-          >
-            <TemplateComponent plan={normalizedPlan} />
-          </div>
-        </div>
+      <div style={{flex: 1, display: "flex", alignItems: "center", justifyContent: "center"}}>
+        <PreviewViewport>
+          <TemplateComponent plan={normalizedPlan} />
+        </PreviewViewport>
       </div>
     </AbsoluteFill>
   );

@@ -7,7 +7,6 @@ import type {LoadedPlan, NormalizedSegment} from "./types";
 import type {Theme} from "./hooks/useTheme";
 import {AudioLayer} from "./AudioLayer";
 import {Overlay} from "./Overlay";
-import {FrameIndicator} from "./layers/FrameIndicator";
 import {DebugPanel} from "./layers/DebugPanel";
 import {DebugProvider} from "./context/DebugContext";
 import type {AnimationResolver} from "../effects/engines/gsap/useAnimationById";
@@ -197,7 +196,6 @@ const BuilderContent: React.FC<CompositionBuilderProps> = ({
           return nodes;
         })}
       </TransitionSeries>
-      <FrameIndicator />
       <DebugPanel />
     </AbsoluteFill>
   );

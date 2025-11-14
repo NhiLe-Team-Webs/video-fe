@@ -1,0 +1,5 @@
+export const COMPOSITION_WIDTH = 1920;
+export const COMPOSITION_HEIGHT = 1080;
+
+export const DEFAULT_PREVIEW_MAX_WIDTH = 960;
+export const DEFAULT_PREVIEW_MAX_HEIGHT = 540;

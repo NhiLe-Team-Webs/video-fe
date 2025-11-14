@@ -182,7 +182,6 @@ export const TransitionGallery: React.FC = () => {
               <div>
                 ID: <code style={{fontSize: 11}}>{selected.id}</code>
               </div>
-              <div>Duration: {selected.durationInFrames}f</div>
             </div>
             <div style={{display: "flex", flexWrap: "wrap", gap: 8}}>
               {(selected.tags ?? []).filter((badge) => badge?.trim().length).map((badge) => (

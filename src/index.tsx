@@ -7,6 +7,7 @@ import {EffectGallery} from "./effects/preview/EffectGallery";
 import {TemplatePreviewPanel} from "./preview/TemplatePreviewPanel";
 import {PlanPreviewPanel} from "./preview/PlanPreviewPanel";
 import {totalFrames} from "./core/utils/frameUtils";
+import {TransitionGallery} from "./transitions/preview/TransitionGallery";
 
 const inputProps = getInputProps<{devMode?: boolean}>();
 const bootstrapPlan = loadPlan();
@@ -31,6 +32,14 @@ export const RemotionRoot: React.FC = () => (
         <Composition
           id="effects-gallery"
           component={typeof EffectGallery === 'function' ? EffectGallery : () => {console.error("EffectGallery is undefined"); return null;}}
+          durationInFrames={180}
+          fps={initialFps}
+          width={PREVIEW_WIDTH}
+          height={PREVIEW_HEIGHT}
+        />
+        <Composition
+          id="transition-gallery"
+          component={typeof TransitionGallery === 'function' ? TransitionGallery : () => {console.error("TransitionGallery is undefined"); return null;}}
           durationInFrames={180}
           fps={initialFps}
           width={PREVIEW_WIDTH}

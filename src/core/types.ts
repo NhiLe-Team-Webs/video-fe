@@ -6,6 +6,7 @@ export type Segment = {
   sfx?: string;
   emotion?: string;
   animationId?: string;
+  transitionId?: string;
 };
 
 export type Plan = {
@@ -13,6 +14,7 @@ export type Plan = {
   segments: Segment[];
   music?: string;
   animationId?: string;
+  transitionId?: string;
 };
 
 export type NormalizedSegmentCore = {
@@ -24,6 +26,7 @@ export type NormalizedSegmentCore = {
   sfx?: string;
   emotion?: string;
   animationId?: string;
+  transitionId?: string;
 };
 
 export type NormalizedSegment = NormalizedSegmentCore & {

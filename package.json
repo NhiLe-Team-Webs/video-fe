@@ -21,6 +21,7 @@
     "@remotion/studio-server": "^4.0.373",
     "@remotion/studio-shared": "^4.0.373",
     "@remotion/tailwind-v4": "^4.0.373",
+    "@remotion/transitions": "4.0.375",
     "@remotion/web-renderer": "^4.0.373",
     "@remotion/zod-types": "^4.0.373",
     "caniuse-lite": "^1.0.30001754",

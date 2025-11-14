@@ -103,14 +103,31 @@ export const PlanPreviewPanel: React.FC = () => {
         ))}
       </div>
       <div style={{marginTop: 8, display: "flex", flexDirection: "column", gap: 4}}>
-        {normalizedPlan.segments.map((segment, index) => (
-          <div key={`${segment.clip}-row-${index}`} style={{fontSize: 12, display: "flex", justifyContent: "space-between"}}>
-            <span>{segment.text ?? `Segment ${index + 1}`}</span>
-            <span>
-              {segment.startFrame} → {segment.endFrame}
-            </span>
-          </div>
-        ))}
+        {normalizedPlan.segments.map((segment, index) => {
+          const transitionLabel =
+            index < normalizedPlan.segments.length - 1
+              ? segment.transitionId ?? normalizedPlan.transitionId ?? "none"
+              : null;
+
+          return (
+            <div
+              key={`${segment.clip}-row-${index}`}
+              style={{fontSize: 12, display: "flex", flexDirection: "column", gap: 2}}
+            >
+              <div style={{display: "flex", justifyContent: "space-between"}}>
+                <span>{segment.text ?? `Segment ${index + 1}`}</span>
+                <span>
+                  {segment.startFrame} → {segment.endFrame}
+                </span>
+              </div>
+              {transitionLabel ? (
+                <div style={{fontSize: 11, opacity: 0.85}}>Transition → {transitionLabel}</div>
+              ) : (
+                <div style={{fontSize: 11, opacity: 0.65}}>Ending segment</div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

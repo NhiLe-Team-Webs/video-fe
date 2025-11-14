@@ -1,6 +1,19 @@
 {
   "gsap": [
     {
+      "id": "gsap-bounce",
+      "component": "GsapBounce",
+      "tags": [
+        "badge",
+        "fun"
+      ],
+      "type": "badge",
+      "emotions": [
+        "fun",
+        "playful"
+      ]
+    },
+    {
       "id": "gsap-fade-in",
       "component": "GsapFadeInPrimitive",
       "tags": [
@@ -11,6 +24,18 @@
       "emotions": [
         "neutral",
         "calm"
+      ]
+    },
+    {
+      "id": "gsap-rotate-in",
+      "component": "GsapRotateIn",
+      "tags": [
+        "icon",
+        "rotate"
+      ],
+      "type": "icon",
+      "emotions": [
+        "serious"
       ]
     },
     {
@@ -36,31 +61,6 @@
       "emotions": [
         "inspiring",
         "fun"
-      ]
-    },
-    {
-      "id": "gsap-rotate-in",
-      "component": "GsapRotateIn",
-      "tags": [
-        "icon",
-        "rotate"
-      ],
-      "type": "icon",
-      "emotions": [
-        "serious"
-      ]
-    },
-    {
-      "id": "gsap-bounce",
-      "component": "GsapBounce",
-      "tags": [
-        "badge",
-        "fun"
-      ],
-      "type": "badge",
-      "emotions": [
-        "fun",
-        "playful"
       ]
     }
   ],

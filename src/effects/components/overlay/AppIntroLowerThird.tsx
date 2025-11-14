@@ -1,5 +1,7 @@
 import React, {ReactNode} from "react";
+import {Img} from "remotion";
 import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 type AppIntroLowerThirdProps = {
   appName?: string;
@@ -48,7 +50,7 @@ export const AppIntroLowerThird: React.FC<AppIntroLowerThirdProps> = ({
   durationInFrames,
 }) => {
   const frame = useCurrentFrame();
-  const {width, height, fps} = useVideoConfig();
+  const {width, fps} = useVideoConfig();
   const fadeInFrames = Math.min(18, Math.max(10, Math.round(fps * 0.2)));
   const fadeOutFrames = Math.min(16, Math.max(10, Math.round(fps * 0.22)));
   const fadeOutStart = Math.max(
@@ -116,7 +118,7 @@ export const AppIntroLowerThird: React.FC<AppIntroLowerThirdProps> = ({
   const iconContent =
     iconElement ??
     (iconSrc ? (
-      <img src={iconSrc} alt={appName} style={{width: "100%", height: "100%"}} />
+      <Img src={iconSrc} alt={appName} style={{width: "100%", height: "100%"}} />
     ) : (
       <span
         style={{
@@ -149,11 +151,12 @@ export const AppIntroLowerThird: React.FC<AppIntroLowerThirdProps> = ({
           display: "flex",
           alignItems: "center",
           gap: 16,
-          background: "rgba(15,23,42,0.68)",
+          background: palette.deepBlack,
           boxShadow: "0 25px 60px rgba(2,6,23,0.7)",
           border: `1px solid ${accentBorder}`,
           backdropFilter: "blur(16px)",
           overflow: "hidden",
+          fontFamily: typography.body,
         }}
       >
         <div
@@ -174,38 +177,40 @@ export const AppIntroLowerThird: React.FC<AppIntroLowerThirdProps> = ({
         </div>
 
         <div style={{flex: 1, display: "flex", flexDirection: "column", gap: 6}}>
-          <div
-            style={{
-              fontSize: 26,
-              fontWeight: 700,
-              letterSpacing: 1.1,
-              color: "#fff",
-              textTransform: "uppercase",
-              transform: `translateX(${titleTranslate}px)`,
-            }}
-          >
-            {appName}
-          </div>
-          <div
-            style={{
-              fontSize: 16,
-              color: "rgba(248,250,252,0.82)",
-              opacity: taglineOpacity,
-              transform: `translateY(${taglineOpacity * 4 - 4}px)`,
-            }}
-          >
+        <div
+          style={{
+            fontSize: 26,
+            fontWeight: 700,
+            letterSpacing: 1.1,
+            color: "#fff",
+            textTransform: "uppercase",
+            transform: `translateX(${titleTranslate}px)`,
+            fontFamily: typography.headline,
+          }}
+        >
+          {appName}
+        </div>
+        <div
+          style={{
+            fontSize: 16,
+            color: "rgba(248,250,252,0.82)",
+            opacity: taglineOpacity,
+            transform: `translateY(${taglineOpacity * 4 - 4}px)`,
+          }}
+        >
             {tagline}
           </div>
           <div
-            style={{
-              fontSize: 16,
-              fontWeight: 600,
-              color: colorTheme,
-              opacity: linkOpacity,
-              position: "relative",
-              display: "inline-flex",
-              paddingBottom: 2,
-            }}
+          style={{
+            fontSize: 16,
+            fontWeight: 600,
+            color: colorTheme,
+            opacity: linkOpacity,
+            position: "relative",
+            display: "inline-flex",
+            paddingBottom: 2,
+            fontFamily: typography.body,
+          }}
           >
             {link}
             <span

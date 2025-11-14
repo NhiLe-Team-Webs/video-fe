@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography, motif} from "../../../styles/designTokens";
 
 type NodeItem = {
   label: string;
@@ -57,9 +58,9 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
   centralLabel = "SEO",
   nodes,
   durationInFrames,
-  accentColor = "#f97316",
-  backgroundColor = "#0f4cbd",
-  textColor = "#f1f5f9",
+  accentColor = palette.primaryRed,
+  backgroundColor = palette.deepBlack,
+  textColor = palette.brightestWhite,
 }) => {
   const frame = useCurrentFrame();
   const resolvedNodes = useMemo(() => parseNodes(nodes), [nodes]);
@@ -81,7 +82,7 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
   return (
     <AbsoluteFill
       style={{
-        fontFamily: "Space Grotesk, sans-serif",
+        fontFamily: typography.body,
         color: textColor,
         background: `radial-gradient(circle at top, rgba(255,255,255,0.04), transparent 45%), ${backgroundColor}`,
         justifyContent: "center",
@@ -109,20 +110,36 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
         />
       </svg>
 
-      <div
-        style={{
-          fontSize: 90,
-          fontWeight: 800,
-          textTransform: "uppercase",
-          letterSpacing: 8,
-          color: accentColor,
-          opacity: centerOpacity,
-          transform: `scale(${centerScale})`,
-          textShadow: "0 20px 50px rgba(0,0,0,0.35)",
-        }}
-      >
-        {centralLabel}
-      </div>
+        <div
+          style={{
+            fontSize: 90,
+            fontWeight: 800,
+            textTransform: "uppercase",
+            letterSpacing: 8,
+            color: accentColor,
+            opacity: centerOpacity,
+            transform: `scale(${centerScale})`,
+            textShadow: "0 20px 50px rgba(0,0,0,0.35)",
+            fontFamily: typography.headline,
+            position: "relative",
+          }}
+        >
+          {centralLabel}
+          <div
+            style={{
+              position: "absolute",
+              top: 12,
+              right: 18,
+              width: 60,
+              height: 38,
+              background: motif.triangleGlow,
+              mixBlendMode: motif.overlayBlend as any,
+              borderRadius: "0 12px 12px 0",
+              boxShadow: "0 15px 35px rgba(200,16,46,0.4)",
+              transform: "skewX(-10deg)",
+            }}
+          />
+        </div>
 
       {resolvedNodes.map((node, index) => {
         const angle = (index / resolvedNodes.length) * Math.PI * 2 - Math.PI / 2;

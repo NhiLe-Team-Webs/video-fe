@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography, motif} from "../../../styles/designTokens";
 
 export type SideFloatTextProps = {
   text?: string;
@@ -54,10 +55,31 @@ export const SideFloatText: React.FC<SideFloatTextProps> = ({
           letterSpacing: 4,
           color,
           textTransform: "uppercase",
-          textShadow: "0 6px 20px rgba(0,0,0,0.35)",
+          textShadow: `0 6px 20px rgba(0,0,0,0.35)`,
         }}
       >
-        <span style={{color: accent}}>{text}</span>
+        <span
+          style={{
+            color: accent,
+            position: "relative",
+            zIndex: 1,
+            fontFamily: typography.headline,
+          }}
+        >
+          {text}
+        </span>
+        <span
+          style={{
+            position: "absolute",
+            left: 8,
+            bottom: -4,
+            width: 24,
+            height: 24,
+            background: motif.triangleGlow,
+            clipPath: "polygon(0 0, 100% 50%, 0 100%)",
+            opacity: 0.6,
+          }}
+        />
       </div>
     </AbsoluteFill>
   );

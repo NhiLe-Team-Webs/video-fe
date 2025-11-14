@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 type TimelineItem = {
   title: string;
@@ -69,10 +70,10 @@ export const TimelineReveal: React.FC<TimelineRevealProps> = ({items, durationIn
   return (
     <AbsoluteFill
       style={{
-        fontFamily: "Space Grotesk, sans-serif",
+        fontFamily: typography.body,
         padding: "120px 140px",
-        background: "#030617",
-        color: "#e0e7ff",
+        background: palette.deepBlack,
+        color: palette.brightestWhite,
       }}
     >
       <div
@@ -90,30 +91,30 @@ export const TimelineReveal: React.FC<TimelineRevealProps> = ({items, durationIn
         <div style={{flex: 1, display: "flex", alignItems: "center"}}>
           <div style={{width: "100%", position: "relative", height: 320}}>
             <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: 0,
-                right: 0,
-                transform: "translateY(-50%)",
-                height: 8,
-                background: "rgba(255,255,255,0.15)",
-                borderRadius: 999,
-              }}
-            />
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: 0,
+              right: 0,
+              transform: "translateY(-50%)",
+              height: 8,
+              background: "rgba(255,255,255,0.15)",
+              borderRadius: 999,
+            }}
+          />
 
             <div
-              style={{
-                position: "absolute",
-                top: "50%",
-                left: 0,
-                transform: "translateY(-50%)",
-                height: 8,
-                width: `${lineProgress * 100}%`,
-                background: "linear-gradient(90deg, #38bdf8, #a855f7, #fbbf24)",
-                borderRadius: 999,
-                boxShadow: "0 0 35px rgba(56,189,248,0.5)",
-              }}
+            style={{
+              position: "absolute",
+              top: "50%",
+              left: 0,
+              transform: "translateY(-50%)",
+              height: 8,
+              width: `${lineProgress * 100}%`,
+              background: "linear-gradient(90deg, #C8102E, #a855f7, #F2F2F2)",
+              borderRadius: 999,
+              boxShadow: "0 0 35px rgba(200,16,46,0.6)",
+            }}
             >
               <div
                 style={{
@@ -182,10 +183,15 @@ export const TimelineReveal: React.FC<TimelineRevealProps> = ({items, durationIn
                       opacity: labelOpacity,
                       transform: `translateY(${labelOffset * -1}px)`,
                       transition: "opacity 200ms ease-out",
+                      fontFamily: typography.headline,
                     }}
                   >
                     <div style={{fontSize: 20, fontWeight: 700}}>{item.title}</div>
-                    {item.subtitle && <div style={{fontSize: 16, opacity: 0.7, marginTop: 4}}>{item.subtitle}</div>}
+                    {item.subtitle && (
+                      <div style={{fontSize: 16, opacity: 0.7, marginTop: 4, fontFamily: typography.body}}>
+                        {item.subtitle}
+                      </div>
+                    )}
                   </div>
                 </div>
               );

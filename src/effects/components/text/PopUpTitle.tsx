@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from "remotion";
+import {palette, typography, motif} from "../../../styles/designTokens";
 
 export type PopUpTitleProps = {
   text: string;
@@ -9,7 +10,7 @@ export type PopUpTitleProps = {
 
 export const PopUpTitle: React.FC<PopUpTitleProps> = ({
   text,
-  accentColor = "#ffd166",
+  accentColor = "#C8102E",
   delayFrames = 0,
 }) => {
   const frame = useCurrentFrame();
@@ -27,23 +28,46 @@ export const PopUpTitle: React.FC<PopUpTitleProps> = ({
       style={{
         justifyContent: "center",
         alignItems: "center",
-        fontFamily: "Inter, sans-serif",
+        fontFamily: typography.headline,
         fontWeight: 700,
         textTransform: "uppercase",
         letterSpacing: "0.08em",
-        color: "#101010",
+        color: "#fff",
       }}
     >
       <div
         style={{
           padding: "18px 28px",
-          borderRadius: 20,
-          background: accentColor,
+          borderRadius: 28,
+          background: `linear-gradient(135deg, ${accentColor}, rgba(255,255,255,0.15))`,
           transform: `translateY(${translateY}px) scale(${scale})`,
-          boxShadow: "0 18px 45px rgba(0,0,0,0.2)",
+          boxShadow: `0 24px 60px rgba(200,16,46,0.45), 0 0 28px rgba(255,255,255,0.18)`,
+          position: "relative",
+          overflow: "hidden",
+          minWidth: 280,
+          textAlign: "center",
         }}
       >
-        {text}
+        <div
+          style={{
+            position: "absolute",
+            inset: "-18px 12px auto auto",
+            width: 90,
+            height: 90,
+            background: motif.triangleGlow,
+            clipPath: "polygon(0 0, 80% 50%, 0 100%)",
+            filter: "blur(6px)",
+            pointerEvents: "none",
+          }}
+        />
+        <span
+          style={{
+            position: "relative",
+            zIndex: 2,
+          }}
+        >
+          {text}
+        </span>
       </div>
     </AbsoluteFill>
   );

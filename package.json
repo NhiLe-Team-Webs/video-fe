@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@remotion/animated-emoji": "4.0.375",
     "@remotion/bundler": "^4.0.373",
     "@remotion/cli": "^4.0.373",
     "@remotion/compositor-win32-x64-msvc": "^4.0.373",

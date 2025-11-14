@@ -1,4 +1,4 @@
-import {DEFAULT_TRANSITION_ID, getTransitionById, listRegisteredTransitions} from "./transitionRegistry";
+import {getTransitionById, listRegisteredTransitions} from "./transitionRegistry";
 import type {TransitionDefinition} from "./transitionRegistry";
 
 export const resolveTransitionById = (id?: string | null): TransitionDefinition | null => {
@@ -9,5 +9,6 @@ export const resolveTransitionById = (id?: string | null): TransitionDefinition 
   return getTransitionById(id);
 };
 
-export {DEFAULT_TRANSITION_ID, listRegisteredTransitions};
+export {DEFAULT_TRANSITION_ID} from "./transitionTypes";
+export {listRegisteredTransitions};
 export type {TransitionDefinition};

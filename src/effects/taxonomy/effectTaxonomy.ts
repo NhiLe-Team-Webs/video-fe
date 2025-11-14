@@ -266,6 +266,14 @@ export const effectTaxonomy: Record<
       defaultDuration: 1.5,
     },
     {
+      key: "overlay.emojiBurst",
+      label: "Animated Emoji Burst",
+      description: "Three animated emoji layers float around a glowing halo for playful cues.",
+      category: EffectCategory.Overlay,
+      intents: ["celebration", "highlight", "emoji"],
+      defaultDuration: 2.5,
+    },
+    {
       key: "overlay.appIntro",
       label: "App Intro Lower Third",
       description: "Gradient lower-third with icon, name, tagline, and link for platform spotlight.",

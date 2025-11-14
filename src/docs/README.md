@@ -87,6 +87,30 @@ src/
 3. Hook loads component from `src/effects/components/text/PopUp`.
 4. Component optionally composes GSAP primitives (`src/effects/engines/gsap`) + Lottie assets via `useLottieByKey`.
 
+### Animated Emoji Burst
+
+The new `overlay.emojiBurst` effect wraps `@remotion/animated-emoji` so segments can surface expressive emoji reactions without hand-editing assets. It renders three animated emoji layers, with the center emoji configurable via the `emoji` prop (any name from [`getAvailableEmojis()`](https://www.remotion.dev/docs/animated-emoji/get-available-emoji)) and the `scale` prop set to `0.5`, `1`, or `2` for the desired resolution.
+
+The component looks for video files inside `public/animated-emoji`, so you must copy the official `animated-emoji` `public` folder into your project before using the effect. Run this once from the frontend directory:
+
+```bash
+cd video-fe
+npx degit remotion-dev/animated-emoji/public public/animated-emoji
+```
+
+This command only pulls the assets under `public/`, keeping git history and package manifests out of your repo. After copying, restart the dev server so `staticFile("animated-emoji/<emoji>-<scale>x.<ext>")` can resolve; the `public/animated-emoji` folder is gitignored (`video-fe/.gitignore`), so you can refresh or delete it locally without touching the repo.
+
+To trigger the effect from a plan, set `effect` to `overlay.emojiBurst` and optionally pass:
+
+```jsonc
+{
+  "emoji": "sparkles",
+  "scale": "2"
+}
+```
+
+The `durationInFrames` prop is wired automatically by the runtime, so you only need to override the emoji name or scale when you want to emphasize a specific reaction.
+
 ### Next Steps
 
 1. Implement Module 2 scripts (`intakeLottie`, `validateLottie`, `generateLottieManifest`) inside the new folder structure.

@@ -9,8 +9,8 @@ import {Background} from "../../core/Background";
 import {FadeIn as BaseFadeIn} from "../../effects/components/motion/FadeIn";
 import {ZoomIn as BaseZoomIn} from "../../effects/components/motion/ZoomIn";
 import {SlideUp as BaseSlideUp} from "../../effects/components/motion/SlideUp";
-import {useAnimationById} from "../../effects/engines/gsap/useAnimationById";
-import {DEFAULT_TRANSITION_ID, useTransitionById} from "../../transitions/useTransitionById";
+import {getAnimationById} from "../../effects/engines/gsap/useAnimationById";
+import {DEFAULT_TRANSITION_ID, resolveTransitionById} from "../../transitions/useTransitionById";
 
 const effects = {
   fadeIn: BaseFadeIn,
@@ -25,9 +25,9 @@ export const Template1: React.FC<{plan: LoadedPlan}> = ({plan}) => {
   const theme = useTheme(themeConfig);
   const planAnimationId = plan.animationId ?? DEFAULT_ANIMATION_ID;
   const planTransitionId = plan.transitionId ?? DEFAULT_TRANSITION_ID;
-  const defaultAnimation = useMemo(() => useAnimationById(planAnimationId), [planAnimationId]);
+  const defaultAnimation = useMemo(() => getAnimationById(planAnimationId), [planAnimationId]);
   const defaultTransition = useMemo(
-    () => useTransitionById(planTransitionId) ?? useTransitionById(DEFAULT_TRANSITION_ID),
+    () => resolveTransitionById(planTransitionId) ?? resolveTransitionById(DEFAULT_TRANSITION_ID),
     [planTransitionId]
   );
 
@@ -42,7 +42,7 @@ export const Template1: React.FC<{plan: LoadedPlan}> = ({plan}) => {
         return defaultAnimation;
       }
 
-      return useAnimationById(animationId) ?? defaultAnimation;
+      return getAnimationById(animationId) ?? defaultAnimation;
     },
     [defaultAnimation, planAnimationId]
   );
@@ -64,7 +64,7 @@ export const Template1: React.FC<{plan: LoadedPlan}> = ({plan}) => {
         return defaultTransition ?? null;
       }
 
-      return useTransitionById(transitionId) ?? defaultTransition ?? null;
+      return resolveTransitionById(transitionId) ?? defaultTransition ?? null;
     },
     [defaultTransition, planTransitionId]
   );

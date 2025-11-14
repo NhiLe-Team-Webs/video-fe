@@ -1,11 +1,9 @@
 import {Composition, getInputProps, registerRoot} from "remotion";
-import {PlanOrchestrator} from "./orchestrator/PlanOrchestrator";
 import {loadPlan} from "./orchestrator/loadPlan";
 import {getFps} from "./core/utils/fpsControl";
 import {PreviewApp} from "./preview";
 import {EffectGallery} from "./effects/preview/EffectGallery";
 import {TemplatePreviewPanel} from "./preview/TemplatePreviewPanel";
-import {PlanPreviewPanel} from "./preview/PlanPreviewPanel";
 import {totalFrames} from "./core/utils/frameUtils";
 import {TransitionGallery} from "./transitions/preview/TransitionGallery";
 
@@ -53,25 +51,8 @@ export const RemotionRoot: React.FC = () => (
           width={PREVIEW_WIDTH}
           height={PREVIEW_HEIGHT}
         />
-        <Composition
-          id="plan-preview"
-          component={typeof PlanPreviewPanel === 'function' ? PlanPreviewPanel : () => {console.error("PlanPreviewPanel is undefined"); return null;}}
-          durationInFrames={totalFrames(plan.segments, initialFps)}
-          fps={initialFps}
-          width={PREVIEW_WIDTH}
-          height={PREVIEW_HEIGHT}
-        />
       </>
     ) : null}
-    <Composition
-      id="auto-video"
-      component={typeof PlanOrchestrator === 'function' ? PlanOrchestrator : () => {console.error("PlanOrchestrator is undefined"); return null;}}
-      durationInFrames={plan.durationInFrames}
-      fps={initialFps}
-      width={PREVIEW_WIDTH}
-      height={PREVIEW_HEIGHT}
-      defaultProps={{plan, fps: initialFps}}
-    />
   </>
 );
 

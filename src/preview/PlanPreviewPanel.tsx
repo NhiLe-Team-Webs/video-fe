@@ -15,6 +15,12 @@ const dropZoneStyle: React.CSSProperties = {
   cursor: "pointer",
 };
 
+const COMPOSITION_WIDTH = 1920;
+const COMPOSITION_HEIGHT = 1080;
+const PREVIEW_WIDTH = 360;
+const PREVIEW_SCALE = PREVIEW_WIDTH / COMPOSITION_WIDTH;
+const PREVIEW_HEIGHT = COMPOSITION_HEIGHT * PREVIEW_SCALE;
+
 const toPlan = (raw: Plan): Plan => ({
   ...raw,
   templateId: raw.templateId ?? "template0",
@@ -212,14 +218,26 @@ export const PlanPreviewPanel: React.FC = () => {
       <div style={{flex: 1, position: "relative", display: "flex", alignItems: "center", justifyContent: "center"}}>
         <div
           style={{
-            width: 360,
+            width: PREVIEW_WIDTH,
+            height: PREVIEW_HEIGHT,
             borderRadius: 24,
             overflow: "hidden",
             boxShadow: "0 40px 80px rgba(15,23,42,0.6)",
             background: "#000",
+            position: "relative",
           }}
         >
-          <TemplateComponent plan={normalizedPlan} />
+          <div
+            style={{
+              width: COMPOSITION_WIDTH,
+              height: COMPOSITION_HEIGHT,
+              transform: `scale(${PREVIEW_SCALE})`,
+              transformOrigin: "top left",
+              position: "relative",
+            }}
+          >
+            <TemplateComponent plan={normalizedPlan} />
+          </div>
         </div>
       </div>
     </AbsoluteFill>

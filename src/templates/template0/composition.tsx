@@ -9,8 +9,8 @@ import {Background} from "../../core/Background";
 import {FadeIn} from "../../effects/components/motion/FadeIn";
 import {ZoomIn} from "../../effects/components/motion/ZoomIn";
 import {SlideUp} from "../../effects/components/motion/SlideUp";
-import {useAnimationById} from "../../effects/engines/gsap/useAnimationById";
-import {DEFAULT_TRANSITION_ID, useTransitionById} from "../../transitions/useTransitionById";
+import {getAnimationById} from "../../effects/engines/gsap/useAnimationById";
+import {DEFAULT_TRANSITION_ID, resolveTransitionById} from "../../transitions/useTransitionById";
 
 type TemplateCompositionProps = {
   plan: LoadedPlan;
@@ -29,11 +29,22 @@ export const Template0: React.FC<TemplateCompositionProps> = ({plan}) => {
 
   const planAnimationId = plan.animationId ?? DEFAULT_ANIMATION_ID;
   const planTransitionId = plan.transitionId ?? DEFAULT_TRANSITION_ID;
-  const defaultAnimation = useMemo(() => useAnimationById(planAnimationId), [planAnimationId]);
+  const defaultAnimation = useMemo(() => getAnimationById(planAnimationId), [planAnimationId]);
   const defaultTransition = useMemo(
-    () => useTransitionById(planTransitionId) ?? useTransitionById(DEFAULT_TRANSITION_ID),
+    () => resolveTransitionById(planTransitionId) ?? resolveTransitionById(DEFAULT_TRANSITION_ID),
     [planTransitionId]
   );
+
+  const animationCache = useMemo(() => {
+    const cache: { [key: string]: ReturnType<typeof getAnimationById> } = {};
+    return (animationId: string) => {
+      if (cache[animationId]) {
+        return cache[animationId];
+      }
+      cache[animationId] = getAnimationById(animationId);
+      return cache[animationId];
+    };
+  }, []);
 
   const resolveAnimation = useCallback(
     (segment: LoadedPlan["segments"][number]) => {
@@ -46,9 +57,9 @@ export const Template0: React.FC<TemplateCompositionProps> = ({plan}) => {
         return defaultAnimation;
       }
 
-      return useAnimationById(animationId) ?? defaultAnimation;
+      return animationCache(animationId) ?? defaultAnimation;
     },
-    [defaultAnimation, planAnimationId]
+    [defaultAnimation, planAnimationId, animationCache]
   );
 
   const resolveTransitionConfig = useCallback(
@@ -68,7 +79,7 @@ export const Template0: React.FC<TemplateCompositionProps> = ({plan}) => {
         return defaultTransition ?? null;
       }
 
-      return useTransitionById(transitionId) ?? defaultTransition ?? null;
+      return resolveTransitionById(transitionId) ?? defaultTransition ?? null;
     },
     [defaultTransition, planTransitionId]
   );

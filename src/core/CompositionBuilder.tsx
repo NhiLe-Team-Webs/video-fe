@@ -30,7 +30,7 @@ type EffectComponent = React.FC<React.PropsWithChildren<{durationInFrames: numbe
 type TransitionConfig = {
   id: string;
   timing: TransitionTiming;
-  presentation?: TransitionPresentation<any>;
+  presentation?: TransitionPresentation<Record<string, unknown>>;
 };
 
 type TransitionContext = {

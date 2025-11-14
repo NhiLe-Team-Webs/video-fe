@@ -980,6 +980,42 @@
     "componentPath": "src/effects/components/overlay/SocialIconPop",
     "version": "1.0.0"
   },
+  "overlay.emojiBurst": {
+    "key": "overlay.emojiBurst",
+    "name": "Animated Emoji Burst",
+    "category": "overlay",
+    "description": "Floating animated emoji trio that pops with glowing halos and plays well with expressive segments.",
+    "tags": [
+      "emoji",
+      "celebration",
+      "callout"
+    ],
+    "mood": [
+      "playful",
+      "bold"
+    ],
+    "duration": 2.5,
+    "props": [
+      {
+        "name": "emoji",
+        "type": "string",
+        "description": "Name from @remotion/animated-emoji (e.g. \"sparkles\", \"heart-eyes\")."
+      },
+      {
+        "name": "scale",
+        "type": "string",
+        "description": "Asset scale (0.5, 1, or 2).",
+        "defaultValue": "1"
+      },
+      {
+        "name": "durationInFrames",
+        "type": "number"
+      }
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/overlay/AnimatedEmojiBurst",
+    "version": "1.0.0"
+  },
   "overlay.appIntro": {
     "key": "overlay.appIntro",
     "name": "App Intro Lower Third",

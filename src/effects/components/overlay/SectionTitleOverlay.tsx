@@ -102,11 +102,10 @@ export const SectionTitleOverlay: React.FC<SectionTitleOverlayProps> = ({
             inset: "-8px",
             background: motif.triangleGlow,
             opacity: 0.2,
-            mixBlendMode: motif.overlayBlend as any,
+            mixBlendMode: motif.overlayBlend as React.CSSProperties['mixBlendMode'],
           }}
         />
       </div>
     </AbsoluteFill>
   );
 };
-

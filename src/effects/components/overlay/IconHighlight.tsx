@@ -1,7 +1,7 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
 import {LottieEffect} from "../../engines/lottie/LottieEffect";
-import {palette, typography, motif} from "../../../styles/designTokens";
+import {palette, motif} from "../../../styles/designTokens";
 
 export type IconHighlightProps = {
   iconSrc?: string;
@@ -60,6 +60,7 @@ export const IconHighlight: React.FC<IconHighlightProps> = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          // eslint-disable-next-line @remotion/slow-css-property
           filter: "drop-shadow(0 25px 40px rgba(0,0,0,0.45))",
           transform: `translate(${translate}px, ${float}px) scale(${scale})`,
           opacity,

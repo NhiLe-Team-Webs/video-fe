@@ -1,6 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig} from "remotion";
-import {palette, typography, motif} from "../../../styles/designTokens";
+import {typography, motif} from "../../../styles/designTokens";
 
 export type PopUpTitleProps = {
   text: string;

@@ -1,6 +1,7 @@
 {
   "templateId": "template1",
   "animationId": "gsap-zoom-pop",
+  "transitionId": "transition.cross-fade",
   "music": "assets/sfx/emotion/applause.mp3",
   "segments": [
     {
@@ -10,7 +11,8 @@
       "duration": 4,
       "emotion": "neutral",
       "sfx": "assets/sfx/whoosh/woosh.mp3",
-      "animationId": "gsap-slide-up"
+      "animationId": "gsap-slide-up",
+      "transitionId": "transition.slide-right"
     },
     {
       "clip": "assets/broll/education_training.jpg",
@@ -18,7 +20,8 @@
       "effect": "slide_up",
       "duration": 4,
       "emotion": "serious",
-      "animationId": "confetti"
+      "animationId": "confetti",
+      "transitionId": "transition.soft-wipe"
     }
   ]
 }

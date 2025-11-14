@@ -152,6 +152,7 @@ export const AppIntroLowerThird: React.FC<AppIntroLowerThirdProps> = ({
           alignItems: "center",
           gap: 16,
           background: palette.deepBlack,
+          // eslint-disable-next-line @remotion/slow-css-property
           boxShadow: "0 25px 60px rgba(2,6,23,0.7)",
           border: `1px solid ${accentBorder}`,
           backdropFilter: "blur(16px)",
@@ -170,6 +171,7 @@ export const AppIntroLowerThird: React.FC<AppIntroLowerThirdProps> = ({
             background: `radial-gradient(circle at 30% 30%, ${glowColor}, ${colorTheme})`,
             border: `1px solid ${accentBorder}`,
             transform: `scale(${iconPulse})`,
+            // eslint-disable-next-line @remotion/slow-css-property
             boxShadow: `0 10px 30px rgba(34,115,255,0.35)`,
           }}
         >

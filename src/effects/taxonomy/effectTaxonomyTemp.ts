@@ -1,5 +1,4 @@
-import { EffectCategory } from "./effectCategories";
-import { EffectKey, EffectTaxonomyEntry } from "../../types/EffectTypes";
+import { EffectKey, EffectTaxonomyEntry, EffectCategory } from "../../types/EffectTypes";
 
 export const effectTaxonomy: Record<
   EffectCategory,

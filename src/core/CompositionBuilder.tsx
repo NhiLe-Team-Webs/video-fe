@@ -1,5 +1,6 @@
-import React, {Fragment} from "react";
-import {AbsoluteFill, Series} from "remotion";
+import React from "react";
+import {AbsoluteFill} from "remotion";
+import {TransitionSeries} from "@remotion/transitions";
 import {VideoLayer} from "./layers/VideoLayer";
 import {TextLayer} from "./layers/TextLayer";
 import type {LoadedPlan, NormalizedSegment} from "./types";
@@ -10,6 +11,7 @@ import {FrameIndicator} from "./layers/FrameIndicator";
 import {DebugPanel} from "./layers/DebugPanel";
 import {DebugProvider} from "./context/DebugContext";
 import type {AnimationResolver} from "../effects/engines/gsap/useAnimationById";
+import type {TransitionPresentation, TransitionTiming} from "@remotion/transitions";
 
 type TemplateRules = Record<string, string>;
 
@@ -25,12 +27,25 @@ type TemplateConfig = {
 
 type EffectComponent = React.FC<React.PropsWithChildren<{durationInFrames: number}>>;
 
+type TransitionConfig = {
+  id: string;
+  timing: TransitionTiming;
+  presentation?: TransitionPresentation<any>;
+};
+
+type TransitionContext = {
+  segment: NormalizedSegment;
+  nextSegment?: NormalizedSegment;
+  index: number;
+};
+
 type CompositionBuilderProps = {
   plan: LoadedPlan;
   theme?: Theme;
   templateConfig?: TemplateConfig;
   effects?: Record<string, EffectComponent>;
   resolveAnimation?: (segment: NormalizedSegment) => AnimationResolver | null;
+  resolveTransition?: (context: TransitionContext) => TransitionConfig | null;
 };
 
 const DEFAULT_EFFECT = "none";
@@ -95,6 +110,7 @@ const BuilderContent: React.FC<CompositionBuilderProps> = ({
   templateConfig,
   effects = {},
   resolveAnimation,
+  resolveTransition,
 }) => {
   if (!plan.segments.length) {
     return (
@@ -119,14 +135,14 @@ const BuilderContent: React.FC<CompositionBuilderProps> = ({
   return (
     <AbsoluteFill style={{backgroundColor: theme?.backgroundColor ?? "#000"}}>
       <AudioLayer src={bgmSrc} loop volume={0.45} endAt={plan.durationInFrames} />
-      <Series>
-        {plan.segments.map((segment, index) => {
+      <TransitionSeries>
+        {plan.segments.flatMap<React.ReactNode>((segment, index) => {
           const effectKey = resolveEffect(segment.effect, segment.emotion, templateConfig?.rules);
-          const EffectWrapper = effects[effectKey] ?? effects[DEFAULT_EFFECT] ?? Fragment;
+          const EffectWrapper = effects[effectKey] ?? effects[DEFAULT_EFFECT] ?? React.Fragment;
           const animation = resolveAnimation?.(segment);
 
-          return (
-            <Series.Sequence key={`${segment.clip}-${index}`} durationInFrames={segment.durationInFrames}>
+          const sequence = (
+            <TransitionSeries.Sequence key={`sequence-${segment.clip}-${index}`} durationInFrames={segment.durationInFrames}>
               <AbsoluteFill>
                 <EffectWrapper durationInFrames={segment.durationInFrames}>
                   <VideoLayer clip={segment.clip} />
@@ -155,10 +171,32 @@ const BuilderContent: React.FC<CompositionBuilderProps> = ({
                   />
                 ) : null}
               </AbsoluteFill>
-            </Series.Sequence>
+            </TransitionSeries.Sequence>
           );
+
+          const nodes: React.ReactNode[] = [sequence];
+
+          if (index < plan.segments.length - 1) {
+            const transition = resolveTransition?.({
+              segment,
+              nextSegment: plan.segments[index + 1],
+              index,
+            });
+
+            if (transition) {
+              nodes.push(
+                <TransitionSeries.Transition
+                  key={`transition-${segment.clip}-${index}`}
+                  timing={transition.timing}
+                  presentation={transition.presentation}
+                />
+              );
+            }
+          }
+
+          return nodes;
         })}
-      </Series>
+      </TransitionSeries>
       <FrameIndicator />
       <DebugPanel />
     </AbsoluteFill>

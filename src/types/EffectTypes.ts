@@ -1,5 +1,6 @@
 import {ComponentType} from "react";
 import {EffectCategory} from "../effects/taxonomy/effectCategories";
+export { EffectCategory };
 
 export type EffectKey = `${EffectCategory}.${string}`;
 

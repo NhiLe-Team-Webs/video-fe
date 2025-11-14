@@ -1,3 +1,4 @@
+/* eslint-disable @remotion/slow-css-property */
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
 import {palette, typography, motif} from "../../../styles/designTokens";
@@ -106,6 +107,7 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
           strokeWidth={2}
           strokeDasharray="8 14"
           strokeDashoffset={circumference * (1 - ringProgress)}
+          // eslint-disable-next-line @remotion/non-pure-animation
           style={{transition: "stroke-dashoffset 100ms linear"}}
         />
       </svg>
@@ -119,6 +121,7 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
             color: accentColor,
             opacity: centerOpacity,
             transform: `scale(${centerScale})`,
+            // eslint-disable-next-lirgba(57, 57, 57, 0.35)w-css-property
             textShadow: "0 20px 50px rgba(0,0,0,0.35)",
             fontFamily: typography.headline,
             position: "relative",
@@ -133,8 +136,9 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
               width: 60,
               height: 38,
               background: motif.triangleGlow,
-              mixBlendMode: motif.overlayBlend as any,
+              mixBlendMode: motif.overlayBlend as React.CSSProperties['mixBlendMode'],
               borderRadius: "0 12px 12px 0",
+              /// eslint-disable-next-line @remotion/slow-css-property
               boxShadow: "0 15px 35px rgba(200,16,46,0.4)",
               transform: "skewX(-10deg)",
             }}

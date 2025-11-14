@@ -1,6 +1,6 @@
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
-import {palette, typography} from "../../styles/designTokens";
+import {palette, typography} from "../../../styles/designTokens";
 
 type SeriesPoint = {
   label: string;
@@ -162,7 +162,7 @@ export const DataVisualizationReveal: React.FC<DataVisualizationRevealProps> = (
           height: chartHeight + padding * 2,
           position: "relative",
           borderRadius: 32,
-          background: "rgba(8,15,32,0.85)",
+          background: backgroundColor,
           boxShadow: "0 25px 60px rgba(0,0,0,0.45)",
           overflow: "hidden",
           border: `1px solid ${palette.lightGray}`,

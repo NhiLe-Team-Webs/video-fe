@@ -10,6 +10,7 @@ import {FadeIn} from "../../effects/components/motion/FadeIn";
 import {ZoomIn} from "../../effects/components/motion/ZoomIn";
 import {SlideUp} from "../../effects/components/motion/SlideUp";
 import {useAnimationById} from "../../effects/engines/gsap/useAnimationById";
+import {DEFAULT_TRANSITION_ID, useTransitionById} from "../../transitions/useTransitionById";
 
 type TemplateCompositionProps = {
   plan: LoadedPlan;
@@ -27,7 +28,12 @@ export const Template0: React.FC<TemplateCompositionProps> = ({plan}) => {
   };
 
   const planAnimationId = plan.animationId ?? DEFAULT_ANIMATION_ID;
+  const planTransitionId = plan.transitionId ?? DEFAULT_TRANSITION_ID;
   const defaultAnimation = useMemo(() => useAnimationById(planAnimationId), [planAnimationId]);
+  const defaultTransition = useMemo(
+    () => useTransitionById(planTransitionId) ?? useTransitionById(DEFAULT_TRANSITION_ID),
+    [planTransitionId]
+  );
 
   const resolveAnimation = useCallback(
     (segment: LoadedPlan["segments"][number]) => {
@@ -45,6 +51,28 @@ export const Template0: React.FC<TemplateCompositionProps> = ({plan}) => {
     [defaultAnimation, planAnimationId]
   );
 
+  const resolveTransitionConfig = useCallback(
+    ({
+      segment,
+    }: {
+      segment: LoadedPlan["segments"][number];
+      nextSegment?: LoadedPlan["segments"][number];
+      index?: number;
+    }) => {
+      const transitionId = segment.transitionId ?? planTransitionId;
+      if (!transitionId) {
+        return defaultTransition ?? null;
+      }
+
+      if (transitionId === planTransitionId) {
+        return defaultTransition ?? null;
+      }
+
+      return useTransitionById(transitionId) ?? defaultTransition ?? null;
+    },
+    [defaultTransition, planTransitionId]
+  );
+
   return (
     <AbsoluteFill style={{fontFamily: theme.fontFamily}}>
       <Background color={theme.backgroundColor} accentColor={theme.accentColor} />
@@ -54,6 +82,7 @@ export const Template0: React.FC<TemplateCompositionProps> = ({plan}) => {
         templateConfig={templateConfig}
         effects={effects}
         resolveAnimation={resolveAnimation}
+        resolveTransition={resolveTransitionConfig}
       />
     </AbsoluteFill>
   );

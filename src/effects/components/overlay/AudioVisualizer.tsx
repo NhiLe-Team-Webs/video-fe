@@ -106,8 +106,8 @@ export const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
               position: "absolute",
               inset: 0,
               background: motif.triangleGlow,
-              opacity: 0.35,
-              mixBlendMode: motif.overlayBlend,
+              opacity: 0.35, 
+              mixBlendMode: motif.overlayBlend as React.CSSProperties['mixBlendMode'],
               filter: "blur(18px)",
               pointerEvents: "none",
             }}

@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 export type SwipeHighlightProps = {
   text: string;
@@ -8,7 +9,7 @@ export type SwipeHighlightProps = {
 
 export const SwipeHighlight: React.FC<SwipeHighlightProps> = ({
   text,
-  highlightColor = "#56ccf2",
+  highlightColor = palette.primaryRed,
 }) => {
   const frame = useCurrentFrame();
   const width = interpolate(frame, [0, 20], [0, 100], {extrapolateRight: "clamp"});
@@ -18,9 +19,10 @@ export const SwipeHighlight: React.FC<SwipeHighlightProps> = ({
       style={{
         justifyContent: "center",
         alignItems: "center",
-        fontFamily: "Inter, sans-serif",
+        fontFamily: typography.headline,
         fontSize: 56,
-        color: "#0b0b0b",
+        color: palette.brightestWhite,
+        letterSpacing: 1.2,
       }}
     >
       <span style={{position: "relative", padding: "0 8px"}}>

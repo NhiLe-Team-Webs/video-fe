@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 type StepItem = {
   title: string;
@@ -60,8 +61,8 @@ export const StepBreakdownTransition: React.FC<StepBreakdownTransitionProps> = (
   topic = "Digital Marketing",
   steps,
   durationInFrames,
-  accentColor = "#f97316",
-  backgroundColor = "#0f172a",
+  accentColor = palette.primaryRed,
+  backgroundColor = palette.deepBlack,
 }) => {
   const frame = useCurrentFrame();
   const resolvedSteps = useMemo(() => parseSteps(steps), [steps]);
@@ -93,8 +94,8 @@ export const StepBreakdownTransition: React.FC<StepBreakdownTransitionProps> = (
   return (
     <AbsoluteFill
       style={{
-        fontFamily: "Space Grotesk, sans-serif",
-        color: "#f8fafc",
+        fontFamily: typography.body,
+        color: palette.brightestWhite,
         background: backgroundColor,
         display: "flex",
         flexDirection: "row",
@@ -111,6 +112,7 @@ export const StepBreakdownTransition: React.FC<StepBreakdownTransitionProps> = (
             textTransform: "uppercase",
             letterSpacing: 2,
             color: accentColor,
+            fontFamily: typography.headline,
           }}
         >
           {topic}
@@ -133,43 +135,43 @@ export const StepBreakdownTransition: React.FC<StepBreakdownTransitionProps> = (
             );
 
             return (
-              <div
-                key={`${step.title}-${index}`}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 18,
-                  opacity: baseOpacity * (isActive ? 1 : 1 - listDim),
-                  transform: `translateX(${isActive ? 0 : -6}px) scale(${isActive ? highlightScale : 1})`,
-                  transition: "transform 200ms ease",
-                }}
-              >
+            <div
+              key={`${step.title}-${index}`}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 18,
+                opacity: baseOpacity * (isActive ? 1 : 1 - listDim),
+                transform: `translateX(${isActive ? 0 : -6}px) scale(${isActive ? highlightScale : 1})`,
+                transition: "transform 200ms ease",
+              }}
+            >
                 <div style={{color: accentColor, fontWeight: 700}}>{`/${step.title}`}</div>
                 <div
-                  style={{
-                    height: 1,
-                    flex: 1,
-                    background: `rgba(248,250,252,${isActive ? 0.45 : 0.1})`,
-                  }}
-                />
-              </div>
+                style={{
+                  height: 1,
+                  flex: 1,
+                  background: `rgba(248,250,252,${isActive ? 0.45 : 0.1})`,
+                }}
+              />
+            </div>
             );
           })}
         </div>
       </div>
       <div style={{flex: 1}}>
         <div
-          style={{
-            borderRadius: 32,
-            background: "rgba(15,23,42,0.65)",
-            backdropFilter: "blur(12px)",
-            padding: "64px 52px",
-            minHeight: 320,
-            color: "#f8fafc",
-            opacity: detailOpacity,
-            transform: `translateX(${detailOffset}px)`,
-            boxShadow: "0 35px 80px rgba(0,0,0,0.45)",
-          }}
+            style={{
+              borderRadius: 32,
+              background: "rgba(15,23,42,0.65)",
+              backdropFilter: "blur(12px)",
+              padding: "64px 52px",
+              minHeight: 320,
+              color: palette.brightestWhite,
+              opacity: detailOpacity,
+              transform: `translateX(${detailOffset}px)`,
+              boxShadow: "0 35px 80px rgba(0,0,0,0.45)",
+            }}
         >
           <div style={{display: "flex", alignItems: "baseline", gap: 16, color: accentColor}}>
             <div style={{fontSize: 64, fontWeight: 800}}>{formatIndex(activeIndex + 1)}</div>

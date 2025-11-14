@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 export type SequentialListRevealProps = {
   items?: string[];
@@ -12,8 +13,8 @@ const fallbackItems = ["TV", "RADIO", "NEWSPAPERS", "MAGAZINES", "BILLBOARDS"];
 
 export const SequentialListReveal: React.FC<SequentialListRevealProps> = ({
   items = fallbackItems,
-  color = "#f8f7f4",
-  accent = "#ffffff",
+  color = palette.brightestWhite,
+  accent = palette.primaryRed,
   align = "left",
 }) => {
   const frame = useCurrentFrame();
@@ -62,6 +63,7 @@ export const SequentialListReveal: React.FC<SequentialListRevealProps> = ({
                 opacity,
                 transform: `scale(${scale})`,
                 textShadow: "0 6px 25px rgba(0,0,0,0.45)",
+                fontFamily: typography.headline,
               }}
             >
               <span style={{color: accent}}>{item}</span>

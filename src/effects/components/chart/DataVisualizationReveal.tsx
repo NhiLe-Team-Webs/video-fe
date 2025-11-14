@@ -1,5 +1,6 @@
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography} from "../../styles/designTokens";
 
 type SeriesPoint = {
   label: string;
@@ -147,12 +148,12 @@ export const DataVisualizationReveal: React.FC<DataVisualizationRevealProps> = (
   return (
     <AbsoluteFill
       style={{
-        fontFamily: "Space Grotesk, sans-serif",
+        fontFamily: typography.body,
         justifyContent: "center",
         alignItems: "center",
         pointerEvents: "none",
-        background: `linear-gradient(135deg, ${backgroundColor}, #030712)`,
-        color: "#f8fafc",
+        background: palette.deepBlack,
+        color: palette.brightestWhite,
       }}
     >
       <div
@@ -161,9 +162,10 @@ export const DataVisualizationReveal: React.FC<DataVisualizationRevealProps> = (
           height: chartHeight + padding * 2,
           position: "relative",
           borderRadius: 32,
-          background: "rgba(8,15,32,0.8)",
+          background: "rgba(8,15,32,0.85)",
           boxShadow: "0 25px 60px rgba(0,0,0,0.45)",
           overflow: "hidden",
+          border: `1px solid ${palette.lightGray}`,
         }}
       >
         <div

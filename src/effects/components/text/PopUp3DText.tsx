@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 export type PopUp3DTextProps = {
   text?: string;
@@ -12,8 +13,8 @@ export type PopUp3DTextProps = {
 export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
   text = "DIGITAL MARKETING 101",
   subtitle = "A BEGINNER'S GUIDE",
-  color = "#f4f4f4",
-  accent = "#ff6b6b",
+  color = palette.brightestWhite,
+  accent = palette.primaryRed,
   durationInFrames,
 }) => {
   const frame = useCurrentFrame();
@@ -62,27 +63,31 @@ export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
       >
         <div
           style={{
-            fontSize: 72,
-            fontWeight: 800,
-            letterSpacing: 2,
-            color,
-            textShadow: "0 8px 35px rgba(0,0,0,0.45)",
-          }}
-        >
-          {text}
-        </div>
-        <div
-          style={{
-            marginTop: 8,
-            fontSize: 36,
-            fontWeight: 600,
-            letterSpacing: 4,
-            color: accent,
-          }}
-        >
-          {subtitle}
-        </div>
-      </div>
+        fontSize: 72,
+        fontWeight: 800,
+        letterSpacing: 2,
+        color,
+        fontFamily: typography.headline,
+        textShadow: "0 20px 55px rgba(0,0,0,0.35)",
+      }}
+    >
+      {text}
+    </div>
+    <div
+      style={{
+        marginTop: 8,
+        fontSize: 36,
+        fontWeight: 600,
+        letterSpacing: 4,
+        color: accent,
+        fontFamily: typography.body,
+        position: "relative",
+        textTransform: "none",
+      }}
+    >
+      {subtitle}
+    </div>
+  </div>
     </AbsoluteFill>
   );
 };

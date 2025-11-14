@@ -1,5 +1,6 @@
 import React from "react";
 import {AbsoluteFill, useCurrentFrame, useVideoConfig} from "remotion";
+import {palette, typography} from "../../../styles/designTokens";
 
 export type TypeOnCaptionProps = {
   text?: string;
@@ -10,7 +11,7 @@ export type TypeOnCaptionProps = {
 export const TypeOnCaption: React.FC<TypeOnCaptionProps> = ({
   text = "Type on caption",
   caret = true,
-  color = "#ffffff",
+  color = palette.brightestWhite,
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
@@ -24,9 +25,11 @@ export const TypeOnCaption: React.FC<TypeOnCaptionProps> = ({
         justifyContent: "flex-end",
         alignItems: "center",
         padding: "0 80px 120px",
-        fontFamily: "Space Grotesk, sans-serif",
+        fontFamily: typography.body,
         fontSize: 48,
         color,
+        letterSpacing: 0.1,
+        textTransform: "uppercase",
       }}
     >
       <span>

@@ -22,7 +22,7 @@ export const RemotionRoot: React.FC = () => (
       <>
         <Composition
           id="live-preview"
-          component={PreviewApp}
+          component={typeof PreviewApp === 'function' ? PreviewApp : () => {console.error("PreviewApp is undefined"); return null;}}
           durationInFrames={totalFrames(plan.segments, initialFps)}
           fps={initialFps}
           width={PREVIEW_WIDTH}
@@ -30,7 +30,7 @@ export const RemotionRoot: React.FC = () => (
         />
         <Composition
           id="effects-gallery"
-          component={EffectGallery}
+          component={typeof EffectGallery === 'function' ? EffectGallery : () => {console.error("EffectGallery is undefined"); return null;}}
           durationInFrames={180}
           fps={initialFps}
           width={PREVIEW_WIDTH}
@@ -38,7 +38,7 @@ export const RemotionRoot: React.FC = () => (
         />
         <Composition
           id="template-preview"
-          component={TemplatePreviewPanel}
+          component={typeof TemplatePreviewPanel === 'function' ? TemplatePreviewPanel : () => {console.error("TemplatePreviewPanel is undefined"); return null;}}
           durationInFrames={totalFrames(plan.segments, initialFps)}
           fps={initialFps}
           width={PREVIEW_WIDTH}
@@ -46,7 +46,7 @@ export const RemotionRoot: React.FC = () => (
         />
         <Composition
           id="plan-preview"
-          component={PlanPreviewPanel}
+          component={typeof PlanPreviewPanel === 'function' ? PlanPreviewPanel : () => {console.error("PlanPreviewPanel is undefined"); return null;}}
           durationInFrames={totalFrames(plan.segments, initialFps)}
           fps={initialFps}
           width={PREVIEW_WIDTH}
@@ -56,7 +56,7 @@ export const RemotionRoot: React.FC = () => (
     ) : null}
     <Composition
       id="auto-video"
-      component={PlanOrchestrator}
+      component={typeof PlanOrchestrator === 'function' ? PlanOrchestrator : () => {console.error("PlanOrchestrator is undefined"); return null;}}
       durationInFrames={plan.durationInFrames}
       fps={initialFps}
       width={PREVIEW_WIDTH}

@@ -62,6 +62,11 @@ const sanitizeSegment = (
     emotion: typeof segment?.emotion === "string" && segment.emotion.length > 0 ? segment.emotion : undefined,
     animationId: typeof segment?.animationId === "string" ? segment.animationId : undefined,
     transitionId: typeof segment?.transitionId === "string" ? segment.transitionId : undefined,
+    sourceStart:
+      typeof segment?.sourceStart === "number" && Number.isFinite(segment.sourceStart) && segment.sourceStart >= 0
+        ? segment.sourceStart
+        : undefined,
+    mute: typeof segment?.mute === "boolean" ? segment.mute : true,
   };
 };
 
@@ -82,9 +87,12 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
     endFrame: end,
   }));
 
+  const resolvedMusic =
+    plan?.music === null ? null : typeof plan?.music === "string" ? plan.music : undefined;
+
   return {
     templateId,
-    music: typeof plan?.music === "string" ? plan.music : undefined,
+    music: resolvedMusic,
     animationId: typeof plan?.animationId === "string" ? plan.animationId : undefined,
     transitionId: typeof plan?.transitionId === "string" ? plan.transitionId : undefined,
     segments: segmentsWithTimeline,

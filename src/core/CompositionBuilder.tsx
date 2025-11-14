@@ -11,6 +11,7 @@ import {DebugPanel} from "./layers/DebugPanel";
 import {DebugProvider} from "./context/DebugContext";
 import type {AnimationResolver} from "../effects/engines/gsap/useAnimationById";
 import type {TransitionPresentation, TransitionTiming} from "@remotion/transitions";
+import {secondsToFrames} from "./utils/frameUtils";
 
 type TemplateRules = Record<string, string>;
 
@@ -128,23 +129,34 @@ const BuilderContent: React.FC<CompositionBuilderProps> = ({
     );
   }
 
-  const bgmSrc = plan.music ?? templateConfig?.audio?.bgm ?? templateConfig?.bgm ?? DEFAULT_BGM;
+  const planDisablesMusic = plan.music === null;
+  const planMusic = typeof plan.music === "string" && plan.music.trim().length > 0 ? plan.music.trim() : undefined;
+  const bgmSrc = planDisablesMusic ? null : planMusic ?? templateConfig?.audio?.bgm ?? templateConfig?.bgm ?? DEFAULT_BGM;
   const sfxFallback = templateConfig?.audio?.sfxFallback ?? templateConfig?.sfxFallback;
 
   return (
     <AbsoluteFill style={{backgroundColor: theme?.backgroundColor ?? "#000"}}>
-      <AudioLayer src={bgmSrc} loop volume={0.45} endAt={plan.durationInFrames} />
+      {bgmSrc ? <AudioLayer src={bgmSrc} loop volume={0.45} endAt={plan.durationInFrames} /> : null}
       <TransitionSeries>
         {plan.segments.flatMap<React.ReactNode>((segment, index) => {
           const effectKey = resolveEffect(segment.effect, segment.emotion, templateConfig?.rules);
           const EffectWrapper = effects[effectKey] ?? effects[DEFAULT_EFFECT] ?? React.Fragment;
           const animation = resolveAnimation?.(segment);
+          const trimStartInFrames =
+            typeof segment.sourceStart === "number" && segment.sourceStart > 0
+              ? secondsToFrames(segment.sourceStart, plan.fps)
+              : 0;
 
           const sequence = (
             <TransitionSeries.Sequence key={`sequence-${segment.clip}-${index}`} durationInFrames={segment.durationInFrames}>
               <AbsoluteFill>
                 <EffectWrapper durationInFrames={segment.durationInFrames}>
-                  <VideoLayer clip={segment.clip} />
+                  <VideoLayer
+                    clip={segment.clip}
+                    startFrom={trimStartInFrames}
+                    durationInFrames={segment.durationInFrames}
+                    muted={segment.mute}
+                  />
                   <Overlay accentColor={theme?.accentColor} style={theme?.overlayStyle} />
                 </EffectWrapper>
                 {segment.text

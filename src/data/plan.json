@@ -2,143 +2,84 @@
   "templateId": "template0",
   "animationId": "gsap-fade-in",
   "transitionId": "transition.cross-fade",
-  "music": "assets/sfx/emotion/applause.mp3",
+  "music": null,
   "segments": [
     {
-      "id": "marketing_revolution",
-      "sourceStart": 0.0,
-      "duration": 7.32,
-      "label": "What if I told you the greatest marketing revolution is happening right now",
-      "clip": "assets/broll/digital_network.jpg",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.6
-      }
+      "clip": "input/footage.mp4",
+      "sourceStart": 0,
+      "duration": 37,
+      "text": "What if I told you the greatest marketing revolution is happening right now?",
+      "effect": "text.popUp3D",
+      "animationId": "gsap-zoom-in",
+      "emotion": "inspiring",
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "mute": false
     },
     {
-      "id": "classic_creatives",
-      "sourceStart": 8.06,
-      "duration": 5.26,
-      "label": "Classic creative directors, agencies and gut instinct vs. automation",
-      "clip": "assets/broll/modern_office.jpg",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.6
-      }
+      "clip": "input/footage.mp4",
+      "sourceStart": 37,
+      "duration": 30,
+      "text": "Classic creative directors vs algorithms, automation and AI—today we’re putting them head to head.",
+      "effect": "text.keywordSubtitleHighlight",
+      "animationId": "gsap-slide-up",
+      "emotion": "bold",
+      "sfx": "assets/sfx/tech/notification.mp3",
+      "mute": false
     },
     {
-      "id": "algorithm_vs_coffee",
-      "sourceStart": 13.98,
-      "duration": 6.48,
-      "label": "Algorithm, automation and AI that can design your campaign before your coffee gets cold",
-      "clip": "assets/broll/ai_brain.jpg",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "right"
-      }
+      "clip": "input/footage.mp4",
+      "sourceStart": 67,
+      "duration": 40,
+      "text": "Human intuition brings emotion; AI marketing brings prediction, personalization and always-on learning.",
+      "effect": "text.centralConcept",
+      "animationId": "gsap-rotate-in",
+      "emotion": "educational",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "mute": false
     },
     {
-      "id": "head_to_head",
-      "sourceStart": 24.32,
-      "duration": 2.74,
-      "label": "Today we’re putting them head to head",
-      "clip": "assets/broll/data_visualization.jpg",
-      "silenceAfter": false
+      "clip": "input/footage.mp4",
+      "sourceStart": 107,
+      "duration": 50,
+      "text": "Coca-Cola’s Create Real Magic campaign let fans co-create with GPT and DALL·E—120k artworks in days.",
+      "effect": "text.stepBreakdown",
+      "animationId": "gsap-fade-in",
+      "emotion": "inspiring",
+      "sfx": "assets/sfx/ui/mouse-click.mp3",
+      "mute": false
     },
     {
-      "id": "smart_marketers",
-      "sourceStart": 31.7,
-      "duration": 4.98,
-      "label": "Smarty marketers winning both sides of the game",
-      "clip": "assets/broll/business_strategy.jpg",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "cut"
-      }
+      "clip": "input/footage.mp4",
+      "sourceStart": 157,
+      "duration": 45,
+      "text": "Heinz asked AI to draw ketchup—almost every render looked like their bottle. That’s brand gravity.",
+      "effect": "text.sideFloatLeft",
+      "animationId": "gsap-bounce",
+      "emotion": "fun",
+      "sfx": "assets/sfx/tech/camera-click.mp3",
+      "mute": false
     },
     {
-      "id": "human_intuition",
-      "sourceStart": 41.8,
-      "duration": 12.3,
-      "label": "Traditional marketing: late night brainstorming and emotional storytelling",
-      "clip": "assets/broll/innovation_lightbulb.jpg",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 0.8
-      }
+      "clip": "input/footage.mp4",
+      "sourceStart": 202,
+      "duration": 60,
+      "text": "AI marketing delivers outputs instantly while entrepreneurs obsess over the cost savings and targeting wins.",
+      "effect": "text.sideFloat",
+      "animationId": "gsap-slide-up",
+      "emotion": "energetic",
+      "sfx": "assets/sfx/ui/keyboard-typing.mp3",
+      "mute": false
     },
     {
-      "id": "ai_personalization",
-      "sourceStart": 49.98,
-      "duration": 19.88,
-      "label": "AI marketing learns from behavior to personalize at scale while you sleep",
-      "clip": "assets/broll/digital_network.jpg",
-      "silenceAfter": false,
-      "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.6
-      }
-    },
-    {
-      "id": "coke_story",
-      "sourceStart": 101.04,
-      "duration": 18.5,
-      "label": "Coca-Cola’s Create Real Magic campaign + fan-generated AI art",
-      "clip": "assets/broll/ai_brain.jpg",
-      "silenceAfter": false
-    },
-    {
-      "id": "heinz_story",
-      "sourceStart": 154.32,
-      "duration": 14.0,
-      "label": "Heinz leaned into AI’s tendency to draw their bottle and made it a campaign",
-      "clip": "assets/broll/innovation_lightbulb.jpg",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "soft-wipe",
-        "duration": 0.7
-      }
-    },
-    {
-      "id": "hybrid_future",
-      "sourceStart": 199.18,
-      "duration": 119.9,
-      "label": "AI isn’t replacing marketers—we replace those who refuse to partner with AI",
-      "clip": "assets/broll/business_strategy.jpg",
-      "silenceAfter": false,
-      "transitionOut": {
-        "type": "crossfade",
-        "duration": 1
-      }
+      "clip": "input/footage.mp4",
+      "sourceStart": 262,
+      "duration": 57.08,
+      "text": "Future-proof teams blend human storytelling with AI superpowers. Partner with AI, don’t fight it—subscribe for more.",
+      "effect": "text.popUp",
+      "animationId": "gsap-fade-in",
+      "emotion": "inspiring",
+      "sfx": "assets/sfx/ui/swipe.mp3",
+      "mute": false
     }
-  ],
-  "highlights": [
-    {
-      "id": "revolution_alert",
-      "start": 0.8,
-      "duration": 3,
-      "position": "bottom",
-      "text": "The greatest marketing revolution is happening even as most brands ignore it."
-    },
-    {
-      "id": "hybrid_truth",
-      "start": 233.68,
-      "duration": 4,
-      "position": "top",
-      "text": "AI isn't replacing marketers—it's replacing the ones that refuse to use AI."
-    },
-    {
-      "id": "future_marketing",
-      "start": 250.36,
-      "duration": 5,
-      "position": "center",
-      "text": "The future belongs to hybrid marketers blending human storytelling with AI superpowers."
-    }
-  ],
-  "duration": 319.08
+  ]
 }

@@ -19,19 +19,25 @@ const resolveSource = (clip: string) => {
 
 type VideoLayerProps = {
   clip: string;
+  startFrom?: number; // frames within source
+  durationInFrames?: number;
+  muted?: boolean;
 };
 
-export const VideoLayer: React.FC<VideoLayerProps> = ({clip}) => {
+export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, durationInFrames, muted = true}) => {
   const src = resolveSource(clip);
   const isVideo = isType(clip, VIDEO_EXTENSIONS);
   const isImage = isType(clip, IMAGE_EXTENSIONS);
+  const endAt = typeof durationInFrames === "number" ? startFrom + durationInFrames : undefined;
 
   return (
     <AbsoluteFill style={{backgroundColor: "#000", overflow: "hidden"}}>
       {isVideo ? (
         <OffthreadVideo
           src={src}
-          muted
+          muted={muted}
+          startFrom={Math.max(0, Math.floor(startFrom))}
+          endAt={typeof endAt === "number" ? Math.max(startFrom, Math.floor(endAt)) : undefined}
           pauseWhenBuffering
           style={{width: "100%", height: "100%", objectFit: "cover"}}
         />

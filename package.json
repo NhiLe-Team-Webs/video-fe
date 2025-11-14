@@ -52,6 +52,7 @@
     "intake:lottie": "tsx scripts/intakeLottie.ts",
     "validate:lottie": "tsx scripts/validateLottie.ts",
     "manifest:lottie": "tsx scripts/generateLottieManifest.ts",
+    "manifest:client": "tsx scripts/generateClientManifest.ts",
     "effects:classify": "tsx scripts/classifyEffects.ts",
     "lint": "eslint src && tsc",
     "plan:test": "tsx src/core/testPlanLoader.ts"

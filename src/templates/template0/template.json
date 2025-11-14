@@ -1,14 +1,15 @@
 {
   "id": "template0",
-  "name": "Template0",
-  "description": "Cấu trúc video cơ bản với text trung tâm và hiệu ứng zoom + fade.",
+  "name": "Template0 – Educational Insight",
+  "description": "Khung sườn video giáo dục: text chính giữa, biểu đồ/đồ họa bổ trợ và hiệu ứng thanh lịch để giải thích nội dung.",
   "rules": {
     "emotion:inspiring": "zoomIn",
     "emotion:neutral": "fadeIn",
-    "emotion:fun": "slideUp"
+    "emotion:fun": "slideUp",
+    "emotion:educational": "fadeIn"
   },
   "audio": {
     "bgm": "assets/sfx/emotion/applause.mp3",
-    "sfxFallback": "assets/sfx/whoosh/woosh.mp3"
+    "sfxFallback": "assets/sfx/tech/notification.mp3"
   }
 }

@@ -20,6 +20,16 @@
 npm install
 ```
 
+## ⚠️ Ignored directories & files
+
+The frontend `.gitignore` intentionally keeps `plan.json`, `src/data/`, `public/animated-emoji`, and now `public/` out of source control so that generated plans, previews, and large runtime assets are not committed. After cloning the repo:
+
+1. Create the folders Remotion expects (e.g., `mkdir -p public/input public/assets public/animated-emoji src/data`).
+2. Drop your input footage(s) into `public/input/` and copy the plan you want to preview into `plan.json` or `src/data/plan.json`.
+3. If you rely on live-generated manifests, run `npm run generate:manifest` to populate `src/effects/registry` before starting the preview.
+
+Without these folders/files, the preview panels will log 404s because the assets cannot be resolved.
+
 ### Preview Modes
 
 | Command | Description |

@@ -5,63 +5,140 @@
   "music": "assets/sfx/emotion/applause.mp3",
   "segments": [
     {
+      "id": "marketing_revolution",
+      "sourceStart": 0.0,
+      "duration": 7.32,
+      "label": "What if I told you the greatest marketing revolution is happening right now",
       "clip": "assets/broll/digital_network.jpg",
-      "text": "5 bước dựng chiến lược AI cho doanh nghiệp của bạn",
-      "effect": "fade_in",
-      "duration": 4,
-      "emotion": "excited",
-      "sfx": "assets/sfx/whoosh/woosh.mp3",
-      "animationId": "gsap-zoom-pop",
-      "transitionId": "transition.slide-right"
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.6
+      }
     },
     {
+      "id": "classic_creatives",
+      "sourceStart": 8.06,
+      "duration": 5.26,
+      "label": "Classic creative directors, agencies and gut instinct vs. automation",
       "clip": "assets/broll/modern_office.jpg",
-      "text": "Các team đang làm việc rời rạc, dữ liệu nằm rải rác trong từng phòng ban?",
-      "effect": "slide_up",
-      "duration": 5,
-      "emotion": "serious",
-      "sfx": "assets/sfx/ui/keyboard-typing.mp3",
-      "animationId": "gsap-slide-up",
-      "transitionId": "transition.soft-wipe"
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      }
     },
     {
-      "clip": "assets/broll/data_visualization.jpg",
-      "text": "Bước 1: Audit dữ liệu & stack hiện tại — xác định nguồn nào đủ sạch để huấn luyện mô hình.",
-      "effect": "zoom_in",
-      "duration": 4,
-      "emotion": "focused",
-      "sfx": "assets/sfx/ui/swipe.mp3",
-      "animationId": "gsap-fade-in",
-      "transitionId": "transition.flash-cut"
-    },
-    {
+      "id": "algorithm_vs_coffee",
+      "sourceStart": 13.98,
+      "duration": 6.48,
+      "label": "Algorithm, automation and AI that can design your campaign before your coffee gets cold",
       "clip": "assets/broll/ai_brain.jpg",
-      "text": "Bước 2: Chọn nền tảng AI phù hợp (in-house vs. dịch vụ) và chuẩn hóa quy trình bảo mật.",
-      "effect": "fade_in",
-      "duration": 4,
-      "emotion": "inspiring",
-      "sfx": "assets/sfx/tech/notification.mp3",
-      "animationId": "gsap-rotate-in",
-      "transitionId": "transition.slide-right"
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "slide",
+        "duration": 0.5,
+        "direction": "right"
+      }
     },
     {
+      "id": "head_to_head",
+      "sourceStart": 24.32,
+      "duration": 2.74,
+      "label": "Today we’re putting them head to head",
+      "clip": "assets/broll/data_visualization.jpg",
+      "silenceAfter": false
+    },
+    {
+      "id": "smart_marketers",
+      "sourceStart": 31.7,
+      "duration": 4.98,
+      "label": "Smarty marketers winning both sides of the game",
       "clip": "assets/broll/business_strategy.jpg",
-      "text": "Bước 3: Ưu tiên các use case ROI cao — tự động hóa báo cáo, trợ lý sale, chăm sóc khách hàng.",
-      "effect": "slide_up",
-      "duration": 4,
-      "emotion": "confident",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "animationId": "gsap-slide-up",
-      "transitionId": "transition.soft-wipe"
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "cut"
+      }
     },
     {
+      "id": "human_intuition",
+      "sourceStart": 41.8,
+      "duration": 12.3,
+      "label": "Traditional marketing: late night brainstorming and emotional storytelling",
       "clip": "assets/broll/innovation_lightbulb.jpg",
-      "text": "Kết thúc: đo lường, tối ưu và chia sẻ chiến thắng đầu tiên để lan tỏa văn hóa AI-first.",
-      "effect": "fade_in",
-      "duration": 5,
-      "emotion": "uplifting",
-      "sfx": "assets/sfx/tech/camera-click.mp3",
-      "animationId": "gsap-zoom-pop"
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 0.8
+      }
+    },
+    {
+      "id": "ai_personalization",
+      "sourceStart": 49.98,
+      "duration": 19.88,
+      "label": "AI marketing learns from behavior to personalize at scale while you sleep",
+      "clip": "assets/broll/digital_network.jpg",
+      "silenceAfter": false,
+      "transitionIn": {
+        "type": "crossfade",
+        "duration": 0.6
+      }
+    },
+    {
+      "id": "coke_story",
+      "sourceStart": 101.04,
+      "duration": 18.5,
+      "label": "Coca-Cola’s Create Real Magic campaign + fan-generated AI art",
+      "clip": "assets/broll/ai_brain.jpg",
+      "silenceAfter": false
+    },
+    {
+      "id": "heinz_story",
+      "sourceStart": 154.32,
+      "duration": 14.0,
+      "label": "Heinz leaned into AI’s tendency to draw their bottle and made it a campaign",
+      "clip": "assets/broll/innovation_lightbulb.jpg",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "soft-wipe",
+        "duration": 0.7
+      }
+    },
+    {
+      "id": "hybrid_future",
+      "sourceStart": 199.18,
+      "duration": 119.9,
+      "label": "AI isn’t replacing marketers—we replace those who refuse to partner with AI",
+      "clip": "assets/broll/business_strategy.jpg",
+      "silenceAfter": false,
+      "transitionOut": {
+        "type": "crossfade",
+        "duration": 1
+      }
     }
-  ]
+  ],
+  "highlights": [
+    {
+      "id": "revolution_alert",
+      "start": 0.8,
+      "duration": 3,
+      "position": "bottom",
+      "text": "The greatest marketing revolution is happening even as most brands ignore it."
+    },
+    {
+      "id": "hybrid_truth",
+      "start": 233.68,
+      "duration": 4,
+      "position": "top",
+      "text": "AI isn't replacing marketers—it's replacing the ones that refuse to use AI."
+    },
+    {
+      "id": "future_marketing",
+      "start": 250.36,
+      "duration": 5,
+      "position": "center",
+      "text": "The future belongs to hybrid marketers blending human storytelling with AI superpowers."
+    }
+  ],
+  "duration": 319.08
 }

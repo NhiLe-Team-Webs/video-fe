@@ -19,8 +19,11 @@ export type SegmentBrollPlan = {
 
 export type SegmentPlan = {
   id: string;
+  clip?: string;
   sourceStart?: number;
   duration: number;
+  text?: string;
+  effect?: string;
   label?: string;
   title?: string;
   playbackRate?: number;
@@ -28,6 +31,7 @@ export type SegmentPlan = {
   transitionOut?: TransitionPlan;
   silenceAfter?: boolean;
   broll?: SegmentBrollPlan | null;
+  animationId?: string;
 };
 
 export type HighlightPlan = {
@@ -43,10 +47,43 @@ export type HighlightPlan = {
   position?: "top" | "center" | "bottom";
 };
 
+export type EffectTrackEntry = {
+  id: string;
+  segmentId?: string;
+  start: number;
+  duration: number;
+  effectKey: string;
+  layer?: "base" | "overlay";
+  props?: Record<string, unknown>;
+};
+
+export type SfxTrackEntry = {
+  id: string;
+  segmentId?: string;
+  start: number;
+  duration: number;
+  src: string;
+  volume?: number;
+};
+
+export type PlanTracks = {
+  effects?: EffectTrackEntry[];
+  sfx?: SfxTrackEntry[];
+};
+
 export type EditingPlan = {
+  templateId?: string;
+  animationId?: string;
+  transitionId?: string;
+  music?: string | null;
   segments: SegmentPlan[];
   highlights?: HighlightPlan[];
   meta?: {
     sourceVideo?: string;
+    id?: string;
+    fps?: number;
+    duration?: number;
+    [key: string]: unknown;
   };
+  tracks?: PlanTracks;
 };

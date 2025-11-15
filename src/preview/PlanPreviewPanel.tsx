@@ -1,220 +1,432 @@
-import React, {useCallback, useMemo, useState} from "react";
-import {AbsoluteFill} from "remotion";
-import defaultPlan from "../data/plan.json";
-import type {Plan} from "../core/types";
-import {normalizePlan} from "../orchestrator/loadPlan";
-import {getFps} from "../core/utils/fpsControl";
-import {getTemplateById} from "../core/TemplateEngine";
-import {PreviewViewport} from "./PreviewViewport";
+import React, {useMemo} from "react";
+import {AbsoluteFill, Sequence, Video, staticFile, useVideoConfig} from "remotion";
+import planJson from "../data/plan.json";
+import {TransitionLayer} from "../core/layers/TransitionLayer";
+import {AudioLayer} from "../core/AudioLayer";
+import {palette} from "../styles/designTokens";
+import {useHotReloadPlan} from "./useHotReloadPlan";
+import type {
+  EditingPlan,
+  HighlightPlan,
+  SegmentBrollPlan,
+  SegmentPlan,
+  TransitionPlan,
+} from "./types";
+import {buildTimeline, getTimelineDuration, type TimelineSegment} from "./utils/timeline";
 
-const dropZoneStyle: React.CSSProperties = {
-  border: "1px dashed rgba(148,163,184,0.8)",
-  borderRadius: 12,
-  padding: 12,
-  textAlign: "center",
-  fontSize: 12,
-  cursor: "pointer",
+const DEFAULT_VIDEO_SOURCE = "input/footage.mp4";
+const DEFAULT_TRANSITION_SECONDS = 0.75;
+
+const ensurePlan = (candidate: unknown): EditingPlan | null => {
+  if (!candidate || typeof candidate !== "object") {
+    return null;
+  }
+
+  const plan = candidate as Partial<EditingPlan>;
+  const segments = Array.isArray(plan.segments) ? plan.segments : [];
+  if (!segments.length) {
+    return null;
+  }
+
+  return {
+    segments: segments.filter((segment) => typeof segment?.duration === "number" && segment.duration > 0),
+    highlights: Array.isArray(plan.highlights) ? plan.highlights : [],
+    meta: plan.meta,
+  };
 };
 
-const toPlan = (raw: Plan): Plan => ({
-  ...raw,
-  templateId: raw.templateId ?? "template0",
-});
+const coercePlan = (hot: unknown, fallback: EditingPlan): EditingPlan => ensurePlan(hot) ?? fallback;
 
-const convertPlan = (plan: Plan) => {
-  const templateId = plan.templateId ?? "template0";
-  const fps = getFps(templateId);
-  return normalizePlan({...plan, templateId}, fps);
+const mapTransitionEffect = (transition?: TransitionPlan) => {
+  if (!transition?.type) {
+    return "fade_in";
+  }
+  if (transition.type === "slide" || transition.type === "slideWhoosh") {
+    return "zoom_in";
+  }
+  if (transition.type === "crossfade" || transition.type === "fadeCamera") {
+    return "fade_in";
+  }
+  return "none";
 };
 
-export const PlanPreviewPanel: React.FC = () => {
-  const [plan, setPlan] = useState<Plan>(toPlan(defaultPlan as Plan));
-  const [urlInput, setUrlInput] = useState("");
-  const [error, setError] = useState<string | null>(null);
-
-  const normalizedPlan = useMemo(() => convertPlan(plan), [plan]);
-  const TemplateComponent = getTemplateById(normalizedPlan.templateId);
-
-  const handlePlanChange = useCallback((nextPlan: Plan) => {
-    try {
-      setPlan(toPlan(nextPlan));
-      setError(null);
-    } catch (err) {
-      setError((err as Error).message);
-    }
-  }, []);
-
-  const handleFileInput = useCallback(async (file: File) => {
-    try {
-      const text = await file.text();
-      const parsed = JSON.parse(text) as Plan;
-      handlePlanChange(parsed);
-    } catch (err) {
-      setError(`Failed to parse file: ${(err as Error).message}`);
-    }
-  }, [handlePlanChange]);
-
-  const handleDrop: React.DragEventHandler<HTMLDivElement> = (event) => {
-    event.preventDefault();
-    const droppedFile = event.dataTransfer.files?.[0];
-    if (droppedFile) {
-      void handleFileInput(droppedFile);
-    }
-  };
-
-  const fetchPlanFromUrl = async () => {
-    if (!urlInput.trim()) {
-      return;
-    }
-    try {
-      const response = await fetch(urlInput.trim());
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const parsed = (await response.json()) as Plan;
-      handlePlanChange(parsed);
-    } catch (err) {
-      setError(`Failed to fetch plan: ${(err as Error).message}`);
-    }
-  };
-
-  const durationInfo = (
-    <div style={{fontSize: 14}}>
-      <div>Duration: {(normalizedPlan.durationInFrames / normalizedPlan.fps).toFixed(2)}s</div>
-      <div>FPS: {normalizedPlan.fps}</div>
-      <div>Segments: {normalizedPlan.segments.length}</div>
-    </div>
-  );
-
-  const timeline = (
-    <div style={{marginTop: 12}}>
-      <div style={{display: "flex", gap: 4, height: 20}}>
-        {normalizedPlan.segments.map((segment, index) => (
-          <div
-            key={`${segment.clip}-${index}`}
-            style={{
-              flex: segment.durationInFrames,
-              background: index % 2 === 0 ? "rgba(14,165,233,0.5)" : "rgba(248,250,252,0.5)",
-              borderRadius: 2,
-              position: "relative",
-              minWidth: 8,
-            }}
-            title={`${segment.text ?? "Segment"} (${segment.startFrame} - ${segment.endFrame})`}
-          />
-        ))}
-      </div>
-      <div style={{marginTop: 8, display: "flex", flexDirection: "column", gap: 4}}>
-        {normalizedPlan.segments.map((segment, index) => {
-          const transitionLabel =
-            index < normalizedPlan.segments.length - 1
-              ? segment.transitionId ?? normalizedPlan.transitionId ?? "none"
-              : null;
-
-          return (
-            <div
-              key={`${segment.clip}-row-${index}`}
-              style={{fontSize: 12, display: "flex", flexDirection: "column", gap: 2}}
-            >
-              <div style={{display: "flex", justifyContent: "space-between"}}>
-                <span>{segment.text ?? `Segment ${index + 1}`}</span>
-                <span>
-                  {segment.startFrame} → {segment.endFrame}
-                </span>
-              </div>
-              {transitionLabel ? (
-                <div style={{fontSize: 11, opacity: 0.85}}>Transition → {transitionLabel}</div>
-              ) : (
-                <div style={{fontSize: 11, opacity: 0.65}}>Ending segment</div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+const HighlightOverlay: React.FC<{highlight: HighlightPlan}> = ({highlight}) => {
+  const label = highlight.keyword ?? highlight.text ?? highlight.title ?? highlight.id;
+  const position = highlight.position ?? "bottom";
+  const justifyContent =
+    position === "top" ? "flex-start" : position === "center" ? "center" : "flex-end";
 
   return (
     <AbsoluteFill
+      pointerEvents="none"
       style={{
-        display: "flex",
-        gap: 24,
-        padding: 24,
-        boxSizing: "border-box",
-        fontFamily: "Inter, sans-serif",
-        background: "linear-gradient(135deg, #0f172a, #1e293b)",
-        color: "#e2e8f0",
+        justifyContent,
+        alignItems: "center",
+        padding: "4% 6%",
       }}
     >
       <div
         style={{
-          width: 360,
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
+          minWidth: 420,
+          maxWidth: "72%",
+          borderRadius: 28,
+          padding: "20px 32px",
           background: "rgba(15,23,42,0.65)",
-          padding: 20,
-          borderRadius: 20,
-          backdropFilter: "blur(8px)",
+          border: "1px solid rgba(248,250,252,0.3)",
+          color: palette.brightestWhite,
+          fontFamily: "Inter, sans-serif",
+          fontSize: 44,
+          fontWeight: 600,
+          letterSpacing: 0.3,
+          textTransform: "uppercase",
+          boxShadow: "0 24px 60px rgba(2,6,23,0.5)",
         }}
       >
-        <div>
-          <label style={{display: "flex", flexDirection: "column", gap: 6}}>
-            Plan URL
-            <div style={{display: "flex", gap: 8}}>
-              <input
-                type="text"
-                value={urlInput}
-                placeholder="https://example.com/plan.json"
-                onChange={(event) => setUrlInput(event.target.value)}
-                style={{flex: 1}}
-              />
-              <button type="button" onClick={fetchPlanFromUrl}>
-                Load
-              </button>
-            </div>
-          </label>
-        </div>
-
-        <div
-          style={dropZoneStyle}
-          onDragOver={(event) => event.preventDefault()}
-          onDrop={handleDrop}
-          onClick={() => document.getElementById("plan-upload-input")?.click()}
-        >
-          Drag & drop plan.json here or click to upload
-        </div>
-        <input
-          id="plan-upload-input"
-          type="file"
-          accept=".json,application/json"
-          style={{display: "none"}}
-          onChange={(event) => {
-            const file = event.target.files?.[0];
-            if (file) {
-              void handleFileInput(file);
-            }
-          }}
-        />
-
-        {error ? (
-          <div style={{color: "#f87171", fontSize: 12}}>
-            {error}
-          </div>
-        ) : null}
-
-        <div>
-          <div style={{fontWeight: 600, marginBottom: 6}}>Plan Overview</div>
-          <div>Template: {normalizedPlan.templateId}</div>
-          {durationInfo}
-          {timeline}
-        </div>
+        {label}
       </div>
+    </AbsoluteFill>
+  );
+};
 
-      <div style={{flex: 1, display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <PreviewViewport>
-          <TemplateComponent plan={normalizedPlan} />
-        </PreviewViewport>
-      </div>
+const HighlightAudio: React.FC<{highlight: HighlightPlan}> = ({highlight}) => {
+  if (!highlight.sfx) {
+    return null;
+  }
+  return <AudioLayer src={highlight.sfx} volume={0.85} />;
+};
+
+const normalizeAssetPath = (file: string) => file.replace(/^\/+/, "");
+
+const resolveBrollAsset = (file: string) => {
+  let cleaned = file.trim();
+  if (!cleaned.length) {
+    return null;
+  }
+  cleaned = cleaned.replace(/^\/+/, "");
+
+  if (cleaned.startsWith("assets/")) {
+    return cleaned;
+  }
+  if (cleaned.startsWith("broll/")) {
+    return `assets/${cleaned}`;
+  }
+  return `assets/broll/${cleaned}`;
+};
+
+const BrollPlaceholder: React.FC<{label?: string}> = ({label}) => (
+  <AbsoluteFill
+    style={{
+      background: "rgba(12,21,38,0.75)",
+      border: "2px dashed rgba(255,255,255,0.28)",
+      borderRadius: 24,
+      alignItems: "center",
+      justifyContent: "center",
+      color: "rgba(226,232,240,0.85)",
+      fontFamily: "Inter, sans-serif",
+      letterSpacing: 0.5,
+      textTransform: "uppercase",
+      fontSize: 36,
+    }}
+  >
+    {label ?? "B-Roll Placeholder"}
+  </AbsoluteFill>
+);
+
+const BrollMedia: React.FC<{
+  broll: SegmentBrollPlan;
+  fps: number;
+  durationFrames: number;
+  mode: SegmentBrollPlan["mode"];
+}> = ({broll, fps, durationFrames, mode}) => {
+  const clip = broll.file ? resolveBrollAsset(broll.file) : null;
+
+  if (!clip) {
+    return <BrollPlaceholder label={broll.id} />;
+  }
+
+  const durationSeconds = durationFrames / fps;
+  const startSeconds = broll.startAt ?? 0;
+  const playbackSeconds = broll.duration ?? durationSeconds;
+  const startFrame = Math.max(0, Math.round(startSeconds * fps));
+  const endFrame = startFrame + Math.max(1, Math.round(playbackSeconds * fps));
+
+  const containerStyle =
+    mode === "full"
+      ? {position: "absolute" as const, inset: 0, borderRadius: 0}
+      : {
+          position: "absolute" as const,
+          width: "38%",
+          height: "38%",
+          top: "8%",
+          right: "6%",
+          borderRadius: 28,
+          overflow: "hidden",
+          boxShadow: "0 30px 60px rgba(0,0,0,0.55)",
+          border: "1px solid rgba(255,255,255,0.25)",
+        };
+
+  return (
+    <div style={containerStyle}>
+      <Video
+        src={staticFile(clip)}
+        startFrom={startFrame}
+        endAt={endFrame}
+        muted
+        style={{width: "100%", height: "100%", objectFit: "cover"}}
+      />
+    </div>
+  );
+};
+
+type FrameWindow = {from: number; duration: number};
+
+const toFrameWindow = (highlight: HighlightPlan, fps: number): FrameWindow | null => {
+  if (typeof highlight.start !== "number" || typeof highlight.duration !== "number") {
+    return null;
+  }
+  const startFrame = Math.max(0, Math.round(highlight.start * fps));
+  const durationFrames = Math.max(1, Math.round(highlight.duration * fps));
+  return {from: startFrame, duration: durationFrames};
+};
+
+const computeBrollWindows = (
+  segment: TimelineSegment,
+  highlights: HighlightPlan[],
+  fps: number
+): FrameWindow[] => {
+  if (!highlights.length) {
+    return [{from: segment.from, duration: segment.duration}];
+  }
+
+  const segmentStart = segment.from;
+  const segmentEnd = segmentStart + segment.duration;
+  const padFrames = Math.max(0, Math.round(fps * 0.15));
+
+  const overlapping = highlights
+    .map((highlight) => toFrameWindow(highlight, fps))
+    .filter((window): window is FrameWindow => Boolean(window))
+    .map((window) => {
+      const windowStart = window.from;
+      const windowEnd = window.from + window.duration;
+      if (windowEnd <= segmentStart || windowStart >= segmentEnd) {
+        return null;
+      }
+      const paddedStart = Math.max(segmentStart, windowStart - padFrames);
+      const paddedEnd = Math.min(segmentEnd, windowEnd + padFrames);
+      if (paddedEnd <= paddedStart) {
+        return null;
+      }
+      return {
+        from: paddedStart,
+        to: paddedEnd,
+      };
+    })
+    .filter((window): window is {from: number; to: number} => Boolean(window))
+    .sort((a, b) => a.from - b.from);
+
+  if (!overlapping.length) {
+    return [{from: segmentStart, duration: segment.duration}];
+  }
+
+  const merged: {from: number; to: number}[] = [];
+  let current = overlapping[0];
+
+  for (const next of overlapping.slice(1)) {
+    if (next.from <= current.to + 1) {
+      current = {
+        from: current.from,
+        to: Math.max(current.to, next.to),
+      };
+    } else {
+      merged.push(current);
+      current = next;
+    }
+  }
+  merged.push(current);
+
+  return merged.map((window) => ({
+    from: window.from,
+    duration: Math.max(1, window.to - window.from),
+  }));
+};
+
+const PlanVideoTrack: React.FC<{
+  timeline: TimelineSegment[];
+  videoSource: string;
+  fps: number;
+}> = ({timeline, videoSource, fps}) => {
+  const resolvedSrc = staticFile(videoSource);
+  return (
+    <AbsoluteFill style={{zIndex: 0}}>
+      {timeline.map((entry, index) => {
+        const startSeconds = entry.segment.sourceStart ?? 0;
+        const durationSeconds = entry.segment.duration;
+        const startFrame = Math.max(0, Math.round(startSeconds * fps));
+        const endFrame = startFrame + Math.max(1, Math.round(durationSeconds * fps));
+        return (
+          <Sequence
+            key={`segment-${entry.segment.id ?? index}`}
+            from={entry.from}
+            durationInFrames={entry.duration}
+            name={`segment-${entry.segment.id ?? index}`}
+          >
+            <TransitionLayer
+              effect={mapTransitionEffect(entry.segment.transitionIn ?? entry.segment.transitionOut)}
+              durationInFrames={entry.duration}
+            >
+              <AbsoluteFill style={{backgroundColor: "#000"}}>
+                <Video
+                  src={resolvedSrc}
+                  startFrom={startFrame}
+                  endAt={endFrame}
+                  muted={false}
+                  style={{width: "100%", height: "100%", objectFit: "cover"}}
+                />
+              </AbsoluteFill>
+            </TransitionLayer>
+          </Sequence>
+        );
+      })}
+    </AbsoluteFill>
+  );
+};
+
+const PlanBrollLayer: React.FC<{
+  timeline: TimelineSegment[];
+  highlights: HighlightPlan[];
+  fps: number;
+}> = ({timeline, highlights, fps}) => {
+  return (
+    <AbsoluteFill pointerEvents="none" style={{zIndex: 1}}>
+      {timeline.map((segment, index) => {
+        const broll = segment.segment.broll;
+        const windows = computeBrollWindows(segment, highlights, fps);
+
+        if (!broll) {
+          return windows.map((window, windowIndex) => (
+            <Sequence
+              key={`broll-placeholder-${segment.segment.id ?? index}-${windowIndex}`}
+              from={window.from}
+              durationInFrames={window.duration}
+              name={`broll-placeholder-${segment.segment.id ?? index}-${windowIndex}`}
+            >
+              <BrollPlaceholder label={segment.segment.label ?? segment.segment.id ?? "B-Roll"} />
+            </Sequence>
+          ));
+        }
+
+        const mode = broll.mode ?? "overlay";
+
+        return windows.map((window, windowIndex) => (
+          <Sequence
+            key={`broll-${segment.segment.id ?? index}-${windowIndex}`}
+            from={window.from}
+            durationInFrames={window.duration}
+            name={`broll-${segment.segment.id ?? index}-${windowIndex}`}
+          >
+            <BrollMedia broll={broll} fps={fps} durationFrames={window.duration} mode={mode} />
+          </Sequence>
+        ));
+      })}
+    </AbsoluteFill>
+  );
+};
+
+const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
+  <AbsoluteFill pointerEvents="none" style={{zIndex: 2}}>
+    {highlights.map((highlight) => {
+      const from = Math.round(highlight.start * fps);
+      const duration = Math.max(1, Math.round(highlight.duration * fps));
+      return (
+        <Sequence key={`highlight-${highlight.id}`} from={from} durationInFrames={duration} name={`highlight-${highlight.id}`}>
+          <HighlightOverlay highlight={highlight} />
+        </Sequence>
+      );
+    })}
+  </AbsoluteFill>
+);
+
+const PlanSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
+  <>
+    {highlights
+      .filter((highlight) => Boolean(highlight.sfx))
+      .map((highlight) => {
+        const from = Math.round(highlight.start * fps);
+        const duration = Math.max(1, Math.round(highlight.duration * fps));
+        return (
+          <Sequence key={`sfx-${highlight.id}`} from={from} durationInFrames={duration} name={`sfx-${highlight.id}`}>
+            <HighlightAudio highlight={highlight} />
+          </Sequence>
+        );
+      })}
+  </>
+);
+
+const fallbackPlan = planJson as EditingPlan;
+
+export const PlanPreviewPanel: React.FC = () => {
+  const {fps} = useVideoConfig();
+  const hotPlan = useHotReloadPlan() as unknown;
+  const plan = useMemo(() => coercePlan(hotPlan, fallbackPlan), [hotPlan]);
+
+  const timeline = useMemo<TimelineSegment[]>(
+    () => buildTimeline(plan.segments ?? [], fps, DEFAULT_TRANSITION_SECONDS),
+    [plan.segments, fps]
+  );
+  const highlights = useMemo(
+    () => (Array.isArray(plan.highlights) ? plan.highlights.filter((item) => item.duration > 0) : []),
+    [plan.highlights]
+  );
+  const totalDuration = useMemo(() => getTimelineDuration(timeline), [timeline]);
+  const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
+
+  if (!timeline.length || totalDuration <= 0) {
+    return (
+      <AbsoluteFill
+        style={{
+          background: "#0b1120",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "#e2e8f0",
+          fontFamily: "Inter, sans-serif",
+        }}
+      >
+        No segments found in plan.json
+      </AbsoluteFill>
+    );
+  }
+
+  return (
+    <AbsoluteFill
+      style={{
+        background: "#000",
+        fontFamily: "Inter, sans-serif",
+        color: palette.brightestWhite,
+      }}
+    >
+      <AbsoluteFill
+        style={{
+          background: "radial-gradient(circle at 20% 30%, rgba(248,113,113,0.22), transparent 60%)",
+          pointerEvents: "none",
+          zIndex: -1,
+        }}
+      />
+
+      <Sequence name="video" durationInFrames={totalDuration}>
+        <PlanVideoTrack timeline={timeline} videoSource={videoSource} fps={fps} />
+      </Sequence>
+
+      <Sequence name="broll" durationInFrames={totalDuration}>
+        <PlanBrollLayer timeline={timeline} highlights={highlights} fps={fps} />
+      </Sequence>
+
+      <Sequence name="highlights" durationInFrames={totalDuration}>
+        <PlanHighlightsLayer highlights={highlights} fps={fps} />
+      </Sequence>
+
+      <Sequence name="sfx" durationInFrames={totalDuration}>
+        <PlanSfxLayer highlights={highlights} fps={fps} />
+      </Sequence>
     </AbsoluteFill>
   );
 };

@@ -8,10 +8,11 @@ export type SegmentTransition = {
 export type SegmentBroll = {
   id?: string;
   file?: string;
-  mode?: "full" | "overlay" | "pictureInPicture";
+  mode?: "full" | "overlay" | "pictureInPicture" | "card";
   startAt?: number;
   duration?: number;
   playbackRate?: number;
+  cardScale?: number;
 };
 
 export type Segment = {

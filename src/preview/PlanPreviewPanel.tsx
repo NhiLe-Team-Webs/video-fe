@@ -166,19 +166,21 @@ const BrollMedia: React.FC<{
   const endFrame = startFrame + Math.max(1, Math.round(playbackSeconds * fps));
   const isVideo = isVideoAsset(clip);
 
+  const cardScale = broll.cardScale ?? 0.75;
   const containerStyle =
     mode === "full"
       ? {position: "absolute" as const, inset: 0, borderRadius: 0}
       : {
           position: "absolute" as const,
-          width: "38%",
-          height: "38%",
-          top: "8%",
-          right: "6%",
-          borderRadius: 28,
+          width: `${Math.round(cardScale * 100)}%`,
+          height: `${Math.round(cardScale * 100)}%`,
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          borderRadius: 36,
           overflow: "hidden",
-          boxShadow: "0 30px 60px rgba(0,0,0,0.55)",
-          border: "1px solid rgba(255,255,255,0.25)",
+          boxShadow: "0 50px 100px rgba(0, 0, 0, 0.55)",
+          border: "1px solid rgba(255,255,255,0.15)",
         };
 
   return (

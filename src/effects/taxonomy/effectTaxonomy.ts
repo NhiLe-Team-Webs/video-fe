@@ -7,14 +7,6 @@ export const effectTaxonomy: Record<
 > = {
   [EffectCategory.Text]: [
     {
-      key: "text.popUp",
-      label: "Pop Up Title",
-      description: "Bold, Montserrat-styled badge that uses the core red gradient to call out educational hooks.",
-      category: EffectCategory.Text,
-      intents: ["hook", "insight", "educational"],
-      defaultDuration: 1.2,
-    },
-    {
       key: "text.typeOn",
       label: "Type-On Caption",
       description: "Typewriter reveal for subtitles or punch lines.",
@@ -63,22 +55,6 @@ export const effectTaxonomy: Record<
       defaultDuration: 1.8,
     },
     {
-      key: "text.sideFloatLeft",
-      label: "Side Float Left",
-      description: "Preset for left-side supporting text.",
-      category: EffectCategory.Text,
-      intents: ["supporting-text"],
-      defaultDuration: 1.8,
-    },
-    {
-      key: "text.sideFloatRight",
-      label: "Side Float Right",
-      description: "Preset for right-side supporting text.",
-      category: EffectCategory.Text,
-      intents: ["supporting-text"],
-      defaultDuration: 1.8,
-    },
-    {
       key: "text.sequentialList",
       label: "Sequential List Reveal",
       description: "Stacked list appearing sequentially with zoom + fade.",
@@ -101,14 +77,6 @@ export const effectTaxonomy: Record<
       category: EffectCategory.Text,
       intents: ["concept-map", "structure"],
       defaultDuration: 2.8,
-    },
-    {
-      key: "text.transcriptLine",
-      label: "Transcript Caption",
-      description: "Timeline-synced subtitle strip that fades in/out with light motion.",
-      category: EffectCategory.Text,
-      intents: ["transcript", "subtitle", "narration"],
-      defaultDuration: 2.4,
     },
   ],
   [EffectCategory.Motion]: [

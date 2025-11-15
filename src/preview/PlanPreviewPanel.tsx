@@ -60,43 +60,6 @@ const mapTransitionEffect = (transition?: TransitionPlan) => {
   return "none";
 };
 
-const HighlightOverlay: React.FC<{highlight: HighlightPlan}> = ({highlight}) => {
-  const label = highlight.keyword ?? highlight.text ?? highlight.title ?? highlight.id;
-  const position = highlight.position ?? "bottom";
-  const justifyContent =
-    position === "top" ? "flex-start" : position === "center" ? "center" : "flex-end";
-
-  return (
-    <AbsoluteFill
-      style={{
-        justifyContent,
-        alignItems: "center",
-        padding: "4% 6%",
-        pointerEvents: "none",
-      }}
-    >
-      <div
-        style={{
-          minWidth: 420,
-          maxWidth: "72%",
-          borderRadius: 28,
-          padding: "20px 32px",
-          background: "rgba(15,23,42,0.65)",
-          border: "1px solid rgba(248,250,252,0.3)",
-          color: palette.brightestWhite,
-          fontFamily: "Inter, sans-serif",
-          fontSize: 44,
-          fontWeight: 600,
-          letterSpacing: 0.3,
-          textTransform: "uppercase",
-        }}
-      >
-        {label}
-      </div>
-    </AbsoluteFill>
-  );
-};
-
 const HighlightAudio: React.FC<{highlight: HighlightPlan}> = ({highlight}) => {
   if (!highlight.sfx) {
     return null;
@@ -352,20 +315,6 @@ const PlanBrollLayer: React.FC<{
   );
 };
 
-const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
-  <AbsoluteFill style={{zIndex: 2, pointerEvents: "none"}}>
-    {highlights.map((highlight) => {
-      const from = Math.round(highlight.start * fps);
-      const duration = Math.max(1, Math.round(highlight.duration * fps));
-      return (
-        <Sequence key={`highlight-${highlight.id}`} from={from} durationInFrames={duration} name={`highlight-${highlight.id}`}>
-          <HighlightOverlay highlight={highlight} />
-        </Sequence>
-      );
-    })}
-  </AbsoluteFill>
-);
-
 const clampSfxDurationFrames = (durationFrames: number, fps: number) => {
   const maxFrames = Math.max(1, Math.round(0.8 * fps));
   return Math.max(1, Math.min(durationFrames, maxFrames));
@@ -509,10 +458,6 @@ export const PlanPreviewPanel: React.FC = () => {
 
       <Sequence name="broll" durationInFrames={totalDuration}>
         <PlanBrollLayer timeline={timeline} highlights={highlights} fps={fps} />
-      </Sequence>
-
-      <Sequence name="highlights" durationInFrames={totalDuration}>
-        <PlanHighlightsLayer highlights={highlights} fps={fps} />
       </Sequence>
 
       <Sequence name="highlight-sfx" durationInFrames={totalDuration}>

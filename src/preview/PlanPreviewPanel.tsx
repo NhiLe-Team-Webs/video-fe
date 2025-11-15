@@ -1,7 +1,6 @@
 import React, {useMemo} from "react";
-import {AbsoluteFill, Sequence, useVideoConfig} from "remotion";
+import {AbsoluteFill, Sequence, Video, staticFile, useVideoConfig} from "remotion";
 import planJson from "../data/plan.json";
-import {VideoLayer} from "../core/layers/VideoLayer";
 import {TransitionLayer} from "../core/layers/TransitionLayer";
 import {AudioLayer} from "../core/AudioLayer";
 import {palette} from "../styles/designTokens";
@@ -144,7 +143,13 @@ const BrollMedia: React.FC<{
   if (!clip) {
     return <BrollPlaceholder label={broll.id} />;
   }
+
   const durationSeconds = durationFrames / fps;
+  const startSeconds = broll.startAt ?? 0;
+  const playbackSeconds = broll.duration ?? durationSeconds;
+  const startFrame = Math.max(0, Math.round(startSeconds * fps));
+  const endFrame = startFrame + Math.max(1, Math.round(playbackSeconds * fps));
+
   const containerStyle =
     mode === "full"
       ? {position: "absolute" as const, inset: 0, borderRadius: 0}
@@ -162,14 +167,13 @@ const BrollMedia: React.FC<{
 
   return (
     <div style={containerStyle}>
-      <div style={{position: "relative", width: "100%", height: "100%"}}>
-        <VideoLayer
-          clip={clip}
-          startFrom={broll.startAt ?? 0}
-          durationSeconds={broll.duration ?? durationSeconds}
-          muted
-        />
-      </div>
+      <Video
+        src={staticFile(clip)}
+        startFrom={startFrame}
+        endAt={endFrame}
+        muted
+        style={{width: "100%", height: "100%", objectFit: "cover"}}
+      />
     </div>
   );
 };
@@ -249,29 +253,40 @@ const computeBrollWindows = (
 const PlanVideoTrack: React.FC<{
   timeline: TimelineSegment[];
   videoSource: string;
-}> = ({timeline, videoSource}) => {
+  fps: number;
+}> = ({timeline, videoSource, fps}) => {
+  const resolvedSrc = staticFile(videoSource);
   return (
-    <AbsoluteFill>
-      {timeline.map((entry, index) => (
-        <Sequence
-          key={`segment-${entry.segment.id ?? index}`}
-          from={entry.from}
-          durationInFrames={entry.duration}
-          name={`segment-${entry.segment.id ?? index}`}
-        >
-          <TransitionLayer
-            effect={mapTransitionEffect(entry.segment.transitionIn ?? entry.segment.transitionOut)}
+    <AbsoluteFill style={{zIndex: 0}}>
+      {timeline.map((entry, index) => {
+        const startSeconds = entry.segment.sourceStart ?? 0;
+        const durationSeconds = entry.segment.duration;
+        const startFrame = Math.max(0, Math.round(startSeconds * fps));
+        const endFrame = startFrame + Math.max(1, Math.round(durationSeconds * fps));
+        return (
+          <Sequence
+            key={`segment-${entry.segment.id ?? index}`}
+            from={entry.from}
             durationInFrames={entry.duration}
+            name={`segment-${entry.segment.id ?? index}`}
           >
-            <VideoLayer
-              clip={videoSource}
-              startFrom={entry.segment.sourceStart ?? 0}
-              durationSeconds={entry.segment.duration}
-              muted
-            />
-          </TransitionLayer>
-        </Sequence>
-      ))}
+            <TransitionLayer
+              effect={mapTransitionEffect(entry.segment.transitionIn ?? entry.segment.transitionOut)}
+              durationInFrames={entry.duration}
+            >
+              <AbsoluteFill style={{backgroundColor: "#000"}}>
+                <Video
+                  src={resolvedSrc}
+                  startFrom={startFrame}
+                  endAt={endFrame}
+                  muted={false}
+                  style={{width: "100%", height: "100%", objectFit: "cover"}}
+                />
+              </AbsoluteFill>
+            </TransitionLayer>
+          </Sequence>
+        );
+      })}
     </AbsoluteFill>
   );
 };
@@ -282,14 +297,24 @@ const PlanBrollLayer: React.FC<{
   fps: number;
 }> = ({timeline, highlights, fps}) => {
   return (
-    <AbsoluteFill pointerEvents="none">
+    <AbsoluteFill pointerEvents="none" style={{zIndex: 1}}>
       {timeline.map((segment, index) => {
         const broll = segment.segment.broll;
+        const windows = computeBrollWindows(segment, highlights, fps);
+
         if (!broll) {
-          return null;
+          return windows.map((window, windowIndex) => (
+            <Sequence
+              key={`broll-placeholder-${segment.segment.id ?? index}-${windowIndex}`}
+              from={window.from}
+              durationInFrames={window.duration}
+              name={`broll-placeholder-${segment.segment.id ?? index}-${windowIndex}`}
+            >
+              <BrollPlaceholder label={segment.segment.label ?? segment.segment.id ?? "B-Roll"} />
+            </Sequence>
+          ));
         }
 
-        const windows = computeBrollWindows(segment, highlights, fps);
         const mode = broll.mode ?? "overlay";
 
         return windows.map((window, windowIndex) => (
@@ -308,7 +333,7 @@ const PlanBrollLayer: React.FC<{
 };
 
 const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
-  <AbsoluteFill pointerEvents="none">
+  <AbsoluteFill pointerEvents="none" style={{zIndex: 2}}>
     {highlights.map((highlight) => {
       const from = Math.round(highlight.start * fps);
       const duration = Math.max(1, Math.round(highlight.duration * fps));
@@ -383,11 +408,12 @@ export const PlanPreviewPanel: React.FC = () => {
         style={{
           background: "radial-gradient(circle at 20% 30%, rgba(248,113,113,0.22), transparent 60%)",
           pointerEvents: "none",
+          zIndex: -1,
         }}
       />
 
       <Sequence name="video" durationInFrames={totalDuration}>
-        <PlanVideoTrack timeline={timeline} videoSource={videoSource} />
+        <PlanVideoTrack timeline={timeline} videoSource={videoSource} fps={fps} />
       </Sequence>
 
       <Sequence name="broll" durationInFrames={totalDuration}>

@@ -1,5 +1,5 @@
 import React from "react";
-import {AbsoluteFill, Img, Video, staticFile} from "remotion";
+import {AbsoluteFill, Img, Video, staticFile, useVideoConfig} from "remotion";
 
 const VIDEO_EXTENSIONS = [".mp4", ".mov", ".mkv", ".avi", ".webm"];
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"];
@@ -25,10 +25,12 @@ type VideoLayerProps = {
 };
 
 export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, durationSeconds, muted = true}) => {
+  const {fps} = useVideoConfig();
   const src = resolveSource(clip);
   const isVideo = isType(clip, VIDEO_EXTENSIONS);
   const isImage = isType(clip, IMAGE_EXTENSIONS);
-  const endAt = typeof durationSeconds === "number" ? startFrom + durationSeconds : undefined;
+  const startFrame = Math.max(0, Math.floor(startFrom * fps));
+  const endAt = typeof durationSeconds === "number" ? startFrame + Math.max(1, Math.floor(durationSeconds * fps)) : undefined;
 
   return (
     <AbsoluteFill style={{backgroundColor: "#000", overflow: "hidden"}}>
@@ -36,8 +38,8 @@ export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, dura
         <Video
           src={src}
           muted={muted}
-          startFrom={Math.max(0, Math.floor(startFrom))}
-          endAt={typeof endAt === "number" ? Math.max(startFrom, Math.floor(endAt)) : undefined}
+          startFrom={startFrame}
+          endAt={endAt}
           playbackRate={1}
           style={{width: "100%", height: "100%", objectFit: "cover"}}
         />

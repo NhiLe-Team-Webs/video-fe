@@ -1,15 +1,19 @@
 import React, {useMemo} from "react";
-import {AbsoluteFill, Sequence, Video, staticFile, useVideoConfig} from "remotion";
+import {AbsoluteFill, Img, Sequence, Video, staticFile, useVideoConfig} from "remotion";
 import planJson from "../data/plan.json";
 import {TransitionLayer} from "../core/layers/TransitionLayer";
 import {AudioLayer} from "../core/AudioLayer";
 import {palette} from "../styles/designTokens";
 import {useHotReloadPlan} from "./useHotReloadPlan";
+import {useEffectByKey} from "../effects/hooks/useEffectByKey";
 import type {
   EditingPlan,
+  EffectTrackEntry,
   HighlightPlan,
+  PlanTracks,
   SegmentBrollPlan,
   SegmentPlan,
+  SfxTrackEntry,
   TransitionPlan,
 } from "./types";
 import {buildTimeline, getTimelineDuration, type TimelineSegment} from "./utils/timeline";
@@ -29,9 +33,14 @@ const ensurePlan = (candidate: unknown): EditingPlan | null => {
   }
 
   return {
+    templateId: typeof plan.templateId === "string" ? plan.templateId : "template0",
+    animationId: typeof plan.animationId === "string" ? plan.animationId : undefined,
+    transitionId: typeof plan.transitionId === "string" ? plan.transitionId : undefined,
+    music: typeof plan.music === "string" || plan.music === null ? plan.music : null,
     segments: segments.filter((segment) => typeof segment?.duration === "number" && segment.duration > 0),
     highlights: Array.isArray(plan.highlights) ? plan.highlights : [],
-    meta: plan.meta,
+    meta: plan.meta ?? {},
+    tracks: plan.tracks,
   };
 };
 
@@ -92,7 +101,7 @@ const HighlightAudio: React.FC<{highlight: HighlightPlan}> = ({highlight}) => {
   if (!highlight.sfx) {
     return null;
   }
-  return <AudioLayer src={highlight.sfx} volume={0.85} />;
+  return <AudioLayer src={normalizeAssetPath(highlight.sfx)} volume={0.85} />;
 };
 
 const normalizeAssetPath = (file: string) => file.replace(/^\/+/, "");
@@ -111,6 +120,12 @@ const resolveBrollAsset = (file: string) => {
     return `assets/${cleaned}`;
   }
   return `assets/broll/${cleaned}`;
+};
+
+const VIDEO_ASSETS = [".mp4", ".mov", ".mkv", ".webm"];
+const isVideoAsset = (file: string) => {
+  const lower = file.toLowerCase();
+  return VIDEO_ASSETS.some((ext) => lower.endsWith(ext));
 };
 
 const BrollPlaceholder: React.FC<{label?: string}> = ({label}) => (
@@ -149,6 +164,7 @@ const BrollMedia: React.FC<{
   const playbackSeconds = broll.duration ?? durationSeconds;
   const startFrame = Math.max(0, Math.round(startSeconds * fps));
   const endFrame = startFrame + Math.max(1, Math.round(playbackSeconds * fps));
+  const isVideo = isVideoAsset(clip);
 
   const containerStyle =
     mode === "full"
@@ -167,13 +183,20 @@ const BrollMedia: React.FC<{
 
   return (
     <div style={containerStyle}>
-      <Video
-        src={staticFile(clip)}
-        startFrom={startFrame}
-        endAt={endFrame}
-        muted
-        style={{width: "100%", height: "100%", objectFit: "cover"}}
-      />
+      {isVideo ? (
+        <Video
+          src={staticFile(clip)}
+          startFrom={startFrame}
+          endAt={endFrame}
+          muted
+          style={{width: "100%", height: "100%", objectFit: "cover"}}
+        />
+      ) : (
+        <Img
+          src={staticFile(clip)}
+          style={{width: "100%", height: "100%", objectFit: "cover"}}
+        />
+      )}
     </div>
   );
 };
@@ -300,21 +323,10 @@ const PlanBrollLayer: React.FC<{
     <AbsoluteFill pointerEvents="none" style={{zIndex: 1}}>
       {timeline.map((segment, index) => {
         const broll = segment.segment.broll;
-        const windows = computeBrollWindows(segment, highlights, fps);
-
         if (!broll) {
-          return windows.map((window, windowIndex) => (
-            <Sequence
-              key={`broll-placeholder-${segment.segment.id ?? index}-${windowIndex}`}
-              from={window.from}
-              durationInFrames={window.duration}
-              name={`broll-placeholder-${segment.segment.id ?? index}-${windowIndex}`}
-            >
-              <BrollPlaceholder label={segment.segment.label ?? segment.segment.id ?? "B-Roll"} />
-            </Sequence>
-          ));
+          return null;
         }
-
+        const windows = computeBrollWindows(segment, highlights, fps);
         const mode = broll.mode ?? "overlay";
 
         return windows.map((window, windowIndex) => (
@@ -346,7 +358,7 @@ const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> 
   </AbsoluteFill>
 );
 
-const PlanSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
+const PlanHighlightSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
   <>
     {highlights
       .filter((highlight) => Boolean(highlight.sfx))
@@ -361,6 +373,124 @@ const PlanSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({hig
       })}
   </>
 );
+
+const EffectPlaceholder: React.FC<{label: string}> = ({label}) => (
+  <AbsoluteFill
+    style={{
+      border: "2px dashed rgba(255,255,255,0.4)",
+      borderRadius: 24,
+      alignItems: "center",
+      justifyContent: "center",
+      color: "rgba(248,250,252,0.8)",
+      fontFamily: "Inter, sans-serif",
+      textTransform: "uppercase",
+      fontSize: 28,
+      letterSpacing: 1,
+      background: "rgba(15,23,42,0.6)",
+    }}
+  >
+    {label}
+  </AbsoluteFill>
+);
+
+const EffectSampleScene: React.FC = () => (
+  <div
+    style={{
+      width: "100%",
+      height: "100%",
+      borderRadius: 24,
+      background:
+        "linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(2,6,23,0.85) 70%), url(https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=900&q=60) center/cover",
+      color: "#f8fafc",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontWeight: 700,
+      letterSpacing: 1,
+    }}
+  >
+    Speaker
+  </div>
+);
+
+const PlanEffectsLayer: React.FC<{entries?: EffectTrackEntry[]; fps: number}> = ({entries, fps}) => {
+  if (!entries?.length) {
+    return null;
+  }
+
+  return (
+    <AbsoluteFill pointerEvents="none" style={{zIndex: 3}}>
+      {entries.map((entry) => {
+        const from = Math.round(entry.start * fps);
+        const duration = Math.max(1, Math.round(entry.duration * fps));
+        return (
+          <Sequence
+            key={`effect-${entry.id}`}
+            from={from}
+            durationInFrames={duration}
+            name={`effect-${entry.id}`}
+          >
+            <TimedEffect entry={entry} durationInFrames={duration} />
+          </Sequence>
+        );
+      })}
+    </AbsoluteFill>
+  );
+};
+
+const TimedEffect: React.FC<{entry: EffectTrackEntry; durationInFrames: number}> = ({entry, durationInFrames}) => {
+  const resolution = useEffectByKey(entry.effectKey);
+
+  if (!resolution) {
+    return <EffectPlaceholder label={entry.effectKey} />;
+  }
+
+  const {Component, metadata} = resolution;
+  const needsChildren =
+    metadata?.category === "motion" ||
+    metadata?.recommendedLayer === "base" ||
+    entry.effectKey.startsWith("motion.");
+
+  return (
+    <AbsoluteFill>
+      <Component durationInFrames={durationInFrames} {...(entry.props ?? {})}>
+        {needsChildren ? <EffectSampleScene /> : null}
+      </Component>
+    </AbsoluteFill>
+  );
+};
+
+const PlanTrackSfxLayer: React.FC<{entries?: SfxTrackEntry[]; fps: number}> = ({entries, fps}) => {
+  if (!entries?.length) {
+    return null;
+  }
+  return (
+    <>
+      {entries.map((entry) => {
+        const from = Math.round(entry.start * fps);
+        const duration = Math.max(1, Math.round(entry.duration * fps));
+        const src = normalizeAssetPath(entry.src);
+        return (
+          <Sequence
+            key={`track-sfx-${entry.id}`}
+            from={from}
+            durationInFrames={duration}
+            name={`track-sfx-${entry.id}`}
+          >
+            <AudioLayer src={src} volume={entry.volume ?? 1} />
+          </Sequence>
+        );
+      })}
+    </>
+  );
+};
+
+const PlanMusicLayer: React.FC<{music?: string | null}> = ({music}) => {
+  if (!music) {
+    return null;
+  }
+  return <AudioLayer src={normalizeAssetPath(music)} loop volume={0.55} />;
+};
 
 const fallbackPlan = planJson as EditingPlan;
 
@@ -379,6 +509,9 @@ export const PlanPreviewPanel: React.FC = () => {
   );
   const totalDuration = useMemo(() => getTimelineDuration(timeline), [timeline]);
   const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
+  const planTracks: PlanTracks = plan.tracks ?? {};
+  const effectEntries = planTracks.effects ?? [];
+  const sfxEntries = planTracks.sfx ?? [];
 
   if (!timeline.length || totalDuration <= 0) {
     return (
@@ -424,9 +557,23 @@ export const PlanPreviewPanel: React.FC = () => {
         <PlanHighlightsLayer highlights={highlights} fps={fps} />
       </Sequence>
 
-      <Sequence name="sfx" durationInFrames={totalDuration}>
-        <PlanSfxLayer highlights={highlights} fps={fps} />
+      <Sequence name="highlight-sfx" durationInFrames={totalDuration}>
+        <PlanHighlightSfxLayer highlights={highlights} fps={fps} />
       </Sequence>
+
+      <Sequence name="effects" durationInFrames={totalDuration}>
+        <PlanEffectsLayer entries={effectEntries} fps={fps} />
+      </Sequence>
+
+      <Sequence name="track-sfx" durationInFrames={totalDuration}>
+        <PlanTrackSfxLayer entries={sfxEntries} fps={fps} />
+      </Sequence>
+
+      {plan.music ? (
+        <Sequence name="music" durationInFrames={totalDuration}>
+          <PlanMusicLayer music={plan.music} />
+        </Sequence>
+      ) : null}
     </AbsoluteFill>
   );
 };

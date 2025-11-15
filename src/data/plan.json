@@ -9,6 +9,14 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
+      },
+      "clip": "input/footage.mp4",
+      "text": "The greatest marketing revolution is already here and most brands don't see it.",
+      "effect": "zoomIn",
+      "broll": {
+        "id": "broll_revolution",
+        "file": "assets/broll/digital_network.jpg",
+        "mode": "full"
       }
     },
     {
@@ -25,7 +33,15 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "broll": {
+        "id": "broll_traditional",
+        "file": "assets/broll/modern_office.jpg",
+        "mode": "overlay"
+      },
+      "text": "Classic creative directors, ad agencies, and gut instincts define the old school side.",
+      "effect": "slideUp"
     },
     {
       "id": "ai_side",
@@ -40,6 +56,14 @@
       },
       "transitionOut": {
         "type": "cut"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Automation and AI can draft a campaign before the host even sips coffee.",
+      "effect": "slideUp",
+      "broll": {
+        "id": "broll_ai_speed",
+        "file": "assets/broll/ai_brain.jpg",
+        "mode": "full"
       }
     },
     {
@@ -54,7 +78,15 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.4
-      }
+      },
+      "clip": "input/footage.mp4",
+      "broll": {
+        "id": "broll_coffee",
+        "file": "assets/broll/innovation_lightbulb.jpg",
+        "mode": "pictureInPicture"
+      },
+      "text": "Playful coffee beat bridges into the AI vs traditional showdown.",
+      "effect": "fadeIn"
     },
     {
       "id": "ai_vs_traditional_question",
@@ -70,7 +102,10 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "up"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Who wins when AI faces traditional marketing workflows?",
+      "effect": "zoomIn"
     },
     {
       "id": "spoiler_alert",
@@ -86,7 +121,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Spoiler: smart marketers win by mastering both sides.",
+      "effect": "fadeIn"
     },
     {
       "id": "traditional_marketing_defined",
@@ -102,6 +140,14 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Traditional marketing runs on late-night brainstorms and emotional storytelling.",
+      "effect": "slideUp",
+      "broll": {
+        "id": "broll_brainstorm",
+        "file": "assets/broll/education_training.jpg",
+        "mode": "overlay"
       }
     },
     {
@@ -118,7 +164,15 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "broll": {
+        "id": "broll_data_grid",
+        "file": "assets/broll/data_visualization.jpg",
+        "mode": "full"
+      },
+      "text": "AI marketing thrives on data, prediction, and hyper-personalization at scale.",
+      "effect": "zoomIn"
     },
     {
       "id": "the_clash",
@@ -133,7 +187,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Creativity meets calculation—emotion versus algorithm.",
+      "effect": "fadeIn"
     },
     {
       "id": "coca_cola_intro",
@@ -149,6 +206,14 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "up"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Coca-Cola invited fans to generate AI-powered artwork.",
+      "effect": "slideUp",
+      "broll": {
+        "id": "broll_coke",
+        "file": "assets/broll/marketing_automation.jpg",
+        "mode": "overlay"
       }
     },
     {
@@ -164,7 +229,10 @@
       },
       "transitionOut": {
         "type": "cut"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "The Create Real Magic campaign unlocked 120K artworks in days.",
+      "effect": "zoomIn"
     },
     {
       "id": "coca_cola_results",
@@ -178,6 +246,14 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
+      },
+      "clip": "input/footage.mp4",
+      "text": "AI delivered massive engagement, organic buzz, and priceless UGC.",
+      "effect": "fadeIn",
+      "broll": {
+        "id": "broll_ugc",
+        "file": "assets/broll/digital_network.jpg",
+        "mode": "overlay"
       }
     },
     {
@@ -194,7 +270,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Traditional teams would need weeks of planning and huge budgets to match that scale.",
+      "effect": "slideUp"
     },
     {
       "id": "ai_fans_creators",
@@ -209,7 +288,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "AI turned fans into creators and transformed creativity into data.",
+      "effect": "zoomIn"
     },
     {
       "id": "heinz_intro",
@@ -225,6 +307,14 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "up"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Heinz asked AI to draw ketchup—of course it drew Heinz.",
+      "effect": "fadeIn",
+      "broll": {
+        "id": "broll_heinz",
+        "file": "assets/broll/digital_transformation.jpg",
+        "mode": "full"
       }
     },
     {
@@ -240,7 +330,10 @@
       },
       "transitionOut": {
         "type": "cut"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Prompt experiments proved Heinz remains iconic even in AI imagination.",
+      "effect": "slideUp"
     },
     {
       "id": "decades_of_branding",
@@ -254,7 +347,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Decades of consistent branding trained audiences what ketchup looks like.",
+      "effect": "fadeIn"
     },
     {
       "id": "heinz_campaign",
@@ -268,7 +364,10 @@
       },
       "transitionOut": {
         "type": "cut"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "The AI ketchup drop merged timeless branding with cutting-edge tech.",
+      "effect": "zoomIn"
     },
     {
       "id": "heinz_results",
@@ -282,7 +381,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Virality, global press, and unstoppable momentum followed.",
+      "effect": "fadeIn"
     },
     {
       "id": "showdown_reentry",
@@ -297,7 +399,9 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "effect": "fadeIn"
     },
     {
       "id": "ai_outputs_cost_savings",
@@ -313,7 +417,10 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "AI marketing outputs arrive instantly with dramatic cost savings.",
+      "effect": "slideUp"
     },
     {
       "id": "hyper_personalization",
@@ -329,7 +436,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Real-time personalization makes precision targeting effortless.",
+      "effect": "fadeIn"
     },
     {
       "id": "the_truth_segment",
@@ -345,7 +455,10 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "up"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Truth: AI is replacing marketers who refuse to use it.",
+      "effect": "zoomIn"
     },
     {
       "id": "ai_not_replacing_marketers",
@@ -361,7 +474,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Record-breaking campaigns blend AI with human craft.",
+      "effect": "slideUp"
     },
     {
       "id": "blending_both",
@@ -376,7 +492,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Human storytelling plus AI intelligence is the winning formula.",
+      "effect": "fadeIn"
     },
     {
       "id": "future_hybrid_marketers",
@@ -392,7 +511,15 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "up"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "broll": {
+        "id": "broll_future",
+        "file": "assets/broll/business_strategy.jpg",
+        "mode": "overlay"
+      },
+      "text": "Future-ready marketers blend emotion with computation.",
+      "effect": "zoomIn"
     },
     {
       "id": "three_hacks_intro",
@@ -407,7 +534,10 @@
       },
       "transitionOut": {
         "type": "cut"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Three hybrid hacks show how to combine both worlds.",
+      "effect": "slideUp"
     },
     {
       "id": "hack_1_human_creativity",
@@ -422,6 +552,14 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Hack 1: use human creativity to build deep emotional hooks.",
+      "effect": "fadeIn",
+      "broll": {
+        "id": "broll_creative",
+        "file": "assets/broll/modern_office.jpg",
+        "mode": "pictureInPicture"
       }
     },
     {
@@ -439,6 +577,14 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Hack 2: use AI insights to find who needs to hear it.",
+      "effect": "slideUp",
+      "broll": {
+        "id": "broll_insights",
+        "file": "assets/broll/data_visualization.jpg",
+        "mode": "overlay"
       }
     },
     {
@@ -455,6 +601,14 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
+      },
+      "clip": "input/footage.mp4",
+      "text": "Hack 3: automation ships the message faster and smarter.",
+      "effect": "zoomIn",
+      "broll": {
+        "id": "broll_automation",
+        "file": "assets/broll/marketing_automation.jpg",
+        "mode": "overlay"
       }
     },
     {
@@ -470,7 +624,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "AI with human teams beats AI versus humans.",
+      "effect": "fadeIn"
     },
     {
       "id": "makes_it_better",
@@ -486,7 +643,10 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "up"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "AI amplifies traditional marketing instead of replacing it.",
+      "effect": "slideUp"
     },
     {
       "id": "embrace_both",
@@ -502,7 +662,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Winners embrace both human connection and machine scale.",
+      "effect": "zoomIn"
     },
     {
       "id": "partner_with_ai",
@@ -518,7 +681,10 @@
         "type": "slide",
         "duration": 0.5,
         "direction": "left"
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "Partner with AI rather than fighting it.",
+      "effect": "fadeIn"
     },
     {
       "id": "human_and_machine",
@@ -534,7 +700,10 @@
       "transitionOut": {
         "type": "crossfade",
         "duration": 0.6
-      }
+      },
+      "clip": "input/footage.mp4",
+      "text": "The future of marketing is human AND machine.",
+      "effect": "zoomIn"
     },
     {
       "id": "call_to_action",
@@ -548,230 +717,275 @@
       },
       "transitionOut": {
         "type": "cut"
+      },
+      "clip": "input/footage.mp4",
+      "text": "Subscribe to master AI tools for your marketing breakthroughs.",
+      "effect": "slideUp",
+      "broll": {
+        "id": "broll_cta",
+        "file": "assets/broll/digital_network.jpg",
+        "mode": "pictureInPicture"
       }
     }
   ],
   "highlights": [
     {
-      "id": "marketing_revolution",
-      "start": 2.4,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "zoom",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "section_ai_vs_traditional",
-      "start": 27.5,
-      "duration": 3.5,
-      "position": "bottom",
-      "animation": "fade",
+      "id": "hl_revolution_claim",
+      "start": 0.6,
+      "duration": 3.2,
       "type": "sectionTitle",
-      "text": "AI Vs Traditional Marketing Overview Spotlight",
-      "keyword": "AI VS TRADITIONAL MARKETING OVERVIEW SPOTLIGHT",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "human_intuition",
-      "start": 38.8,
-      "duration": 3.0,
+      "text": "Marketing Revolution Now",
+      "keyword": "MARKETING REVOLUTION",
       "position": "bottom",
-      "animation": "slide",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
+      "sfx": "assets/sfx/emphasis/ding.mp3"
     },
     {
-      "id": "ai_marketing_concept",
-      "start": 50.5,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "emotion_vs_algorithm",
-      "start": 105.0,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "pulse",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "section_coca_cola",
-      "start": 141.5,
-      "duration": 4.0,
-      "position": "bottom",
-      "animation": "fade",
-      "type": "sectionTitle",
-      "text": "Coca Cola AI Collaboration Case Study Framework",
-      "keyword": "COCA COLA AI COLLABORATION CASE STUDY FRAMEWORK",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "coca_cola_artworks",
-      "start": 201.0,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "zoom",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "fans_into_creators",
-      "start": 229.0,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "slide",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "section_heinz",
-      "start": 234.5,
+      "id": "hl_traditional_traits",
+      "start": 35.36,
       "duration": 3.5,
-      "position": "bottom",
-      "animation": "fade",
-      "type": "sectionTitle",
-      "text": "Heinz Brand Legacy Case Study Insights",
-      "keyword": "HEINZ BRAND LEGACY CASE STUDY INSIGHTS",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "decades_branding",
-      "start": 249.5,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "zoom",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "cost_savings",
-      "start": 331.0,
-      "duration": 3.0,
-      "position": "bottom",
-      "animation": "zoom",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "layout": "bottom",
-      "volume": 0.75
-    },
-    {
-      "id": "the_truth_icon",
-      "start": 349.5,
-      "duration": 1.5,
-      "position": "center",
-      "animation": "pulse",
-      "type": "icon",
-      "text": "The Truth",
-      "name": "lightbulb",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "volume": 0.75
-    },
-    {
-      "id": "ai_replacement",
-      "start": 352.5,
-      "duration": 3.5,
-      "position": "bottom",
-      "animation": "fade",
       "type": "noteBox",
-      "text": "AI Replacement",
-      "keyword": "AI Replacement",
-      "importance": "primary",
-      "showBottom": true,
-      "safeBottom": 0.18,
-      "safeInsetHorizontal": 0.08,
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "supportingTexts": {
-        "topLeft": "Not Marketers",
-        "topRight": "Marketers Refuse"
-      },
-      "layout": "bottom",
-      "staggerLeft": 0.0,
-      "staggerRight": 2.0,
-      "volume": 0.75
+      "text": "Human intuition • Emotional storytelling",
+      "keyword": "TRADITIONAL MARKETING",
+      "position": "bottom",
+      "sfx": "assets/sfx/ui/pop.mp3"
     },
     {
-      "id": "section_hybrid_future",
-      "start": 406.5,
-      "duration": 4.0,
+      "id": "hl_ai_traits",
+      "start": 45.72,
+      "duration": 3.5,
+      "type": "centralConcept",
+      "text": "Prediction · Personalization · Scale",
+      "keyword": "AI MARKETING",
       "position": "bottom",
-      "animation": "fade",
+      "sfx": "assets/sfx/ui/pop.mp3"
+    },
+    {
+      "id": "hl_ai_vs_trad",
+      "start": 25.5,
+      "duration": 3.0,
       "type": "sectionTitle",
-      "text": "Hybrid Future Marketing Focus",
-      "keyword": "HYBRID FUTURE MARKETING FOCUS",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
-      "layout": "bottom",
-      "volume": 0.75
+      "text": "AI vs Traditional",
+      "keyword": "WHO WINS?",
+      "position": "top",
+      "sfx": "assets/sfx/emphasis/ding.mp3"
     },
     {
-      "id": "three_hacks_icon",
-      "start": 415.5,
-      "duration": 2.0,
-      "position": "center",
-      "animation": "bounce",
-      "type": "icon",
-      "text": "Three Hacks",
-      "name": "star",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "volume": 0.75
-    },
-    {
-      "id": "ai_with_human",
-      "start": 441.0,
-      "duration": 3.0,
+      "id": "hl_coke_campaign",
+      "start": 69.96,
+      "duration": 4.2,
+      "type": "noteBox",
+      "text": "Create Real Magic · 120K AI artworks",
+      "keyword": "COKE + OPENAI",
       "position": "bottom",
-      "animation": "pulse",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
+      "sfx": "assets/sfx/ui/pop.mp3"
     },
     {
-      "id": "partner_with_ai",
-      "start": 501.0,
-      "duration": 3.0,
+      "id": "hl_heinz_ai",
+      "start": 108.08,
+      "duration": 3.5,
+      "type": "sectionTitle",
+      "text": "Heinz x AI Experiment",
+      "keyword": "HEINZ DRAWS KETCHUP",
       "position": "bottom",
-      "animation": "slide",
-      "type": "centralConcept",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.75
+      "sfx": "assets/sfx/emphasis/ding.mp3"
     },
     {
-      "id": "subscribe_button_icon",
-      "start": 514.5,
-      "duration": 2.0,
+      "id": "hl_truth",
+      "start": 178.0,
+      "duration": 2.6,
+      "type": "noteBox",
+      "text": "AI replaces marketers who refuse AI",
+      "keyword": "THE TRUTH",
+      "position": "bottom",
+      "sfx": "assets/sfx/emphasis/ding.mp3"
+    },
+    {
+      "id": "hl_hybrid_future",
+      "start": 194.02,
+      "duration": 3.8,
+      "type": "sectionTitle",
+      "text": "Hybrid Marketers Win",
+      "keyword": "HUMAN + AI",
+      "position": "bottom",
+      "sfx": "assets/sfx/ui/pop.mp3"
+    },
+    {
+      "id": "hl_three_hacks",
+      "start": 201.8,
+      "duration": 2.8,
+      "type": "noteBox",
+      "text": "3 Hybrid Hacks",
+      "keyword": "STORY | INSIGHT | AUTOMATION",
       "position": "center",
-      "animation": "pulse",
-      "type": "icon",
-      "text": "Subscribe Button",
-      "name": "youtube",
-      "sfx": "assets/sfx/ui/pop.mp3",
-      "volume": 0.75
+      "sfx": "assets/sfx/ui/bubble-pop.mp3"
+    },
+    {
+      "id": "hl_cta",
+      "start": 254.34,
+      "duration": 3.0,
+      "type": "sectionTitle",
+      "text": "Subscribe for AI Marketing Plays",
+      "keyword": "CTA",
+      "position": "bottom",
+      "sfx": "assets/sfx/emphasis/ding.mp3"
     }
-  ]
+  ],
+  "templateId": "template0",
+  "animationId": "gsap-fade-in",
+  "transitionId": "transition.cross-fade",
+  "music": "assets/sfx/emotion/applause.mp3",
+  "meta": {
+    "id": "marketing-revolution-ai",
+    "sourceVideo": "input/footage.mp4",
+    "fps": 30,
+    "duration": 261.3
+  },
+  "tracks": {
+    "effects": [
+      {
+        "id": "effect_intro_badge",
+        "segmentId": "intro_revolution",
+        "start": 0.2,
+        "duration": 4,
+        "effectKey": "text.popUp3D"
+      },
+      {
+        "id": "effect_ai_vs_trad_split",
+        "segmentId": "ai_vs_traditional_question",
+        "start": 25.4,
+        "duration": 4,
+        "effectKey": "text.sideFloatLeft"
+      },
+      {
+        "id": "effect_traditional_stats",
+        "segmentId": "traditional_marketing_defined",
+        "start": 34.66,
+        "duration": 4,
+        "effectKey": "text.keywordSubtitleHighlight"
+      },
+      {
+        "id": "effect_ai_grid",
+        "segmentId": "ai_marketing_defined",
+        "start": 45.32,
+        "duration": 4,
+        "effectKey": "chart.dataReveal"
+      },
+      {
+        "id": "effect_coke_case",
+        "segmentId": "coca_cola_intro",
+        "start": 64.04,
+        "duration": 4,
+        "effectKey": "text.sequentialList"
+      },
+      {
+        "id": "effect_ugc_counter",
+        "segmentId": "coca_cola_results",
+        "start": 82.4,
+        "duration": 4,
+        "effectKey": "text.popUp"
+      },
+      {
+        "id": "effect_heinz_title",
+        "segmentId": "heinz_intro",
+        "start": 107.88,
+        "duration": 4,
+        "effectKey": "overlay.sectionTitle"
+      },
+      {
+        "id": "effect_showdown_meter",
+        "segmentId": "ai_outputs_cost_savings",
+        "start": 149.04,
+        "duration": 4,
+        "effectKey": "chart.timelineReveal"
+      },
+      {
+        "id": "effect_hacks_list",
+        "segmentId": "three_hacks_intro",
+        "start": 201.7,
+        "duration": 4,
+        "effectKey": "text.stepBreakdown"
+      },
+      {
+        "id": "effect_cta_glow",
+        "segmentId": "call_to_action",
+        "start": 253.54,
+        "duration": 4,
+        "effectKey": "overlay.iconHighlight"
+      }
+    ],
+    "sfx": [
+      {
+        "id": "sfx_intro_whoosh",
+        "segmentId": "intro_revolution",
+        "start": 0.0,
+        "duration": 1.2,
+        "src": "assets/sfx/whoosh/woosh.mp3",
+        "volume": 0.8
+      },
+      {
+        "id": "sfx_coffee_pop",
+        "segmentId": "coffee_break_setup",
+        "start": 19.26,
+        "duration": 1.0,
+        "src": "assets/sfx/ui/pop.mp3",
+        "volume": 0.85
+      },
+      {
+        "id": "sfx_vs_hit",
+        "segmentId": "ai_vs_traditional_question",
+        "start": 25.4,
+        "duration": 1.0,
+        "src": "assets/sfx/emphasis/ding.mp3",
+        "volume": 0.75
+      },
+      {
+        "id": "sfx_coke_reveal",
+        "segmentId": "create_real_magic_campaign",
+        "start": 69.66,
+        "duration": 1.4,
+        "src": "assets/sfx/ui/swipe.mp3",
+        "volume": 0.8
+      },
+      {
+        "id": "sfx_heinz_drop",
+        "segmentId": "heinz_campaign",
+        "start": 125.7,
+        "duration": 1.2,
+        "src": "assets/sfx/tech/camera-click.mp3",
+        "volume": 0.7
+      },
+      {
+        "id": "sfx_showdown_rise",
+        "segmentId": "ai_outputs_cost_savings",
+        "start": 148.54,
+        "duration": 1.5,
+        "src": "assets/sfx/whoosh/woosh.mp3",
+        "volume": 0.8
+      },
+      {
+        "id": "sfx_truth_hit",
+        "segmentId": "the_truth_segment",
+        "start": 177.9,
+        "duration": 0.9,
+        "src": "assets/sfx/emphasis/ding.mp3",
+        "volume": 0.9
+      },
+      {
+        "id": "sfx_hack_markers",
+        "segmentId": "three_hacks_intro",
+        "start": 201.7,
+        "duration": 1.2,
+        "src": "assets/sfx/ui/keyboard-typing.mp3",
+        "volume": 0.65
+      },
+      {
+        "id": "sfx_cta",
+        "segmentId": "call_to_action",
+        "start": 253.94,
+        "duration": 1.3,
+        "src": "assets/sfx/ui/pop.mp3",
+        "volume": 0.85
+      }
+    ]
+  }
 }

@@ -14,6 +14,8 @@ const plan = bootstrapPlan.fps === initialFps ? bootstrapPlan : loadPlan({fps: i
 const PREVIEW_WIDTH = 1920;
 const PREVIEW_HEIGHT = 1080;
 const showDevCompositions = inputProps.devMode ?? true;
+const compositionDurationInFrames =
+  plan.durationInFrames ?? totalFrames(plan.segments, initialFps);
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -22,7 +24,7 @@ export const RemotionRoot: React.FC = () => (
         <Composition
           id="live-preview"
           component={typeof PreviewApp === 'function' ? PreviewApp : () => {console.error("PreviewApp is undefined"); return null;}}
-          durationInFrames={totalFrames(plan.segments, initialFps)}
+          durationInFrames={compositionDurationInFrames}
           fps={initialFps}
           width={PREVIEW_WIDTH}
           height={PREVIEW_HEIGHT}
@@ -46,7 +48,7 @@ export const RemotionRoot: React.FC = () => (
         <Composition
           id="template-preview"
           component={typeof TemplatePreviewPanel === 'function' ? TemplatePreviewPanel : () => {console.error("TemplatePreviewPanel is undefined"); return null;}}
-          durationInFrames={totalFrames(plan.segments, initialFps)}
+          durationInFrames={compositionDurationInFrames}
           fps={initialFps}
           width={PREVIEW_WIDTH}
           height={PREVIEW_HEIGHT}

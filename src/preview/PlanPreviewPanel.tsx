@@ -7,6 +7,7 @@ import {palette} from "../styles/designTokens";
 import {useHotReloadPlan} from "./useHotReloadPlan";
 import {getEffectMetadata, useEffectByKey} from "../effects/hooks/useEffectByKey";
 import type {EffectKey} from "../types/EffectTypes";
+import {secondsToFrames} from "../core/utils/frameUtils";
 import type {
   EditingPlan,
   EffectTrackEntry,
@@ -525,7 +526,14 @@ export const PlanPreviewPanel: React.FC = () => {
     () => (Array.isArray(plan.highlights) ? plan.highlights.filter((item) => item.duration > 0) : []),
     [plan.highlights]
   );
-  const totalDuration = useMemo(() => getTimelineDuration(timeline), [timeline]);
+  const timelineDuration = useMemo(() => getTimelineDuration(timeline), [timeline]);
+  const metaDurationFrames = useMemo(() => {
+    const metaDuration = plan.meta?.duration;
+    const metaSeconds =
+      typeof metaDuration === "number" && Number.isFinite(metaDuration) && metaDuration > 0 ? metaDuration : null;
+    return metaSeconds ? secondsToFrames(metaSeconds, fps) : null;
+  }, [plan.meta?.duration, fps]);
+  const totalDuration = metaDurationFrames ?? timelineDuration;
   const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
   const planTracks: PlanTracks = plan.tracks ?? {};
   const effectEntries = useMemo(() => planTracks.effects ?? [], [planTracks.effects]);

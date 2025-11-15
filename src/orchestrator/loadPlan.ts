@@ -40,23 +40,51 @@ const readPlanFromDisk = (): Plan => {
   return JSON.parse(raw) as Plan;
 };
 
+const resolveDurationLimit = (plan?: Plan) => {
+  const candidate = plan?.meta?.duration;
+  if (typeof candidate === "number" && Number.isFinite(candidate) && candidate > 0) {
+    return candidate;
+  }
+  return undefined;
+};
+
 const sanitizeSegment = (
   segment: Partial<Segment> | undefined,
   index: number,
-  fps: number
-): NormalizedSegmentCore => {
+  fps: number,
+  timelineLimit?: number
+): NormalizedSegmentCore | null => {
   const clip =
     typeof segment?.clip === "string" && segment.clip.trim().length > 0
       ? segment.clip.trim()
       : DEFAULT_PRIMARY_CLIP || PLACEHOLDER_CLIP;
 
-  const durationSeconds =
+  let durationSeconds =
     typeof segment?.duration === "number" && Number.isFinite(segment.duration) && segment.duration > 0
       ? segment.duration
       : (() => {
           warn(`Segment #${index} missing/invalid duration. Using ${DEFAULT_DURATION_SECONDS}s`);
           return DEFAULT_DURATION_SECONDS;
         })();
+
+  const sourceStartSeconds =
+    typeof segment?.sourceStart === "number" && Number.isFinite(segment.sourceStart) && segment.sourceStart >= 0
+      ? segment.sourceStart
+      : 0;
+
+  if (typeof timelineLimit === "number" && Number.isFinite(timelineLimit) && timelineLimit > 0) {
+    if (sourceStartSeconds >= timelineLimit) {
+      return null;
+    }
+    const maxAllowed = timelineLimit - sourceStartSeconds;
+    if (maxAllowed <= 0) {
+      return null;
+    }
+    durationSeconds = Math.min(durationSeconds, maxAllowed);
+    if (durationSeconds <= 0) {
+      return null;
+    }
+  }
 
   const resolvedText =
     typeof segment?.text === "string" && segment.text.trim().length > 0
@@ -77,10 +105,7 @@ const sanitizeSegment = (
     emotion: typeof segment?.emotion === "string" && segment.emotion.length > 0 ? segment.emotion : undefined,
     animationId: typeof segment?.animationId === "string" ? segment.animationId : undefined,
     transitionId: typeof segment?.transitionId === "string" ? segment.transitionId : undefined,
-    sourceStart:
-      typeof segment?.sourceStart === "number" && Number.isFinite(segment.sourceStart) && segment.sourceStart >= 0
-        ? segment.sourceStart
-        : undefined,
+    sourceStart: typeof segment?.sourceStart === "number" && Number.isFinite(segment.sourceStart) && segment.sourceStart >= 0 ? segment.sourceStart : undefined,
     mute: typeof segment?.mute === "boolean" ? segment.mute : true,
     broll:
       segment?.broll && typeof segment.broll === "object"
@@ -115,6 +140,38 @@ const normalizeTrackEvents = <T extends {start: number; duration: number}>(entri
     return {...entry, startFrame, durationInFrames, endFrame: startFrame + durationInFrames};
   });
 
+const clampTrackEvents = <T extends {start: number; duration: number; startFrame: number; durationInFrames: number; endFrame: number}>(
+  events: T[],
+  fps: number,
+  limitSeconds?: number
+) => {
+  if (typeof limitSeconds !== "number" || !Number.isFinite(limitSeconds) || limitSeconds <= 0) {
+    return events;
+  }
+  return events
+    .map((event) => {
+      if (event.start >= limitSeconds) {
+        return null;
+      }
+      const maxAllowed = limitSeconds - event.start;
+      if (maxAllowed <= 0) {
+        return null;
+      }
+      const durationSeconds = Math.min(event.duration, maxAllowed);
+      if (durationSeconds <= 0) {
+        return null;
+      }
+      const durationInFrames = Math.max(1, secondsToFrames(durationSeconds, fps));
+      return {
+        ...event,
+        duration: durationSeconds,
+        durationInFrames,
+        endFrame: event.startFrame + durationInFrames,
+      };
+    })
+    .filter((event): event is T => Boolean(event));
+};
+
 export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
   const templateId =
     typeof plan?.templateId === "string" && plan.templateId.trim().length > 0
@@ -124,8 +181,11 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
           return DEFAULT_TEMPLATE_ID;
         })();
 
+  const durationLimitSeconds = resolveDurationLimit(plan);
   const rawSegments = Array.isArray(plan?.segments) ? plan.segments : [];
-  const normalizedSegments = rawSegments.map((segment, index) => sanitizeSegment(segment, index, fps));
+  const normalizedSegments = rawSegments
+    .map((segment, index) => sanitizeSegment(segment, index, fps, durationLimitSeconds))
+    .filter((segment): segment is NormalizedSegmentCore => Boolean(segment));
   const segmentsWithTimeline = calcFrameRange(normalizedSegments, fps).map(({start, end, ...rest}) => ({
     ...rest,
     startFrame: start,
@@ -133,17 +193,24 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
   }));
 
   const tracks: PlanTracks = plan?.tracks ?? {};
-  const normalizedEffects: NormalizedEffectEvent[] = normalizeTrackEvents(
-    tracks.effects ?? [],
-    fps
-  ) as NormalizedEffectEvent[];
-  const normalizedAudio: NormalizedAudioEvent[] = normalizeTrackEvents(
-    tracks.sfx ?? [],
-    fps
-  ) as NormalizedAudioEvent[];
+  const normalizedEffects: NormalizedEffectEvent[] = clampTrackEvents(
+    normalizeTrackEvents(tracks.effects ?? [], fps) as NormalizedEffectEvent[],
+    fps,
+    durationLimitSeconds
+  );
+  const normalizedAudio: NormalizedAudioEvent[] = clampTrackEvents(
+    normalizeTrackEvents(tracks.sfx ?? [], fps) as NormalizedAudioEvent[],
+    fps,
+    durationLimitSeconds
+  );
 
   const resolvedMusic =
     plan?.music === null ? null : typeof plan?.music === "string" ? plan.music : undefined;
+
+  const resolvedDurationInFrames =
+    typeof durationLimitSeconds === "number" && Number.isFinite(durationLimitSeconds) && durationLimitSeconds > 0
+      ? secondsToFrames(durationLimitSeconds, fps)
+      : totalFrames(normalizedSegments, fps);
 
   return {
     templateId,
@@ -151,7 +218,7 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
     animationId: typeof plan?.animationId === "string" ? plan.animationId : undefined,
     transitionId: typeof plan?.transitionId === "string" ? plan.transitionId : undefined,
     segments: segmentsWithTimeline,
-    durationInFrames: totalFrames(normalizedSegments, fps),
+    durationInFrames: resolvedDurationInFrames,
     fps,
     meta: plan?.meta,
     effects: normalizedEffects,

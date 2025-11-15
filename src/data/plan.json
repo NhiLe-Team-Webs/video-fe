@@ -650,11 +650,24 @@
         "id": "textfx-ai_data_prediction",
         "start": 53.5,
         "duration": 3.5,
-        "effectKey": "text.sideFloat",
+        "effectKey": "text.centralConcept",
         "layer": "overlay",
         "props": {
-          "text": "DATA, PREDICTION, PERSONALIZATION",
-          "side": "left"
+          "centralLabel": "AI MARKETING",
+          "nodes": [
+            {
+              "label": "Data"
+            },
+            {
+              "label": "Prediction"
+            },
+            {
+              "label": "Personalization"
+            },
+            {
+              "label": "Automation"
+            }
+          ]
         }
       },
       {
@@ -793,16 +806,27 @@
       {
         "id": "textfx-section_strategies_hacks",
         "start": 254.5,
-        "duration": 2.0,
-        "effectKey": "text.typeOn",
+        "duration": 4.0,
+        "effectKey": "text.stepBreakdown",
         "layer": "overlay",
         "props": {
-          "text": "STRATEGIES: THREE HACKS FRAMEWORK"
+          "topic": "STRATEGIES: THREE HACKS",
+          "steps": [
+            {
+              "title": "Human Creativity"
+            },
+            {
+              "title": "AI Insights"
+            },
+            {
+              "title": "Activate Automation"
+            }
+          ]
         }
       },
       {
         "id": "textfx-human_creativity_hack",
-        "start": 258.0,
+        "start": 260.0,
         "duration": 2.5,
         "effectKey": "text.keywordColorHighlight",
         "layer": "overlay",

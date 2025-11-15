@@ -770,8 +770,8 @@
     },
     {
       "id": "hl_ai_vs_trad",
-      "start": 25.5,
-      "duration": 3.0,
+      "start": 27.5,
+      "duration": 2.0,
       "type": "sectionTitle",
       "text": "AI vs Traditional",
       "keyword": "WHO WINS?",
@@ -865,22 +865,89 @@
         }
       },
       {
+        "id": "effect_traditional_side_background",
+        "segmentId": "traditional_side",
+        "start": 7.32,
+        "duration": 5.26,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#030412\",\"#050d1c\",\"#00000f\"]",
+          "durationInFrames": 158
+        }
+      },
+      {
+        "id": "effect_traditional_side_noise",
+        "segmentId": "traditional_side",
+        "start": 7.32,
+        "duration": 5.26,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#020205",
+          "durationInFrames": 158
+        }
+      },
+      {
+        "id": "effect_coffee_break_background",
+        "segmentId": "coffee_break_setup",
+        "start": 19.06,
+        "duration": 6.24,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#07090f\",\"#111827\",\"#000000\"]",
+          "durationInFrames": 187
+        }
+      },
+      {
+        "id": "effect_coffee_break_noise",
+        "segmentId": "coffee_break_setup",
+        "start": 19.06,
+        "duration": 6.24,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#04060b",
+          "durationInFrames": 187
+        }
+      },
+      {
         "id": "effect_ai_vs_trad_split",
         "segmentId": "ai_vs_traditional_question",
         "start": 25.4,
-        "duration": 4,
+        "duration": 2,
         "effectKey": "text.sideFloatLeft",
         "props": {
           "text": "Who wins when AI faces traditional marketing workflows?",
           "subtitle": "AI vs Traditional Question",
-          "durationInFrames": 120,
+          "durationInFrames": 60,
           "accentColor": "#38bdf8"
+        }
+      },
+      {
+        "id": "effect_traditional_marketing_background",
+        "segmentId": "traditional_marketing_defined",
+        "start": 33.86,
+        "duration": 10.86,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#04060b\",\"#030412\",\"#000000\"]",
+          "durationInFrames": 326
+        }
+      },
+      {
+        "id": "effect_traditional_marketing_particles",
+        "segmentId": "traditional_marketing_defined",
+        "start": 33.86,
+        "duration": 10.86,
+        "effectKey": "background.particleField",
+        "props": {
+          "count": 40,
+          "color": "#070b0f",
+          "durationInFrames": 326
         }
       },
       {
         "id": "effect_traditional_stats",
         "segmentId": "traditional_marketing_defined",
-        "start": 34.66,
+        "start": 44.0,
         "duration": 4,
         "effectKey": "text.keywordSubtitleHighlight",
         "props": {
@@ -891,20 +958,9 @@
         }
       },
       {
-        "id": "effect_traditional_background",
-        "segmentId": "traditional_marketing_defined",
-        "start": 34.0,
-        "duration": 4.5,
-        "effectKey": "background.gradientPulse",
-        "props": {
-          "colors": "[\"#030412\",\"#050d1c\",\"#00000f\"]",
-          "durationInFrames": 150
-        }
-      },
-      {
         "id": "effect_ai_grid",
         "segmentId": "ai_marketing_defined",
-        "start": 45.32,
+        "start": 48.2,
         "duration": 4,
         "effectKey": "chart.dataReveal",
         "props": {
@@ -915,9 +971,43 @@
         }
       },
       {
+        "id": "effect_coca_background_pulse",
+        "segmentId": "coca_cola_intro",
+        "start": 63.64,
+        "duration": 5.52,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#01040a\",\"#0d111b\",\"#000000\"]",
+          "durationInFrames": 166
+        }
+      },
+      {
+        "id": "effect_coca_noise",
+        "segmentId": "coca_cola_intro",
+        "start": 63.64,
+        "duration": 5.52,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#020205",
+          "durationInFrames": 166
+        }
+      },
+      {
+        "id": "effect_coca_particles",
+        "segmentId": "coca_cola_intro",
+        "start": 63.64,
+        "duration": 5.52,
+        "effectKey": "background.particleField",
+        "props": {
+          "count": 45,
+          "color": "#02040a",
+          "durationInFrames": 166
+        }
+      },
+      {
         "id": "effect_coke_case",
         "segmentId": "coca_cola_intro",
-        "start": 64.04,
+        "start": 69.5,
         "duration": 4,
         "effectKey": "text.sequentialList",
         "props": {
@@ -928,38 +1018,25 @@
         }
       },
       {
-        "id": "effect_coke_background",
-        "segmentId": "coca_cola_intro",
-        "start": 141.2,
-        "duration": 5.5,
-        "effectKey": "background.particleField",
+        "id": "effect_coca_results_background",
+        "segmentId": "coca_cola_results",
+        "start": 81.4,
+        "duration": 11.5,
+        "effectKey": "background.gradientPulse",
         "props": {
-          "count": 45,
-          "color": "#02040a",
-          "durationInFrames": 150
+          "colors": "[\"#01040a\",\"#02060f\",\"#000000\"]",
+          "durationInFrames": 345
         }
       },
       {
-        "id": "effect_coke_shadow",
-        "segmentId": "coca_cola_intro",
-        "start": 141.0,
-        "duration": 5.5,
+        "id": "effect_coca_results_noise",
+        "segmentId": "coca_cola_results",
+        "start": 81.4,
+        "duration": 11.5,
         "effectKey": "background.noiseBackdrop",
         "props": {
-          "color": "#020205",
-          "durationInFrames": 150
-        }
-      },
-      {
-        "id": "effect_traditional_background",
-        "segmentId": "traditional_marketing_defined",
-        "start": 34.0,
-        "duration": 4.5,
-        "effectKey": "background.particleField",
-        "props": {
-          "count": 40,
-          "color": "#070b0f",
-          "durationInFrames": 120
+          "color": "#010308",
+          "durationInFrames": 345
         }
       },
       {
@@ -976,26 +1053,15 @@
         }
       },
       {
-        "id": "effect_coke_background",
-        "segmentId": "coca_cola_intro",
-        "start": 63.8,
-        "duration": 5.2,
-        "effectKey": "background.gradientPulse",
-        "props": {
-          "colors": "[\"#01040a\",\"#0d111b\",\"#000000\"]",
-          "durationInFrames": 150
-        }
-      },
-      {
         "id": "effect_heinz_title",
         "segmentId": "heinz_intro",
-        "start": 107.88,
-        "duration": 4,
+        "start": 107.7,
+        "duration": 2.2,
         "effectKey": "overlay.sectionTitle",
         "props": {
           "text": "Heinz asked AI to draw ketchup\u2014of course it drew Heinz.",
           "subtitle": "Heinz AI Story Intro",
-          "durationInFrames": 120,
+          "durationInFrames": 66,
           "accentColor": "#f97316",
           "position": "bottom"
         }
@@ -1003,35 +1069,35 @@
       {
         "id": "effect_heinz_background",
         "segmentId": "heinz_intro",
-        "start": 234.2,
-        "duration": 4.7,
+        "start": 109.9,
+        "duration": 1.3,
         "effectKey": "background.gradientPulse",
         "props": {
           "colors": "[\"#04060b\",\"#010409\",\"#000000\"]",
-          "durationInFrames": 130
+          "durationInFrames": 39
         }
       },
       {
         "id": "effect_heinz_shadow",
         "segmentId": "heinz_intro",
-        "start": 234.0,
-        "duration": 4.7,
+        "start": 111.2,
+        "duration": 1.2,
         "effectKey": "background.noiseBackdrop",
         "props": {
           "color": "#000306",
-          "durationInFrames": 120
+          "durationInFrames": 36
         }
       },
       {
         "id": "effect_heinz_background",
         "segmentId": "heinz_intro",
-        "start": 234.5,
-        "duration": 4.5,
+        "start": 112.5,
+        "duration": 1.3,
         "effectKey": "background.particleField",
         "props": {
           "count": 60,
           "color": "#050a0f",
-          "durationInFrames": 120
+          "durationInFrames": 39
         }
       },
       {
@@ -1048,6 +1114,43 @@
         }
       },
       {
+        "id": "effect_hybrid_background",
+        "segmentId": "future_hybrid_marketers",
+        "start": 193.32,
+        "duration": 8.18,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#000000\",\"#0f172a\",\"#050b12\"]",
+          "durationInFrames": 245
+        }
+      },
+      {
+        "id": "effect_hybrid_shadow",
+        "segmentId": "future_hybrid_marketers",
+        "start": 193.32,
+        "duration": 8.18,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#010208",
+          "durationInFrames": 245
+        }
+      },
+      {
+        "id": "effect_hybrid_card",
+        "segmentId": "future_hybrid_marketers",
+        "start": 198.2,
+        "duration": 2.2,
+        "effectKey": "overlay.iconHighlight",
+        "props": {
+          "text": "Hybrid marketers blend human emotion with AI speed.",
+          "subtitle": "Human + Machine Future",
+          "iconSrc": "assets/broll/business_strategy.jpg",
+          "durationInFrames": 66,
+          "accentColor": "#38bdf8",
+          "position": "center"
+        }
+      },
+      {
         "id": "effect_hacks_list",
         "segmentId": "three_hacks_intro",
         "start": 201.7,
@@ -1058,6 +1161,50 @@
           "subtitle": "Three Hacks Introduction",
           "durationInFrames": 120,
           "accentColor": "#a855f7"
+        }
+      },
+      {
+        "id": "effect_hack2_background",
+        "segmentId": "hack_2_ai_insights",
+        "start": 212.5,
+        "duration": 6.22,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#020409\",\"#050b0f\",\"#000000\"]",
+          "durationInFrames": 187
+        }
+      },
+      {
+        "id": "effect_hack2_noise",
+        "segmentId": "hack_2_ai_insights",
+        "start": 212.5,
+        "duration": 6.22,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#030409",
+          "durationInFrames": 187
+        }
+      },
+      {
+        "id": "effect_hack3_background",
+        "segmentId": "hack_3_automation",
+        "start": 218.72,
+        "duration": 5.9,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#020309\",\"#04060c\",\"#000000\"]",
+          "durationInFrames": 177
+        }
+      },
+      {
+        "id": "effect_hack3_noise",
+        "segmentId": "hack_3_automation",
+        "start": 218.72,
+        "duration": 5.9,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#030205",
+          "durationInFrames": 177
         }
       },
       {
@@ -1072,44 +1219,6 @@
           "durationInFrames": 120,
           "accentColor": "#34d399",
           "position": "bottom"
-        }
-      },
-      {
-        "id": "effect_hybrid_card",
-        "segmentId": "hybrid_future",
-        "start": 202.2,
-        "duration": 55,
-        "effectKey": "overlay.iconHighlight",
-        "props": {
-          "text": "Hybrid marketers blend human emotion with AI speed.",
-          "subtitle": "Human + Machine Future",
-          "iconSrc": "assets/broll/business_strategy.jpg",
-          "durationInFrames": 200,
-          "accentColor": "#38bdf8",
-          "position": "center"
-        }
-      },
-      {
-        "id": "effect_hybrid_background",
-        "segmentId": "hybrid_future",
-        "start": 201.5,
-        "duration": 60,
-        "effectKey": "background.gradientPulse",
-        "props": {
-          "colors": "[\"#000000\",\"#0f172a\",\"#050b12\"]",
-          "durationInFrames": 220
-        }
-      }
-      ,
-      {
-        "id": "effect_hybrid_shadow",
-        "segmentId": "hybrid_future",
-        "start": 201.2,
-        "duration": 60,
-        "effectKey": "background.noiseBackdrop",
-        "props": {
-          "color": "#010208",
-          "durationInFrames": 220
         }
       }
     ],

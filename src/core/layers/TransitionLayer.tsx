@@ -28,12 +28,19 @@ export const TransitionLayer: React.FC<TransitionLayerProps> = ({
   const frame = useCurrentFrame();
   const {envelope, fadeIn} = getEnvelope(frame, durationInFrames);
 
+  const zoomFrames = Math.max(8, Math.min(durationInFrames, Math.floor(durationInFrames * 0.25)));
+  const zoomScale = 1.72;
   const scale =
     effect === "zoom_in"
-      ? interpolate(frame, [0, durationInFrames], [0.92, 1.05], {
-          extrapolateLeft: "clamp",
-          extrapolateRight: "clamp",
-        })
+      ? interpolate(
+          frame,
+          [0, zoomFrames],
+          [1, zoomScale],
+          {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          }
+        )
       : 1;
 
   const opacity = effect === "fade_in" ? envelope : 1;

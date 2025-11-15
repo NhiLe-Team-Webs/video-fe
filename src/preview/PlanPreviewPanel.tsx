@@ -5,7 +5,7 @@ import {TransitionLayer} from "../core/layers/TransitionLayer";
 import {AudioLayer} from "../core/AudioLayer";
 import {palette} from "../styles/designTokens";
 import {useHotReloadPlan} from "./useHotReloadPlan";
-import {useEffectByKey} from "../effects/hooks/useEffectByKey";
+import {getEffectMetadata, useEffectByKey} from "../effects/hooks/useEffectByKey";
 import type {
   EditingPlan,
   EffectTrackEntry,
@@ -360,13 +360,19 @@ const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> 
   </AbsoluteFill>
 );
 
+const clampSfxDurationFrames = (durationFrames: number, fps: number) => {
+  const maxFrames = Math.max(1, Math.round(0.8 * fps));
+  return Math.max(1, Math.min(durationFrames, maxFrames));
+};
+
 const PlanHighlightSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
   <>
     {highlights
       .filter((highlight) => Boolean(highlight.sfx))
       .map((highlight) => {
         const from = Math.round(highlight.start * fps);
-        const duration = Math.max(1, Math.round(highlight.duration * fps));
+        const durationFrames = Math.max(1, Math.round(highlight.duration * fps));
+        const duration = clampSfxDurationFrames(durationFrames, fps);
         return (
           <Sequence key={`sfx-${highlight.id}`} from={from} durationInFrames={duration} name={`sfx-${highlight.id}`}>
             <HighlightAudio highlight={highlight} />
@@ -415,13 +421,17 @@ const EffectSampleScene: React.FC = () => (
   </div>
 );
 
-const PlanEffectsLayer: React.FC<{entries?: EffectTrackEntry[]; fps: number}> = ({entries, fps}) => {
+const PlanEffectsLayer: React.FC<{entries?: EffectTrackEntry[]; fps: number; layerZIndex?: number}> = ({
+  entries,
+  fps,
+  layerZIndex,
+}) => {
   if (!entries?.length) {
     return null;
   }
 
   return (
-    <AbsoluteFill pointerEvents="none" style={{zIndex: 3}}>
+    <AbsoluteFill pointerEvents="none" style={{zIndex: layerZIndex ?? 3}}>
       {entries.map((entry) => {
         const from = Math.round(entry.start * fps);
         const duration = Math.max(1, Math.round(entry.duration * fps));
@@ -470,7 +480,8 @@ const PlanTrackSfxLayer: React.FC<{entries?: SfxTrackEntry[]; fps: number}> = ({
     <>
       {entries.map((entry) => {
         const from = Math.round(entry.start * fps);
-        const duration = Math.max(1, Math.round(entry.duration * fps));
+        const durationFrames = Math.max(1, Math.round(entry.duration * fps));
+        const duration = clampSfxDurationFrames(durationFrames, fps);
         const src = normalizeAssetPath(entry.src);
         return (
           <Sequence
@@ -513,6 +524,22 @@ export const PlanPreviewPanel: React.FC = () => {
   const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
   const planTracks: PlanTracks = plan.tracks ?? {};
   const effectEntries = planTracks.effects ?? [];
+  const backgroundEffects = useMemo(
+    () =>
+      effectEntries.filter((entry) => {
+        const metadata = getEffectMetadata(entry.effectKey);
+        return metadata?.recommendedLayer === "background" || entry.effectKey.startsWith("background.");
+      }),
+    [effectEntries]
+  );
+  const overlayEffects = useMemo(
+    () =>
+      effectEntries.filter((entry) => {
+        const metadata = getEffectMetadata(entry.effectKey);
+        return metadata?.recommendedLayer !== "background" && !entry.effectKey.startsWith("background.");
+      }),
+    [effectEntries]
+  );
   const sfxEntries = planTracks.sfx ?? [];
 
   if (!timeline.length || totalDuration <= 0) {
@@ -551,6 +578,12 @@ export const PlanPreviewPanel: React.FC = () => {
         <PlanVideoTrack timeline={timeline} videoSource={videoSource} fps={fps} />
       </Sequence>
 
+      {backgroundEffects.length ? (
+        <Sequence name="effects-background" durationInFrames={totalDuration}>
+          <PlanEffectsLayer entries={backgroundEffects} fps={fps} layerZIndex={0} />
+        </Sequence>
+      ) : null}
+
       <Sequence name="broll" durationInFrames={totalDuration}>
         <PlanBrollLayer timeline={timeline} highlights={highlights} fps={fps} />
       </Sequence>
@@ -563,9 +596,11 @@ export const PlanPreviewPanel: React.FC = () => {
         <PlanHighlightSfxLayer highlights={highlights} fps={fps} />
       </Sequence>
 
-      <Sequence name="effects" durationInFrames={totalDuration}>
-        <PlanEffectsLayer entries={effectEntries} fps={fps} />
-      </Sequence>
+      {overlayEffects.length ? (
+        <Sequence name="effects" durationInFrames={totalDuration}>
+          <PlanEffectsLayer entries={overlayEffects} fps={fps} />
+        </Sequence>
+      ) : null}
 
       <Sequence name="track-sfx" durationInFrames={totalDuration}>
         <PlanTrackSfxLayer entries={sfxEntries} fps={fps} />

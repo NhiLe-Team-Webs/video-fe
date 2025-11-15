@@ -28,14 +28,19 @@ export const TransitionLayer: React.FC<TransitionLayerProps> = ({
   const frame = useCurrentFrame();
   const {envelope, fadeIn} = getEnvelope(frame, durationInFrames);
 
-  const zoomFrames = Math.max(8, Math.min(durationInFrames, Math.floor(durationInFrames * 0.25)));
+  const zoomFrames = Math.max(6, Math.min(durationInFrames, Math.floor(durationInFrames * 0.25)));
   const zoomScale = 1.72;
   const scale =
     effect === "zoom_in"
+      ? interpolate(frame, [0, zoomFrames], [1, zoomScale], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        })
+      : effect === "zoom_out"
       ? interpolate(
           frame,
-          [0, zoomFrames],
-          [1, zoomScale],
+          [durationInFrames - zoomFrames, durationInFrames],
+          [zoomScale, 1],
           {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
@@ -48,7 +53,7 @@ export const TransitionLayer: React.FC<TransitionLayerProps> = ({
 
   return (
     <AbsoluteFill style={{overflow: "hidden"}}>
-      <AbsoluteFill style={{transform: `scale(${scale})`, opacity, transition: "transform 150ms linear"}}>
+      <AbsoluteFill style={{transform: `scale(${scale})`, opacity}}>
         {children}
       </AbsoluteFill>
 

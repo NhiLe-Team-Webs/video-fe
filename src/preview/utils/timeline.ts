@@ -40,6 +40,7 @@ export const buildTimeline = (
   fallbackTransitionSeconds: number
 ): TimelineSegment[] => {
   const timeline: TimelineSegment[] = [];
+  let fallbackAnchorSeconds = 0;
 
   segments.forEach((segment, index) => {
     const durationFrames = Math.max(1, toFrames(segment.duration, fps));
@@ -65,20 +66,13 @@ export const buildTimeline = (
       ? resolveTransitionDuration(outgoingTransition, fps, fallbackTransitionSeconds, maxTransitionFrames)
       : 0;
 
-    if (index === 0) {
-      timeline.push({
-        segment: normalizedSegment,
-        from: 0,
-        duration: durationFrames,
-        transitionInFrames,
-        transitionOutFrames,
-        audioCrossfade: false,
-      });
-      return;
-    }
+    const startSeconds =
+      typeof normalizedSegment.sourceStart === "number" && Number.isFinite(normalizedSegment.sourceStart)
+        ? normalizedSegment.sourceStart
+        : fallbackAnchorSeconds;
+    const from = Math.max(0, toFrames(startSeconds, fps));
+    fallbackAnchorSeconds = Math.max(fallbackAnchorSeconds, startSeconds + (segment.duration ?? 0));
 
-    const previous = timeline[index - 1];
-    const from = previous.from + previous.duration;
     timeline.push({
       segment: normalizedSegment,
       from,
@@ -97,6 +91,5 @@ export const getTimelineDuration = (timeline: TimelineSegment[]) => {
     return 0;
   }
 
-  const last = timeline[timeline.length - 1];
-  return last.from + last.duration;
+  return timeline.reduce((max, entry) => Math.max(max, entry.from + entry.duration), 0);
 };

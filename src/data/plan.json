@@ -11,7 +11,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "The greatest marketing revolution is already here and most brands don't see it.",
+      "text": "What if I told you the greatest marketing revolution is happening right now where most brands don't even realize they are a part of it.",
       "effect": "zoomIn"
     },
     {
@@ -34,11 +34,11 @@
         "id": "broll_traditional",
         "file": "assets/broll/modern_office.jpg",
         "mode": "overlay",
-        "cardScale": 0.85,
         "startAt": 0,
-        "duration": 5.26
+        "duration": 5.26,
+        "cardScale": 0.85
       },
-      "text": "Classic creative directors, ad agencies, and gut instincts define the old school side.",
+      "text": "And in one corner, we have the classic creative directors, ad agencies and the gut field instinct.",
       "effect": "slideUp"
     },
     {
@@ -56,12 +56,13 @@
         "type": "cut"
       },
       "clip": "input/footage.mp4",
-      "text": "Automation and AI can draft a campaign before the host even sips coffee.",
+      "text": "And in the other, we have algorithm, automation and AI that can design your campaign even before your coffee gets cold.",
       "effect": "slideUp",
       "broll": {
         "id": "broll_ai_speed",
         "file": "assets/broll/ai_brain.jpg",
-        "mode": "full",
+        "mode": "overlay",
+        "cardScale": 0.85,
         "startAt": 0,
         "duration": 6.48
       }
@@ -84,11 +85,11 @@
         "id": "broll_coffee",
         "file": "assets/broll/innovation_lightbulb.jpg",
         "mode": "overlay",
-        "cardScale": 0.74,
+        "cardScale": 0.85,
         "startAt": 0,
         "duration": 6.24
       },
-      "text": "Playful coffee beat bridges into the AI vs traditional showdown.",
+      "text": "And where's my coffee? Alright, thank you. And so today, we're putting them head to head.",
       "effect": "fadeIn"
     },
     {
@@ -102,12 +103,11 @@
         "duration": 0.4
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.5,
-        "direction": "up"
+        "type": "zoom_out",
+        "duration": 0.4
       },
       "clip": "input/footage.mp4",
-      "text": "Who wins when AI faces traditional marketing workflows?",
+      "text": "AI versus traditional marketing. Who wins? Who loses?",
       "effect": "zoomIn"
     },
     {
@@ -126,7 +126,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Spoiler: smart marketers win by mastering both sides.",
+      "text": "And spoiler alert, what smart marketers are doing right now to win both sides of the game.",
       "effect": "fadeIn"
     },
     {
@@ -145,12 +145,13 @@
         "direction": "left"
       },
       "clip": "input/footage.mp4",
-      "text": "Traditional marketing runs on late-night brainstorms and emotional storytelling.",
+      "text": "Traditional marketing is all about human intuition. The late night brainstorming sessions, the gut field ad copy, the emotional storytelling that makes people cry in 30 seconds flat.",
       "effect": "slideUp",
       "broll": {
         "id": "broll_brainstorm",
         "file": "assets/broll/education_training.jpg",
-        "mode": "overlay"
+        "mode": "overlay",
+        "cardScale": 0.85
       }
     },
     {
@@ -174,7 +175,7 @@
         "file": "assets/broll/data_visualization.jpg",
         "mode": "full"
       },
-      "text": "AI marketing thrives on data, prediction, and hyper-personalization at scale.",
+      "text": "AI marketing, totally different animal. It's about data, prediction and personalization. It learns from millions of user behaviors to show the right message to the right people at the right time, all while you sleep.",
       "effect": "zoomIn"
     },
     {
@@ -192,7 +193,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Creativity meets calculation\u2014emotion versus algorithm.",
+      "text": "So today, let us take a peek into the most iconic brand on earth, Coca-Cola. In 2023, they launched a Create Real Magic campaign.",
       "effect": "fadeIn"
     },
     {
@@ -211,13 +212,13 @@
         "direction": "up"
       },
       "clip": "input/footage.mp4",
-      "text": "Coca-Cola invited fans to generate AI-powered artwork.",
+      "text": "Now imagine trying to pull that off with your traditional creative team. That would take weeks of planning, expensive shoots, and possibly a much smaller reach.",
       "effect": "slideUp",
       "broll": {
         "id": "broll_coke",
         "file": "assets/broll/marketing_automation.jpg",
         "mode": "overlay",
-        "cardScale": 0.92,
+        "cardScale": 0.85,
         "startAt": 0,
         "duration": 5.52
       }
@@ -237,7 +238,15 @@
         "type": "cut"
       },
       "clip": "input/footage.mp4",
-      "text": "The Create Real Magic campaign unlocked 120K artworks in days.",
+      "text": "That would take weeks of planning, expensive shoots, and possibly a much smaller reach. And this is how AI turned fans into creators, and creativity into data. Then came Heinz, with one of my favorite AI stories ever. They asked Delia to draw ketchup.",
+      "broll": {
+        "id": "broll_create_magic",
+        "file": "assets/animated-emoji/airplane-arrival-1x.mp4",
+        "mode": "overlay",
+        "cardScale": 0.85,
+        "startAt": 0,
+        "duration": 12.24
+      },
       "effect": "zoomIn"
     },
     {
@@ -254,7 +263,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "AI delivered massive engagement, organic buzz, and priceless UGC.",
+      "text": "With AI marketing and automation, today we're producing marketing outputs in an instant. Powered with fast and adaptive creativity, as an entrepreneur of a digital agency, I couldn't stop calculating the amounts of cost savings in man-hours we traditionally used to take just to produce the same amount of work.",
       "effect": "fadeIn",
       "broll": {
         "id": "broll_ugc",
@@ -262,7 +271,7 @@
         "mode": "overlay",
         "startAt": 0,
         "duration": 11.5,
-        "cardScale": 0.88
+        "cardScale": 0.85
       }
     },
     {
@@ -281,7 +290,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Traditional teams would need weeks of planning and huge budgets to match that scale.",
+      "text": "And tagging AI with data, hyper-personalization in real-time has made it so much easier for us to do targeting that gets real results.",
       "effect": "slideUp"
     },
     {
@@ -299,7 +308,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "AI turned fans into creators and transformed creativity into data.",
+      "text": "And tagging AI with data, hyper-personalization in real-time has made it so much easier for us to do targeting that gets real results. And hence, here's the truth. AI isn't replacing marketers.",
       "effect": "zoomIn"
     },
     {
@@ -318,7 +327,7 @@
         "direction": "up"
       },
       "clip": "input/footage.mp4",
-      "text": "Heinz asked AI to draw ketchup\u2014of course it drew Heinz.",
+      "text": "AI is replacing marketers who refuse to use AI. But the best campaigns, with the ones breaking record, aren't choosing sites.",
       "effect": "fadeIn",
       "broll": {
         "id": "broll_heinz",
@@ -341,7 +350,7 @@
         "type": "cut"
       },
       "clip": "input/footage.mp4",
-      "text": "Prompt experiments proved Heinz remains iconic even in AI imagination.",
+      "text": "But the best campaigns, with the ones breaking record, aren't choosing sites. They are basically blending both. Therefore, the future belongs to the hybrid marketers.",
       "effect": "slideUp"
     },
     {
@@ -358,7 +367,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Decades of consistent branding trained audiences what ketchup looks like.",
+      "text": "Therefore, the future belongs to the hybrid marketers. Those who combine human storytelling with AI superpowers.",
       "effect": "fadeIn"
     },
     {
@@ -375,7 +384,7 @@
         "type": "cut"
       },
       "clip": "input/footage.mp4",
-      "text": "The AI ketchup drop merged timeless branding with cutting-edge tech.",
+      "text": "Those who combine human storytelling with AI superpowers. Here are three hacks that successful brands are using. They continue to use human creativity to craft a unique humanistic storytelling that create emotional engagement.",
       "effect": "zoomIn"
     },
     {
@@ -392,7 +401,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Virality, global press, and unstoppable momentum followed.",
+      "text": "Because the future of marketing isn't human or machine. It is human and machine. If you want to master AI tools to transform your marketing game, hit that subscribe button. Your next breakthrough might just be one algorithm away.",
       "effect": "fadeIn"
     },
     {
@@ -410,7 +419,8 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "effect": "fadeIn"
+      "effect": "fadeIn",
+      "text": "Your next breakthrough might just be one algorithm away."
     },
     {
       "id": "ai_outputs_cost_savings",
@@ -428,7 +438,7 @@
         "direction": "left"
       },
       "clip": "input/footage.mp4",
-      "text": "AI marketing outputs arrive instantly with dramatic cost savings.",
+      "text": "Instant Outputs & Cost Savings",
       "effect": "slideUp"
     },
     {
@@ -447,7 +457,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Real-time personalization makes precision targeting effortless.",
+      "text": "Hyper-Personalization",
       "effect": "fadeIn"
     },
     {
@@ -466,7 +476,7 @@
         "direction": "up"
       },
       "clip": "input/footage.mp4",
-      "text": "Truth: AI is replacing marketers who refuse to use it.",
+      "text": "Here's the Truth",
       "effect": "zoomIn"
     },
     {
@@ -485,7 +495,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Record-breaking campaigns blend AI with human craft.",
+      "text": "AI Not Replacing",
       "effect": "slideUp"
     },
     {
@@ -503,7 +513,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Human storytelling plus AI intelligence is the winning formula.",
+      "text": "Blending Both Approaches",
       "effect": "fadeIn"
     },
     {
@@ -525,9 +535,10 @@
       "broll": {
         "id": "broll_future",
         "file": "assets/broll/business_strategy.jpg",
-        "mode": "overlay"
+        "mode": "overlay",
+        "cardScale": 0.85
       },
-      "text": "Future-ready marketers blend emotion with computation.",
+      "text": "The Hybrid Future",
       "effect": "zoomIn"
     },
     {
@@ -545,7 +556,7 @@
         "type": "cut"
       },
       "clip": "input/footage.mp4",
-      "text": "Three hybrid hacks show how to combine both worlds.",
+      "text": "Three Hacks Introduction",
       "effect": "slideUp"
     },
     {
@@ -563,7 +574,7 @@
         "direction": "left"
       },
       "clip": "input/footage.mp4",
-      "text": "Hack 1: use human creativity to build deep emotional hooks.",
+      "text": "Hack 1: Human Creativity",
       "effect": "fadeIn",
       "broll": {
         "id": "broll_creative",
@@ -588,12 +599,13 @@
         "direction": "left"
       },
       "clip": "input/footage.mp4",
-      "text": "Hack 2: use AI insights to find who needs to hear it.",
+      "text": "Hack 2: AI Insights",
       "effect": "slideUp",
       "broll": {
         "id": "broll_insights",
         "file": "assets/broll/data_visualization.jpg",
-        "mode": "overlay"
+        "mode": "overlay",
+        "cardScale": 0.85
       }
     },
     {
@@ -612,12 +624,13 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Hack 3: automation ships the message faster and smarter.",
+      "text": "Hack 3: Automation",
       "effect": "zoomIn",
       "broll": {
         "id": "broll_automation",
         "file": "assets/broll/marketing_automation.jpg",
-        "mode": "overlay"
+        "mode": "overlay",
+        "cardScale": 0.85
       }
     },
     {
@@ -635,7 +648,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "AI with human teams beats AI versus humans.",
+      "text": "AI With Human",
       "effect": "fadeIn"
     },
     {
@@ -654,7 +667,7 @@
         "direction": "up"
       },
       "clip": "input/footage.mp4",
-      "text": "AI amplifies traditional marketing instead of replacing it.",
+      "text": "AI Makes it Better",
       "effect": "slideUp"
     },
     {
@@ -673,7 +686,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "Winners embrace both human connection and machine scale.",
+      "text": "Embrace Both Approaches",
       "effect": "zoomIn"
     },
     {
@@ -692,7 +705,7 @@
         "direction": "left"
       },
       "clip": "input/footage.mp4",
-      "text": "Partner with AI rather than fighting it.",
+      "text": "Partner with AI",
       "effect": "fadeIn"
     },
     {
@@ -711,7 +724,7 @@
         "duration": 0.6
       },
       "clip": "input/footage.mp4",
-      "text": "The future of marketing is human AND machine.",
+      "text": "Human and Machine",
       "effect": "zoomIn"
     },
     {
@@ -728,7 +741,7 @@
         "type": "cut"
       },
       "clip": "input/footage.mp4",
-      "text": "Subscribe to master AI tools for your marketing breakthroughs.",
+      "text": "Call to Action",
       "effect": "slideUp",
       "broll": {
         "id": "broll_cta",
@@ -847,7 +860,7 @@
     "id": "marketing-revolution-ai",
     "sourceVideo": "input/footage.mp4",
     "fps": 30,
-    "duration": 261.3
+    "duration": 519.08
   },
   "tracks": {
     "effects": [
@@ -906,6 +919,28 @@
         "props": {
           "color": "#04060b",
           "durationInFrames": 187
+        }
+      },
+      {
+        "id": "effect_ai_side_background",
+        "segmentId": "ai_side",
+        "start": 13.98,
+        "duration": 6.48,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#030817\",\"#050c1b\",\"#000000\"]",
+          "durationInFrames": 195
+        }
+      },
+      {
+        "id": "effect_ai_side_noise",
+        "segmentId": "ai_side",
+        "start": 13.98,
+        "duration": 6.48,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#010308",
+          "durationInFrames": 195
         }
       },
       {
@@ -968,6 +1003,28 @@
           "subtitle": "AI Marketing Definition",
           "durationInFrames": 120,
           "accentColor": "#34d399"
+        }
+      },
+      {
+        "id": "effect_create_magic_background",
+        "segmentId": "create_real_magic_campaign",
+        "start": 147.3,
+        "duration": 12.24,
+        "effectKey": "background.gradientPulse",
+        "props": {
+          "colors": "[\"#020205\",\"#05090f\",\"#000000\"]",
+          "durationInFrames": 367
+        }
+      },
+      {
+        "id": "effect_create_magic_noise",
+        "segmentId": "create_real_magic_campaign",
+        "start": 147.3,
+        "duration": 12.24,
+        "effectKey": "background.noiseBackdrop",
+        "props": {
+          "color": "#010308",
+          "durationInFrames": 367
         }
       },
       {

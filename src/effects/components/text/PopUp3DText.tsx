@@ -47,7 +47,7 @@ export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
       style={{
         justifyContent: "flex-end",
         alignItems: "center",
-        paddingBottom: 120,
+        paddingBottom: 100,
         perspective: 1000,
         pointerEvents: "none",
       }}
@@ -63,32 +63,46 @@ export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
       >
         <div
           style={{
-        fontSize: 72,
-        fontWeight: 800,
-        letterSpacing: 2,
-        color,
-        fontFamily: typography.headline,
-        textShadow: "0 20px 55px rgba(0,0,0,0.35)",
-      }}
-    >
-      {text}
-    </div>
-    <div
-      style={{
-        marginTop: 8,
-        fontSize: 36,
-        fontWeight: 600,
-        letterSpacing: 4,
-        color: accent,
-        fontFamily: typography.body,
-        position: "relative",
-        textTransform: "none",
-      }}
-    >
-      {subtitle}
-    </div>
-  </div>
+            fontSize: 88,
+            fontWeight: 900,
+            letterSpacing: 3,
+            color,
+            fontFamily: typography.headline,
+            textShadow: "0 30px 85px rgba(0,0,0,0.55)",
+          }}
+        >
+          {text}
+        </div>
+        <div
+          style={{
+            marginTop: 12,
+            fontSize: 42,
+            fontWeight: 700,
+            letterSpacing: 5,
+            color: accent,
+            fontFamily: typography.body,
+            position: "relative",
+            textTransform: "uppercase",
+            textShadow: "0 20px 45px rgba(0,0,0,0.4)",
+          }}
+        >
+          {subtitle}
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              bottom: -10,
+              width: 220,
+              height: 6,
+              borderRadius: 999,
+              background: `linear-gradient(90deg, ${accent}, ${color})`,
+              transform: "translateX(-50%)",
+              opacity: 0.75,
+              boxShadow: `0 0 20px ${accent}`,
+            }}
+          />
+        </div>
+      </div>
     </AbsoluteFill>
   );
 };
-

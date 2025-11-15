@@ -25,18 +25,31 @@ export const TypeOnCaption: React.FC<TypeOnCaptionProps> = ({
         justifyContent: "flex-end",
         alignItems: "center",
         padding: "0 80px 120px",
-        fontFamily: typography.body,
-        fontSize: 48,
+        fontFamily: typography.headline,
+        fontSize: 68,
+        fontWeight: 800,
         color,
-        letterSpacing: 0.1,
+        letterSpacing: 0.4,
         textTransform: "uppercase",
+        textShadow: "0 18px 40px rgba(0,0,0,0.55)",
       }}
     >
-      <span>
-        {safeText.slice(0, visibleChars)}
-        {caret && <span style={{opacity: frame % 30 < 15 ? 1 : 0}}>▋</span>}
-      </span>
+      <div
+        style={{
+          padding: "26px 42px",
+          borderRadius: 36,
+          background: "rgba(5,8,16,0.55)",
+          border: "1px solid rgba(255,255,255,0.15)",
+          boxShadow: "0 25px 55px rgba(0,0,0,0.55)",
+          minWidth: "60%",
+          textAlign: "center",
+        }}
+      >
+        <span style={{display: "inline-block"}}>
+          {safeText.slice(0, visibleChars)}
+          {caret && <span style={{opacity: frame % 30 < 15 ? 1 : 0, marginLeft: 6}}>▋</span>}
+        </span>
+      </div>
     </AbsoluteFill>
   );
 };
-

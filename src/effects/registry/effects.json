@@ -1,39 +1,4 @@
 {
-  "text.popUp": {
-    "key": "text.popUp",
-    "name": "Pop Up Title",
-    "category": "text",
-    "description": "Punch-in badge for hooks, CTA and emphasis titles.",
-    "tags": [
-      "hook",
-      "cta",
-      "emphasis"
-    ],
-    "mood": [
-      "bold",
-      "energetic"
-    ],
-    "duration": 1.2,
-    "preview": "/previews/text-pop-up.mp4",
-    "props": [
-      {
-        "name": "text",
-        "type": "string",
-        "required": true
-      },
-      {
-        "name": "accentColor",
-        "type": "color"
-      },
-      {
-        "name": "delayFrames",
-        "type": "number"
-      }
-    ],
-    "recommendedLayer": "foreground",
-    "componentPath": "src/effects/components/text/PopUpTitle",
-    "version": "1.0.0"
-  },
   "text.typeOn": {
     "key": "text.typeOn",
     "name": "Type-On Caption",
@@ -247,72 +212,6 @@
         "name": "side",
         "type": "string",
         "description": "\"left\" or \"right\""
-      },
-      {
-        "name": "color",
-        "type": "color"
-      },
-      {
-        "name": "accent",
-        "type": "color"
-      }
-    ],
-    "recommendedLayer": "foreground",
-    "componentPath": "src/effects/components/text/SideFloatText",
-    "version": "1.0.0"
-  },
-  "text.sideFloatLeft": {
-    "key": "text.sideFloatLeft",
-    "name": "Side Float Text (Left)",
-    "category": "text",
-    "description": "Left-aligned supporting label that drifts into frame then fades out.",
-    "tags": [
-      "supporting-text",
-      "callout",
-      "left"
-    ],
-    "mood": [
-      "calm"
-    ],
-    "duration": 1.8,
-    "preview": "/previews/text-side-float-left.mp4",
-    "props": [
-      {
-        "name": "text",
-        "type": "string"
-      },
-      {
-        "name": "color",
-        "type": "color"
-      },
-      {
-        "name": "accent",
-        "type": "color"
-      }
-    ],
-    "recommendedLayer": "foreground",
-    "componentPath": "src/effects/components/text/SideFloatText",
-    "version": "1.0.0"
-  },
-  "text.sideFloatRight": {
-    "key": "text.sideFloatRight",
-    "name": "Side Float Text (Right)",
-    "category": "text",
-    "description": "Right-aligned supporting label that drifts into frame then fades out.",
-    "tags": [
-      "supporting-text",
-      "callout",
-      "right"
-    ],
-    "mood": [
-      "calm"
-    ],
-    "duration": 1.8,
-    "preview": "/previews/text-side-float-right.mp4",
-    "props": [
-      {
-        "name": "text",
-        "type": "string"
       },
       {
         "name": "color",
@@ -1157,49 +1056,6 @@
     ],
     "recommendedLayer": "background",
     "componentPath": "src/effects/components/background/NoiseBackdrop",
-    "version": "1.0.0"
-  },
-  "text.transcriptLine": {
-    "key": "text.transcriptLine",
-    "name": "Transcript Caption",
-    "category": "text",
-    "description": "Timeline-synced subtitle strip that fades in sync with narration.",
-    "tags": [
-      "transcript",
-      "subtitle",
-      "narration"
-    ],
-    "mood": [
-      "cinematic",
-      "clean"
-    ],
-    "duration": 2.4,
-    "preview": "/previews/text-transcript-line.mp4",
-    "props": [
-      {
-        "name": "text",
-        "type": "string",
-        "required": true
-      },
-      {
-        "name": "position",
-        "type": "string"
-      },
-      {
-        "name": "align",
-        "type": "string"
-      },
-      {
-        "name": "width",
-        "type": "number"
-      },
-      {
-        "name": "emphasis",
-        "type": "string"
-      }
-    ],
-    "recommendedLayer": "overlay",
-    "componentPath": "src/effects/components/text/TranscriptCaption",
     "version": "1.0.0"
   }
 }

@@ -20,26 +20,30 @@ export const SwipeHighlight: React.FC<SwipeHighlightProps> = ({
         justifyContent: "center",
         alignItems: "center",
         fontFamily: typography.headline,
-        fontSize: 56,
+        fontSize: 74,
+        fontWeight: 900,
         color: palette.brightestWhite,
-        letterSpacing: 1.2,
+        letterSpacing: 1.6,
+        textTransform: "uppercase",
+        textShadow: "0 18px 40px rgba(0,0,0,0.45)",
       }}
     >
-      <span style={{position: "relative", padding: "0 8px"}}>
+      <span style={{position: "relative", padding: "0 14px 8px", display: "inline-block"}}>
         <span
           style={{
             position: "absolute",
             left: 0,
-            bottom: 0,
-            height: "40%",
+            bottom: 2,
+            height: "55%",
             width: `${width}%`,
             background: highlightColor,
-            borderRadius: 6,
+            borderRadius: 14,
+            filter: "blur(0.8px)",
+            boxShadow: `0 12px 30px ${highlightColor}55`,
           }}
         />
-        <span style={{position: "relative"}}>{text}</span>
+        <span style={{position: "relative", zIndex: 1}}>{text}</span>
       </span>
     </AbsoluteFill>
   );
 };
-

@@ -255,27 +255,29 @@ export const KeywordSubtitleHighlight: React.FC<
                 style={{
                   position: "relative",
                   display: "inline-flex",
-                  alignItems: "center",
+                  alignItems: "flex-end",
                   justifyContent: "center",
                   whiteSpace: "pre-wrap",
-                  padding: "0 2px",
+                  padding: "0 4px 6px",
                 }}
               >
                 {segment.isKeyword && (
                   <span
                     style={{
                       position: "absolute",
-                      inset: 0,
+                      left: 4,
+                      right: 4,
+                      bottom: 2,
+                      height: 6,
                       borderRadius: 999,
                       background: `linear-gradient(90deg, ${blendWithWhite(
                         accentColor,
-                        0.1
+                        0.05
                       )}, ${highlightBarColor})`,
-                      transform: `scaleX(${highlightScale})`,
+                      transform: `scaleX(${Math.max(0.2, highlightScale)})`,
                       transformOrigin: "left",
                       opacity: highlightOpacity,
-                      filter: `blur(${highlightProgress * 1.2}px)`,
-                      boxShadow: `0 0 ${10 + highlightProgress * 20}px ${glowColor}`,
+                      boxShadow: `0 4px ${12 + highlightProgress * 18}px ${glowColor}`,
                       zIndex: 0,
                     }}
                   />

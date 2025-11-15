@@ -88,7 +88,7 @@ const sanitizeSegment = (
             id: typeof segment.broll.id === "string" ? segment.broll.id : undefined,
             file: typeof segment.broll.file === "string" ? segment.broll.file : undefined,
             mode:
-              segment.broll.mode === "full" || segment.broll.mode === "overlay" || segment.broll.mode === "pictureInPicture"
+              ["full", "overlay", "pictureInPicture", "card"].includes(segment.broll.mode ?? "")
                 ? segment.broll.mode
                 : undefined,
             startAt:

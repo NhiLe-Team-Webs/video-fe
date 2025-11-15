@@ -1,5 +1,5 @@
 import React from "react";
-import {AbsoluteFill, Img, OffthreadVideo, staticFile} from "remotion";
+import {AbsoluteFill, Img, Video, staticFile} from "remotion";
 
 const VIDEO_EXTENSIONS = [".mp4", ".mov", ".mkv", ".avi", ".webm"];
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"];
@@ -19,26 +19,26 @@ const resolveSource = (clip: string) => {
 
 type VideoLayerProps = {
   clip: string;
-  startFrom?: number; // frames within source
-  durationInFrames?: number;
+  startFrom?: number; // seconds within source
+  durationSeconds?: number;
   muted?: boolean;
 };
 
-export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, durationInFrames, muted = true}) => {
+export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, durationSeconds, muted = true}) => {
   const src = resolveSource(clip);
   const isVideo = isType(clip, VIDEO_EXTENSIONS);
   const isImage = isType(clip, IMAGE_EXTENSIONS);
-  const endAt = typeof durationInFrames === "number" ? startFrom + durationInFrames : undefined;
+  const endAt = typeof durationSeconds === "number" ? startFrom + durationSeconds : undefined;
 
   return (
     <AbsoluteFill style={{backgroundColor: "#000", overflow: "hidden"}}>
       {isVideo ? (
-        <OffthreadVideo
+        <Video
           src={src}
           muted={muted}
           startFrom={Math.max(0, Math.floor(startFrom))}
           endAt={typeof endAt === "number" ? Math.max(startFrom, Math.floor(endAt)) : undefined}
-          pauseWhenBuffering
+          playbackRate={1}
           style={{width: "100%", height: "100%", objectFit: "cover"}}
         />
       ) : isImage ? (

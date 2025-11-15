@@ -1,7 +1,15 @@
 import planFromBundle from "../data/plan.json";
 import {warn} from "../core/utils/logger";
 import {calcFrameRange, secondsToFrames, totalFrames} from "../core/utils/frameUtils";
-import type {Plan, Segment, LoadedPlan, NormalizedSegmentCore} from "../core/types";
+import type {
+  Plan,
+  Segment,
+  LoadedPlan,
+  NormalizedSegmentCore,
+  PlanTracks,
+  NormalizedEffectEvent,
+  NormalizedAudioEvent,
+} from "../core/types";
 
 type LoadPlanOptions = {
   fps?: number;
@@ -9,7 +17,8 @@ type LoadPlanOptions = {
 
 const DEFAULT_FPS = 30;
 const DEFAULT_TEMPLATE_ID = "template0";
-const DEFAULT_CLIP = "assets/placeholder.jpg";
+const DEFAULT_PRIMARY_CLIP = "input/footage.mp4";
+const PLACEHOLDER_CLIP = "assets/placeholder.jpg";
 const DEFAULT_EFFECT = "none";
 const DEFAULT_DURATION_SECONDS = 3;
 
@@ -38,11 +47,8 @@ const sanitizeSegment = (
 ): NormalizedSegmentCore => {
   const clip =
     typeof segment?.clip === "string" && segment.clip.trim().length > 0
-      ? segment.clip
-      : (() => {
-          warn(`Segment #${index} missing clip. Falling back to ${DEFAULT_CLIP}`);
-          return DEFAULT_CLIP;
-        })();
+      ? segment.clip.trim()
+      : DEFAULT_PRIMARY_CLIP || PLACEHOLDER_CLIP;
 
   const durationSeconds =
     typeof segment?.duration === "number" && Number.isFinite(segment.duration) && segment.duration > 0
@@ -52,9 +58,18 @@ const sanitizeSegment = (
           return DEFAULT_DURATION_SECONDS;
         })();
 
+  const resolvedText =
+    typeof segment?.text === "string" && segment.text.trim().length > 0
+      ? segment.text
+      : typeof segment?.label === "string" && segment.label.trim().length > 0
+        ? segment.label
+        : typeof segment?.title === "string" && segment.title.trim().length > 0
+          ? segment.title
+          : "";
+
   return {
     clip,
-    text: typeof segment?.text === "string" ? segment.text : "",
+    text: resolvedText,
     effect: typeof segment?.effect === "string" ? segment.effect : DEFAULT_EFFECT,
     duration: durationSeconds,
     durationInFrames: secondsToFrames(durationSeconds, fps),
@@ -67,8 +82,38 @@ const sanitizeSegment = (
         ? segment.sourceStart
         : undefined,
     mute: typeof segment?.mute === "boolean" ? segment.mute : true,
+    broll:
+      segment?.broll && typeof segment.broll === "object"
+        ? {
+            id: typeof segment.broll.id === "string" ? segment.broll.id : undefined,
+            file: typeof segment.broll.file === "string" ? segment.broll.file : undefined,
+            mode:
+              segment.broll.mode === "full" || segment.broll.mode === "overlay" || segment.broll.mode === "pictureInPicture"
+                ? segment.broll.mode
+                : undefined,
+            startAt:
+              typeof segment.broll.startAt === "number" && Number.isFinite(segment.broll.startAt)
+                ? segment.broll.startAt
+                : undefined,
+            duration:
+              typeof segment.broll.duration === "number" && Number.isFinite(segment.broll.duration)
+                ? segment.broll.duration
+                : undefined,
+            playbackRate:
+              typeof segment.broll.playbackRate === "number" && Number.isFinite(segment.broll.playbackRate)
+                ? segment.broll.playbackRate
+                : undefined,
+          }
+        : undefined,
   };
 };
+
+const normalizeTrackEvents = <T extends {start: number; duration: number}>(entries: T[], fps: number) =>
+  entries.map((entry) => {
+    const startFrame = secondsToFrames(entry.start, fps);
+    const durationInFrames = Math.max(1, secondsToFrames(entry.duration, fps));
+    return {...entry, startFrame, durationInFrames, endFrame: startFrame + durationInFrames};
+  });
 
 export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
   const templateId =
@@ -87,6 +132,16 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
     endFrame: end,
   }));
 
+  const tracks: PlanTracks = plan?.tracks ?? {};
+  const normalizedEffects: NormalizedEffectEvent[] = normalizeTrackEvents(
+    tracks.effects ?? [],
+    fps
+  ) as NormalizedEffectEvent[];
+  const normalizedAudio: NormalizedAudioEvent[] = normalizeTrackEvents(
+    tracks.sfx ?? [],
+    fps
+  ) as NormalizedAudioEvent[];
+
   const resolvedMusic =
     plan?.music === null ? null : typeof plan?.music === "string" ? plan.music : undefined;
 
@@ -98,6 +153,9 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
     segments: segmentsWithTimeline,
     durationInFrames: totalFrames(normalizedSegments, fps),
     fps,
+    meta: plan?.meta,
+    effects: normalizedEffects,
+    audioEvents: normalizedAudio,
   };
 };
 

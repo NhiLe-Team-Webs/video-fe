@@ -50,7 +50,7 @@ const parseSteps = (input?: StepItem[] | string): StepItem[] => {
 export type StepBreakdownTransitionProps = {
   topic?: string;
   steps?: StepItem[] | string;
-  durationInFrames: number;
+  durationInFrames?: number;
   accentColor?: string;
   backgroundColor?: string;
 };
@@ -60,7 +60,7 @@ const formatIndex = (value: number) => value.toString().padStart(2, "0");
 export const StepBreakdownTransition: React.FC<StepBreakdownTransitionProps> = ({
   topic = "Digital Marketing",
   steps,
-  durationInFrames,
+  durationInFrames = 120,
   accentColor = palette.primaryRed,
   backgroundColor = palette.deepBlack,
 }) => {

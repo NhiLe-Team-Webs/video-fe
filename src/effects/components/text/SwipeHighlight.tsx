@@ -3,12 +3,12 @@ import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
 import {palette, typography} from "../../../styles/designTokens";
 
 export type SwipeHighlightProps = {
-  text: string;
+  text?: string;
   highlightColor?: string;
 };
 
 export const SwipeHighlight: React.FC<SwipeHighlightProps> = ({
-  text,
+  text = "Swipe Highlight",
   highlightColor = palette.primaryRed,
 }) => {
   const frame = useCurrentFrame();
@@ -35,7 +35,6 @@ export const SwipeHighlight: React.FC<SwipeHighlightProps> = ({
             width: `${width}%`,
             background: highlightColor,
             borderRadius: 6,
-            transition: "width 80ms ease-out",
           }}
         />
         <span style={{position: "relative"}}>{text}</span>

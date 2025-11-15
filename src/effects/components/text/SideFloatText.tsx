@@ -1,13 +1,13 @@
 import React from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
-import {palette, typography, motif} from "../../../styles/designTokens";
+import {typography, motif} from "../../../styles/designTokens";
 
 export type SideFloatTextProps = {
   text?: string;
   side?: "left" | "right";
   color?: string;
   accent?: string;
-  durationInFrames: number;
+  durationInFrames?: number;
 };
 
 export const SideFloatText: React.FC<SideFloatTextProps> = ({
@@ -15,7 +15,7 @@ export const SideFloatText: React.FC<SideFloatTextProps> = ({
   side = "left",
   color = "#f8f7f4",
   accent = "#ffffff",
-  durationInFrames,
+  durationInFrames = 120,
 }) => {
   const frame = useCurrentFrame();
   const fadeDuration = Math.max(12, Math.floor(durationInFrames * 0.25));

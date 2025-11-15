@@ -18,7 +18,6 @@ const BrollCard: React.FC<{scale: number; file: string}> = ({scale, file}) => (
       transform: `scale(${scale})`,
       transformOrigin: "center",
       border: "1px solid rgba(255,255,255,0.25)",
-      boxShadow: "0 48px 120px rgba(0,0,0,0.6)",
     }}
   >
     <VideoLayer clip={file} muted durationSeconds={1} startFrom={0} />
@@ -33,7 +32,7 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({plan}) =>
   return (
     <AbsoluteFill style={{backgroundColor: "#000"}}>
       {plan.segments.map((segment, index) => (
-        <Sequence key={`${segment.clip}-${index}`} name={`segment-${segment.id ?? index}`} durationInFrames={segment.durationInFrames}>
+        <Sequence key={`segment-${index}`} name={`segment-${index}`} durationInFrames={segment.durationInFrames}>
           <AbsoluteFill>
             {!segment.broll?.mode || segment.broll.mode !== "card" ? (
               <VideoLayer

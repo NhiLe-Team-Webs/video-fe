@@ -15,6 +15,7 @@ export type SegmentBrollPlan = {
   startAt?: number;
   duration?: number;
   playbackRate?: number;
+  cardScale?: number;
 };
 
 export type SegmentPlan = {

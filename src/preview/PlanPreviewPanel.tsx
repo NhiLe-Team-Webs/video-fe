@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useState} from "react";
 import {AbsoluteFill, Img, Sequence, Video, staticFile, useVideoConfig} from "remotion";
 import planJson from "../data/plan.json";
 import {TransitionLayer} from "../core/layers/TransitionLayer";
@@ -6,13 +6,13 @@ import {AudioLayer} from "../core/AudioLayer";
 import {palette} from "../styles/designTokens";
 import {useHotReloadPlan} from "./useHotReloadPlan";
 import {getEffectMetadata, useEffectByKey} from "../effects/hooks/useEffectByKey";
+import type {EffectKey} from "../types/EffectTypes";
 import type {
   EditingPlan,
   EffectTrackEntry,
   HighlightPlan,
   PlanTracks,
   SegmentBrollPlan,
-  SegmentPlan,
   SfxTrackEntry,
   TransitionPlan,
 } from "./types";
@@ -53,7 +53,7 @@ const mapTransitionEffect = (transition?: TransitionPlan) => {
   if (transition.type === "slide" || transition.type === "slideWhoosh") {
     return "zoom_in";
   }
-  if (transition.type === "crossfade" || transition.type === "fadeCamera") {
+  if (transition.type === "crossfade" || transition.type === "fadeCamera" || transition.type === "cut") {
     return "fade_in";
   }
   return "none";
@@ -67,11 +67,11 @@ const HighlightOverlay: React.FC<{highlight: HighlightPlan}> = ({highlight}) => 
 
   return (
     <AbsoluteFill
-      pointerEvents="none"
       style={{
         justifyContent,
         alignItems: "center",
         padding: "4% 6%",
+        pointerEvents: "none",
       }}
     >
       <div
@@ -88,7 +88,6 @@ const HighlightOverlay: React.FC<{highlight: HighlightPlan}> = ({highlight}) => 
           fontWeight: 600,
           letterSpacing: 0.3,
           textTransform: "uppercase",
-          boxShadow: "0 24px 60px rgba(2,6,23,0.5)",
         }}
       >
         {label}
@@ -153,6 +152,8 @@ const BrollMedia: React.FC<{
   durationFrames: number;
   mode: SegmentBrollPlan["mode"];
 }> = ({broll, fps, durationFrames, mode}) => {
+  const [videoFailed, setVideoFailed] = useState(false);
+  
   const clip = broll.file ? resolveBrollAsset(broll.file) : null;
 
   if (!clip) {
@@ -179,20 +180,24 @@ const BrollMedia: React.FC<{
           transform: "translate(-50%, -50%)",
           borderRadius: 36,
           overflow: "hidden",
-          boxShadow: "0 50px 100px rgba(0, 0, 0, 0.55)",
           border: "1px solid rgba(255,255,255,0.15)",
         };
 
   return (
     <div style={containerStyle}>
       {isVideo ? (
-        <Video
-          src={staticFile(clip)}
-          startFrom={startFrame}
-          endAt={endFrame}
-          muted
-          style={{width: "100%", height: "100%", objectFit: "cover"}}
-        />
+        videoFailed ? (
+          <BrollPlaceholder label={broll.id} />
+        ) : (
+          <Video
+            src={staticFile(clip)}
+            startFrom={startFrame}
+            endAt={endFrame}
+            muted
+            style={{width: "100%", height: "100%", objectFit: "cover"}}
+            onError={() => setVideoFailed(true)}
+          />
+        )
       ) : (
         <Img
           src={staticFile(clip)}
@@ -322,7 +327,7 @@ const PlanBrollLayer: React.FC<{
   fps: number;
 }> = ({timeline, highlights, fps}) => {
   return (
-    <AbsoluteFill pointerEvents="none" style={{zIndex: 1}}>
+    <AbsoluteFill style={{zIndex: 1, pointerEvents: "none"}}>
       {timeline.map((segment, index) => {
         const broll = segment.segment.broll;
         if (!broll) {
@@ -347,7 +352,7 @@ const PlanBrollLayer: React.FC<{
 };
 
 const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
-  <AbsoluteFill pointerEvents="none" style={{zIndex: 2}}>
+  <AbsoluteFill style={{zIndex: 2, pointerEvents: "none"}}>
     {highlights.map((highlight) => {
       const from = Math.round(highlight.start * fps);
       const duration = Math.max(1, Math.round(highlight.duration * fps));
@@ -431,7 +436,7 @@ const PlanEffectsLayer: React.FC<{entries?: EffectTrackEntry[]; fps: number; lay
   }
 
   return (
-    <AbsoluteFill pointerEvents="none" style={{zIndex: layerZIndex ?? 3}}>
+    <AbsoluteFill style={{zIndex: layerZIndex ?? 3, pointerEvents: "none"}}>
       {entries.map((entry) => {
         const from = Math.round(entry.start * fps);
         const duration = Math.max(1, Math.round(entry.duration * fps));
@@ -523,20 +528,20 @@ export const PlanPreviewPanel: React.FC = () => {
   const totalDuration = useMemo(() => getTimelineDuration(timeline), [timeline]);
   const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
   const planTracks: PlanTracks = plan.tracks ?? {};
-  const effectEntries = planTracks.effects ?? [];
+  const effectEntries = useMemo(() => planTracks.effects ?? [], [planTracks.effects]);
   const backgroundEffects = useMemo(
     () =>
       effectEntries.filter((entry) => {
-        const metadata = getEffectMetadata(entry.effectKey);
-        return metadata?.recommendedLayer === "background" || entry.effectKey.startsWith("background.");
+        const metadata = getEffectMetadata(entry.effectKey as EffectKey);
+        return metadata?.category === "background" || entry.effectKey.startsWith("background.");
       }),
     [effectEntries]
   );
   const overlayEffects = useMemo(
     () =>
       effectEntries.filter((entry) => {
-        const metadata = getEffectMetadata(entry.effectKey);
-        return metadata?.recommendedLayer !== "background" && !entry.effectKey.startsWith("background.");
+        const metadata = getEffectMetadata(entry.effectKey as EffectKey);
+        return metadata?.category !== "background" && !entry.effectKey.startsWith("background.");
       }),
     [effectEntries]
   );

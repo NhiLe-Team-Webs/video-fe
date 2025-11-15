@@ -1,5 +1,4 @@
 import {EffectComponentMap} from "../../../types/EffectTypes";
-import {PopUpTitle} from "./PopUpTitle";
 import {TypeOnCaption} from "./TypeOnCaption";
 import {SwipeHighlight} from "./SwipeHighlight";
 import {PopUp3DText} from "./PopUp3DText";
@@ -11,7 +10,6 @@ import {KeywordSubtitleHighlight} from "./KeywordSubtitleHighlight";
 import {KeywordColorHighlight} from "./KeywordColorHighlight";
 
 export {
-  PopUpTitle,
   TypeOnCaption,
   SwipeHighlight,
   PopUp3DText,
@@ -26,7 +24,6 @@ export {
 };
 
 export const textEffectComponents: EffectComponentMap = {
-  "text.popUp": PopUpTitle,
   "text.typeOn": TypeOnCaption,
   "text.swipeHighlight": SwipeHighlight,
   "text.popUp3D": PopUp3DText,
@@ -39,4 +36,3 @@ export const textEffectComponents: EffectComponentMap = {
   "text.keywordSubtitleHighlight": KeywordSubtitleHighlight,
   "text.keywordColorHighlight": KeywordColorHighlight,
 };
-

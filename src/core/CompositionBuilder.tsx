@@ -2,6 +2,7 @@ import React from "react";
 import {Sequence, AbsoluteFill} from "remotion";
 import {VideoLayer} from "./layers/VideoLayer";
 import {AudioLayer} from "./AudioLayer";
+import {PlanEffectsLayer} from "./layers/PlanEffectsLayer";
 import type {LoadedPlan} from "./types";
 
 type CompositionBuilderProps = {
@@ -62,6 +63,7 @@ export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({plan}) =>
           </AbsoluteFill>
         </Sequence>
       ))}
+      <PlanEffectsLayer entries={plan.effects} fps={plan.fps} showSampleContent={false} layerZIndex={5} />
     </AbsoluteFill>
   );
 };

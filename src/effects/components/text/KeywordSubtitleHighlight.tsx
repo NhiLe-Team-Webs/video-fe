@@ -7,11 +7,11 @@ import {
 } from "remotion";
 
 type KeywordSubtitleHighlightProps = {
-  text: string;
+  text?: string;
   keywords?: string | string[];
   accentColor?: string;
   align?: "center" | "bottom";
-  durationInFrames: number;
+  durationInFrames?: number;
 };
 
 type HighlightSegment = {
@@ -150,11 +150,11 @@ const buildSegments = (text: string, keywords: string[]): HighlightSegment[] => 
 export const KeywordSubtitleHighlight: React.FC<
   KeywordSubtitleHighlightProps
 > = ({
-  text,
+  text = "I've tried more than 500 AI tools",
   keywords,
   accentColor = "#38bdf8",
   align = "bottom",
-  durationInFrames,
+  durationInFrames = 120,
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();

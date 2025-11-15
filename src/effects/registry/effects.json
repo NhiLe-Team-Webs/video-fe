@@ -1158,5 +1158,48 @@
     "recommendedLayer": "background",
     "componentPath": "src/effects/components/background/NoiseBackdrop",
     "version": "1.0.0"
+  },
+  "text.transcriptLine": {
+    "key": "text.transcriptLine",
+    "name": "Transcript Caption",
+    "category": "text",
+    "description": "Timeline-synced subtitle strip that fades in sync with narration.",
+    "tags": [
+      "transcript",
+      "subtitle",
+      "narration"
+    ],
+    "mood": [
+      "cinematic",
+      "clean"
+    ],
+    "duration": 2.4,
+    "preview": "/previews/text-transcript-line.mp4",
+    "props": [
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "position",
+        "type": "string"
+      },
+      {
+        "name": "align",
+        "type": "string"
+      },
+      {
+        "name": "width",
+        "type": "number"
+      },
+      {
+        "name": "emphasis",
+        "type": "string"
+      }
+    ],
+    "recommendedLayer": "overlay",
+    "componentPath": "src/effects/components/text/TranscriptCaption",
+    "version": "1.0.0"
   }
 }

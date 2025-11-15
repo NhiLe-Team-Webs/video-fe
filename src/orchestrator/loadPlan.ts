@@ -30,7 +30,7 @@ const readPlanFromDisk = (): Plan => {
   const dynamicRequire = typeof window === "undefined" ? (eval("require") as NodeRequireFunction) : null;
 
   if (!dynamicRequire) {
-    return planFromBundle as Plan;
+    return planFromBundle as unknown as Plan;
   }
 
   const fs = dynamicRequire("fs") as typeof import("fs");
@@ -227,7 +227,7 @@ export const normalizePlan = (plan: Plan, fps: number): LoadedPlan => {
 };
 
 const getRawPlan = (): Plan => {
-  return typeof window === "undefined" ? readPlanFromDisk() : (planFromBundle as Plan);
+  return typeof window === "undefined" ? readPlanFromDisk() : (planFromBundle as unknown as Plan);
 };
 
 export const loadPlan = (options: LoadPlanOptions = {}): LoadedPlan => {

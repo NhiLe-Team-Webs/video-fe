@@ -49,7 +49,7 @@ const parseNodes = (input?: NodeItem[] | string): NodeItem[] => {
 export type CentralConceptMapProps = {
   centralLabel?: string;
   nodes?: NodeItem[] | string;
-  durationInFrames: number;
+  durationInFrames?: number;
   accentColor?: string;
   backgroundColor?: string;
   textColor?: string;
@@ -58,7 +58,7 @@ export type CentralConceptMapProps = {
 export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
   centralLabel = "SEO",
   nodes,
-  durationInFrames,
+  durationInFrames = 120,
   accentColor = palette.primaryRed,
   backgroundColor = palette.deepBlack,
   textColor = palette.brightestWhite,

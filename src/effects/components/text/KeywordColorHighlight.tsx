@@ -12,7 +12,7 @@ type KeywordColorHighlightProps = {
   highlightColors?: string[];
   baseColor?: string;
   align?: "center" | "bottom";
-  durationInFrames: number;
+  durationInFrames?: number;
 };
 
 type HighlightSegment = {
@@ -154,12 +154,12 @@ const buildSegments = (text: string, keywords: string[]): HighlightSegment[] => 
 };
 
 export const KeywordColorHighlight: React.FC<KeywordColorHighlightProps> = ({
-  text,
+  text = "This actually highlights ACTUALLY.",
   keywords,
   highlightColors = ["#22d3ee", "#facc15", "#f472b6"],
   baseColor = "#f8fafc",
   align = "bottom",
-  durationInFrames,
+  durationInFrames = 120,
 }) => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();

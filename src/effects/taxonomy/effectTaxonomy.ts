@@ -102,6 +102,14 @@ export const effectTaxonomy: Record<
       intents: ["concept-map", "structure"],
       defaultDuration: 2.8,
     },
+    {
+      key: "text.transcriptLine",
+      label: "Transcript Caption",
+      description: "Timeline-synced subtitle strip that fades in/out with light motion.",
+      category: EffectCategory.Text,
+      intents: ["transcript", "subtitle", "narration"],
+      defaultDuration: 2.4,
+    },
   ],
   [EffectCategory.Motion]: [
     {

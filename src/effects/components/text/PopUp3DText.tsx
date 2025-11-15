@@ -7,7 +7,7 @@ export type PopUp3DTextProps = {
   subtitle?: string;
   color?: string;
   accent?: string;
-  durationInFrames: number;
+  durationInFrames?: number;
 };
 
 export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
@@ -15,7 +15,7 @@ export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
   subtitle = "A BEGINNER'S GUIDE",
   color = palette.brightestWhite,
   accent = palette.primaryRed,
-  durationInFrames,
+  durationInFrames = 120,
 }) => {
   const frame = useCurrentFrame();
 

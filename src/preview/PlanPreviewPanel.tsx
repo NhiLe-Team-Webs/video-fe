@@ -5,12 +5,11 @@ import {TransitionLayer} from "../core/layers/TransitionLayer";
 import {AudioLayer} from "../core/AudioLayer";
 import {palette} from "../styles/designTokens";
 import {useHotReloadPlan} from "./useHotReloadPlan";
-import {getEffectMetadata, useEffectByKey} from "../effects/hooks/useEffectByKey";
+import {getEffectMetadata} from "../effects/hooks/useEffectByKey";
 import type {EffectKey} from "../types/EffectTypes";
 import {secondsToFrames} from "../core/utils/frameUtils";
 import type {
   EditingPlan,
-  EffectTrackEntry,
   HighlightPlan,
   PlanTracks,
   SegmentBrollPlan,
@@ -18,6 +17,7 @@ import type {
   TransitionPlan,
 } from "./types";
 import {buildTimeline, getTimelineDuration, type TimelineSegment} from "./utils/timeline";
+import {PlanEffectsLayer} from "../core/layers/PlanEffectsLayer";
 
 const DEFAULT_VIDEO_SOURCE = "input/footage.mp4";
 const DEFAULT_TRANSITION_SECONDS = 0.75;
@@ -387,96 +387,6 @@ const PlanHighlightSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}
       })}
   </>
 );
-
-const EffectPlaceholder: React.FC<{label: string}> = ({label}) => (
-  <AbsoluteFill
-    style={{
-      border: "2px dashed rgba(255,255,255,0.4)",
-      borderRadius: 24,
-      alignItems: "center",
-      justifyContent: "center",
-      color: "rgba(248,250,252,0.8)",
-      fontFamily: "Inter, sans-serif",
-      textTransform: "uppercase",
-      fontSize: 28,
-      letterSpacing: 1,
-      background: "rgba(15,23,42,0.6)",
-    }}
-  >
-    {label}
-  </AbsoluteFill>
-);
-
-const EffectSampleScene: React.FC = () => (
-  <div
-    style={{
-      width: "100%",
-      height: "100%",
-      borderRadius: 24,
-      background:
-        "linear-gradient(135deg, rgba(15,23,42,0.9) 0%, rgba(2,6,23,0.85) 70%), url(https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=900&q=60) center/cover",
-      color: "#f8fafc",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontWeight: 700,
-      letterSpacing: 1,
-    }}
-  >
-    Speaker
-  </div>
-);
-
-const PlanEffectsLayer: React.FC<{entries?: EffectTrackEntry[]; fps: number; layerZIndex?: number}> = ({
-  entries,
-  fps,
-  layerZIndex,
-}) => {
-  if (!entries?.length) {
-    return null;
-  }
-
-  return (
-    <AbsoluteFill style={{zIndex: layerZIndex ?? 3, pointerEvents: "none"}}>
-      {entries.map((entry) => {
-        const from = Math.round(entry.start * fps);
-        const duration = Math.max(1, Math.round(entry.duration * fps));
-        return (
-          <Sequence
-            key={`effect-${entry.id}`}
-            from={from}
-            durationInFrames={duration}
-            name={`effect-${entry.id}`}
-          >
-            <TimedEffect entry={entry} durationInFrames={duration} />
-          </Sequence>
-        );
-      })}
-    </AbsoluteFill>
-  );
-};
-
-const TimedEffect: React.FC<{entry: EffectTrackEntry; durationInFrames: number}> = ({entry, durationInFrames}) => {
-  const resolution = useEffectByKey(entry.effectKey);
-
-  if (!resolution) {
-    return <EffectPlaceholder label={entry.effectKey} />;
-  }
-
-  const {Component, metadata} = resolution;
-  const needsChildren =
-    metadata?.category === "motion" ||
-    metadata?.recommendedLayer === "base" ||
-    entry.effectKey.startsWith("motion.");
-
-  return (
-    <AbsoluteFill>
-      <Component durationInFrames={durationInFrames} {...(entry.props ?? {})}>
-        {needsChildren ? <EffectSampleScene /> : null}
-      </Component>
-    </AbsoluteFill>
-  );
-};
 
 const PlanTrackSfxLayer: React.FC<{entries?: SfxTrackEntry[]; fps: number}> = ({entries, fps}) => {
   if (!entries?.length) {

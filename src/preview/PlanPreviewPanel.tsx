@@ -360,13 +360,19 @@ const PlanHighlightsLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> 
   </AbsoluteFill>
 );
 
+const clampSfxDurationFrames = (durationFrames: number, fps: number) => {
+  const maxFrames = Math.max(1, Math.round(0.8 * fps));
+  return Math.max(1, Math.min(durationFrames, maxFrames));
+};
+
 const PlanHighlightSfxLayer: React.FC<{highlights: HighlightPlan[]; fps: number}> = ({highlights, fps}) => (
   <>
     {highlights
       .filter((highlight) => Boolean(highlight.sfx))
       .map((highlight) => {
         const from = Math.round(highlight.start * fps);
-        const duration = Math.max(1, Math.round(highlight.duration * fps));
+        const durationFrames = Math.max(1, Math.round(highlight.duration * fps));
+        const duration = clampSfxDurationFrames(durationFrames, fps);
         return (
           <Sequence key={`sfx-${highlight.id}`} from={from} durationInFrames={duration} name={`sfx-${highlight.id}`}>
             <HighlightAudio highlight={highlight} />
@@ -474,7 +480,8 @@ const PlanTrackSfxLayer: React.FC<{entries?: SfxTrackEntry[]; fps: number}> = ({
     <>
       {entries.map((entry) => {
         const from = Math.round(entry.start * fps);
-        const duration = Math.max(1, Math.round(entry.duration * fps));
+        const durationFrames = Math.max(1, Math.round(entry.duration * fps));
+        const duration = clampSfxDurationFrames(durationFrames, fps);
         const src = normalizeAssetPath(entry.src);
         return (
           <Sequence

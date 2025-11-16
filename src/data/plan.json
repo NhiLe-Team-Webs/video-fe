@@ -17,6 +17,15 @@
       "duration": 22.7,
       "label": "AI Corner & Showdown Setup",
       "silenceAfter": false,
+      "broll": {
+        "id": "ai_corner_showdown-card",
+        "mode": "card",
+        "file": "assets/broll/ai_corner_showdown-01-human-vs-ai-marketing.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 5.0,
+        "duration": 6.0
+      },
       "transitionIn": {
         "type": "crossfade",
         "duration": 0.6
@@ -80,6 +89,15 @@
       "duration": 20.36,
       "label": "Coca-Cola AI Integration & Engagement",
       "silenceAfter": false,
+      "broll": {
+        "id": "coca_cola_ai_engagement-card",
+        "mode": "card",
+        "file": "assets/broll/coca_cola_ai_engagement-01-creative-campaign-brainstorming.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 4.0,
+        "duration": 5.5
+      },
       "transitionIn": {
         "type": "crossfade",
         "duration": 0.6
@@ -111,6 +129,15 @@
       "duration": 19.22,
       "label": "Heinz AI Experiment & Brand Strength",
       "silenceAfter": false,
+      "broll": {
+        "id": "heinz_ai_story_brand-card",
+        "mode": "card",
+        "file": "assets/broll/heinz_ai_story_brand-01-ketchup-bottle-burger-fries.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 3.5,
+        "duration": 5.0
+      },
       "transitionIn": {
         "type": "zoom",
         "duration": 0.7,
@@ -143,6 +170,15 @@
       "duration": 21.08,
       "label": "AI Efficiency & Cost Savings",
       "silenceAfter": false,
+      "broll": {
+        "id": "ai_efficiency_cost_savings-card",
+        "mode": "card",
+        "file": "assets/broll/marketing_automation.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 5.5,
+        "duration": 5.0
+      },
       "transitionIn": {
         "type": "zoom",
         "duration": 0.7,
@@ -174,6 +210,15 @@
       "duration": 13.38,
       "label": "AI vs Marketers & Blending Both",
       "silenceAfter": false,
+      "broll": {
+        "id": "ai_replacing_refusers-card",
+        "mode": "card",
+        "file": "assets/broll/ai_brain.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 3.0,
+        "duration": 4.0
+      },
       "transitionIn": {
         "type": "crossfade",
         "duration": 0.6
@@ -205,6 +250,15 @@
       "duration": 11.0,
       "label": "Hack 1: Human Creativity",
       "silenceAfter": false,
+      "broll": {
+        "id": "hack_human_creativity-card",
+        "mode": "card",
+        "file": "assets/broll/education_training.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 2.0,
+        "duration": 4.0
+      },
       "transitionIn": {
         "type": "zoom",
         "duration": 0.7,
@@ -251,6 +305,15 @@
       "duration": 5.68,
       "label": "AI Makes it Better",
       "silenceAfter": false,
+      "broll": {
+        "id": "ai_makes_it_better-card",
+        "mode": "card",
+        "file": "assets/broll/modern_office.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 1.0,
+        "duration": 3.0
+      },
       "transitionIn": {
         "type": "crossfade",
         "duration": 0.6
@@ -281,6 +344,15 @@
       "duration": 10.4,
       "label": "Partner with AI, Future of Marketing",
       "silenceAfter": false,
+      "broll": {
+        "id": "partner_with_ai_future-card",
+        "mode": "card",
+        "file": "assets/broll/business_strategy.jpg",
+        "cardScale": 0.85,
+        "backgroundEffect": "noiseBackdrop",
+        "startAt": 3.0,
+        "duration": 4.0
+      },
       "transitionIn": {
         "type": "crossfade",
         "duration": 0.6

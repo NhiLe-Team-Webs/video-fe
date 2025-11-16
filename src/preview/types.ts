@@ -11,11 +11,12 @@ export type TransitionPlan = {
 export type SegmentBrollPlan = {
   id?: string;
   file?: string;
-  mode?: "full" | "overlay" | "pictureInPicture";
+  mode?: "full" | "overlay" | "pictureInPicture" | "card";
   startAt?: number;
   duration?: number;
   playbackRate?: number;
   cardScale?: number;
+  backgroundEffect?: string;
 };
 
 export type SegmentPlan = {

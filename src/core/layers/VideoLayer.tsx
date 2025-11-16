@@ -1,5 +1,6 @@
 import React from "react";
-import {AbsoluteFill, Img, Video, staticFile, useVideoConfig} from "remotion";
+import {AbsoluteFill, Img, Video, staticFile, useVideoConfig, useCurrentFrame} from "remotion";
+import {noise3D} from "@remotion/noise";
 
 const VIDEO_EXTENSIONS = [".mp4", ".mov", ".mkv", ".avi", ".webm"];
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif"];
@@ -22,10 +23,18 @@ type VideoLayerProps = {
   startFrom?: number; // seconds within source
   durationSeconds?: number;
   muted?: boolean;
+  shake?: boolean; // apply subtle shake to still images
 };
 
-export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, durationSeconds, muted = true}) => {
+export const VideoLayer: React.FC<VideoLayerProps> = ({
+  clip,
+  startFrom = 0,
+  durationSeconds,
+  muted = true,
+  shake = false,
+}) => {
   const {fps} = useVideoConfig();
+  const frame = useCurrentFrame();
   const src = resolveSource(clip);
   const isVideo = isType(clip, VIDEO_EXTENSIONS);
   const isImage = isType(clip, IMAGE_EXTENSIONS);
@@ -44,7 +53,27 @@ export const VideoLayer: React.FC<VideoLayerProps> = ({clip, startFrom = 0, dura
           style={{width: "100%", height: "100%", objectFit: "cover"}}
         />
       ) : isImage ? (
-        <Img src={src} style={{width: "100%", height: "100%", objectFit: "cover"}} alt="segment asset" />
+        (() => {
+          if (!shake) {
+            return <Img src={src} style={{width: "100%", height: "100%", objectFit: "cover"}} alt="segment asset" />;
+          }
+          // subtle smooth shake for still images using noise3D
+          const speed = 0.02;
+          const maxOffset = 6; // pixels
+          const maxRotate = 0.6; // degrees
+          const seed = clip || "img";
+          const dx = noise3D(seed + "x", frame * speed, 0, 0) * maxOffset;
+          const dy = noise3D(seed + "y", frame * speed, 0, 0) * maxOffset;
+          const rot = noise3D(seed + "r", frame * speed, 0, 0) * maxRotate;
+          const style: React.CSSProperties = {
+            width: "110%",
+            height: "110%",
+            objectFit: "cover",
+            transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)`,
+            willChange: "transform",
+          };
+          return <Img src={src} style={style} alt="segment asset" />;
+        })()
       ) : (
         <AbsoluteFill
           style={{

@@ -96,6 +96,7 @@ const sanitizeSegment = (
           : "";
 
   return {
+    id: typeof segment?.id === "string" ? segment.id : undefined,
     clip,
     text: resolvedText,
     effect: typeof segment?.effect === "string" ? segment.effect : DEFAULT_EFFECT,
@@ -115,6 +116,15 @@ const sanitizeSegment = (
             mode:
               ["full", "overlay", "pictureInPicture", "card"].includes(segment.broll.mode ?? "")
                 ? segment.broll.mode
+                : undefined,
+            cardScale:
+              typeof segment.broll.cardScale === "number" && Number.isFinite(segment.broll.cardScale)
+                ? segment.broll.cardScale
+                : undefined,
+            backgroundEffect:
+              typeof segment.broll.backgroundEffect === "string" &&
+              segment.broll.backgroundEffect.trim().length > 0
+                ? segment.broll.backgroundEffect
                 : undefined,
             startAt:
               typeof segment.broll.startAt === "number" && Number.isFinite(segment.broll.startAt)

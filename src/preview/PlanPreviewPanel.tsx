@@ -159,7 +159,7 @@ const BrollMedia: React.FC<{
             src={staticFile(clip)}
             startFrom={startFrame}
             endAt={endFrame}
-            muted
+            muted={false}
             style={{width: "100%", height: "100%", objectFit: "cover"}}
             onError={() => setVideoFailed(true)}
           />

@@ -36,7 +36,7 @@ const BrollCard: React.FC<{scale: number; file: string}> = ({scale, file}) => {
 
   return (
     <div style={cardStyle}>
-      <VideoLayer clip={file} muted durationSeconds={1} startFrom={0} shake />
+      <VideoLayer clip={file} muted={false} durationSeconds={1} startFrom={0} shake />
     </div>
   );
 };

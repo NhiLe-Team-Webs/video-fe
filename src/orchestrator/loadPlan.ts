@@ -119,7 +119,7 @@ const sanitizeSegment = (
       sfx: typeof segment.transitionOut.sfx === "string" ? segment.transitionOut.sfx : undefined,
     } : undefined,
     sourceStart: typeof segment?.sourceStart === "number" && Number.isFinite(segment.sourceStart) && segment.sourceStart >= 0 ? segment.sourceStart : undefined,
-    mute: typeof segment?.mute === "boolean" ? segment.mute : true,
+    mute: typeof segment?.mute === "boolean" ? segment.mute : false,
     broll:
       segment?.broll && typeof segment.broll === "object"
         ? {

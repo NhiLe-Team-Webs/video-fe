@@ -21,6 +21,9 @@ export const AudioLayer: React.FC<AudioLayerProps> = ({
   }
 
   const normalized = src.startsWith("http") ? src : staticFile(src.replace(/^\//, ""));
+  
+  // Add logging for debugging SFX
+  console.log(`[AudioLayer] Loading SFX: ${normalized}, volume: ${volume}, startFrom: ${startFrom}, endAt: ${endAt}`);
 
   return <Audio src={normalized} startFrom={startFrom} endAt={endAt} loop={loop} volume={volume} />;
 };

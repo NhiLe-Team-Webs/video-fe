@@ -37,6 +37,7 @@
   "devDependencies": {
     "@types/react": "19.0.0",
     "@types/web": "0.0.166",
+    "cross-env": "^7.0.3",
     "eslint": "9.19.0",
     "prettier": "3.6.0",
     "tsx": "^4.20.6",
@@ -49,6 +50,7 @@
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "render": "remotion render auto-video out/video.mp4",
+    "render:optimized": "cross-env REMOTION_CONCURRENCY=1 UV_THREADPOOL_SIZE=4 remotion render auto-video out/video.mp4",
     "generate:manifest": "tsx scripts/generateEffectRegistry.ts",
     "intake:lottie": "tsx scripts/intakeLottie.ts",
     "validate:lottie": "tsx scripts/validateLottie.ts",
@@ -57,7 +59,8 @@
     "effects:classify": "tsx scripts/classifyEffects.ts",
     "lint": "eslint src && tsc",
     "plan:test": "tsx src/core/testPlanLoader.ts",
-    "transitions:list": "tsx scripts/listTransitions.ts"
+    "transitions:list": "tsx scripts/listTransitions.ts",
+    "fix:fd-limit": "node scripts/increase-fd-limit.js"
   },
   "sideEffects": [
     "*.css"

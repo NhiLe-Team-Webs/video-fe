@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import {AbsoluteFill, interpolate, useCurrentFrame, useVideoConfig} from "remotion";
+import {AbsoluteFill, Img, interpolate, useCurrentFrame, useVideoConfig} from "remotion";
 import type {IconType} from "react-icons";
 import {FaFacebookF, FaInstagram, FaLinkedin, FaTwitter, FaYoutube} from "react-icons/fa";
 import {SiGoogle, SiTiktok} from "react-icons/si";
@@ -8,6 +8,7 @@ type PlatformItem = {
   name: string;
   color?: string;
   iconUrl?: string;
+  icon?: string; // For emoji icons
 };
 
 const fallbackPlatforms: PlatformItem[] = [
@@ -49,6 +50,7 @@ const parsePlatforms = (input?: PlatformItem[] | string): PlatformItem[] => {
         name: item.name,
         color: item.color,
         iconUrl: item.iconUrl,
+        icon: item.icon,
       }));
 
   if (Array.isArray(input)) {
@@ -191,10 +193,18 @@ const SocialPlatformIcon: React.FC<{
           overflow: "hidden",
         }}
       >
-        {platform.iconUrl ? (
-          <img
+        {platform.icon ? (
+          <span
+            style={{
+              fontSize: 56,
+              filter: "drop-shadow(0 12px 20px rgba(0,0,0,0.35))",
+            }}
+          >
+            {platform.icon}
+          </span>
+        ) : platform.iconUrl ? (
+          <Img
             src={platform.iconUrl}
-            alt={platform.name}
             style={{width: 72, height: 72, objectFit: "contain", filter: "drop-shadow(0 12px 20px rgba(0,0,0,0.35))"}}
           />
         ) : IconGlyph ? (

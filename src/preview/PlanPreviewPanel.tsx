@@ -1,5 +1,6 @@
 import React, {useMemo, useState} from "react";
-import {AbsoluteFill, Img, Sequence, Video, staticFile, useVideoConfig} from "remotion";
+import {AbsoluteFill, Img, Sequence, Video, staticFile, useVideoConfig, useCurrentFrame} from "remotion";
+import {noise3D} from "@remotion/noise";
 import planJson from "../data/plan.json";
 import {TransitionLayer} from "../core/layers/TransitionLayer";
 import {AudioLayer} from "../core/AudioLayer";
@@ -117,6 +118,7 @@ const BrollMedia: React.FC<{
   mode: SegmentBrollPlan["mode"];
 }> = ({broll, fps, durationFrames, mode}) => {
   const [videoFailed, setVideoFailed] = useState(false);
+  const frame = useCurrentFrame();
   
   const clip = broll.file ? resolveBrollAsset(broll.file) : null;
 
@@ -131,7 +133,7 @@ const BrollMedia: React.FC<{
   const endFrame = startFrame + Math.max(1, Math.round(playbackSeconds * fps));
   const isVideo = isVideoAsset(clip);
 
-  const cardScale = broll.cardScale ?? 0.75;
+  const cardScale = broll.cardScale ?? 0.85;
   const containerStyle =
     mode === "full"
       ? {position: "absolute" as const, inset: 0, borderRadius: 0}
@@ -163,10 +165,23 @@ const BrollMedia: React.FC<{
           />
         )
       ) : (
-        <Img
-          src={staticFile(clip)}
-          style={{width: "100%", height: "100%", objectFit: "cover"}}
-        />
+        (() => {
+          const speed = 0.02;
+          const maxOffset = 6;
+          const maxRotate = 0.6;
+          const seed = clip || "broll-img";
+          const dx = noise3D(seed + "x", frame * speed, 0, 0) * maxOffset;
+          const dy = noise3D(seed + "y", frame * speed, 0, 0) * maxOffset;
+          const rot = noise3D(seed + "r", frame * speed, 0, 0) * maxRotate;
+          const style: React.CSSProperties = {
+            width: "110%",
+            height: "110%",
+            objectFit: "cover",
+            transform: `translate(${dx}px, ${dy}px) rotate(${rot}deg)`,
+            willChange: "transform",
+          };
+          return <Img src={staticFile(clip)} style={style} />;
+        })()
       )}
     </div>
   );
@@ -396,21 +411,47 @@ export const PlanPreviewPanel: React.FC = () => {
   const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
   const planTracks: PlanTracks = plan.tracks ?? {};
   const effectEntries = useMemo(() => planTracks.effects ?? [], [planTracks.effects]);
+  const brollDerivedEffects = useMemo(() => {
+    const entries: Array<{
+      id: string;
+      start: number;
+      duration: number;
+      effectKey: string;
+      props?: Record<string, unknown>;
+    }> = [];
+    timeline.forEach((segment) => {
+      const broll = segment.segment.broll;
+      if (!broll || !broll.backgroundEffect) return;
+      const windows = computeBrollWindows(segment, highlights, fps);
+      const keySuffix = String(broll.backgroundEffect).split('.').pop();
+      const effectKey = keySuffix?.startsWith('background.') ? keySuffix : `background.${keySuffix}`;
+      windows.forEach((w, i) => {
+        entries.push({
+          id: `broll-bg-${segment.segment.id ?? 'seg'}-${i}`,
+          start: Math.round(w.from) / fps,
+          duration: Math.max(1, Math.round(w.duration)) / fps,
+          effectKey,
+        });
+      });
+    });
+    return entries;
+  }, [timeline, highlights, fps]);
+  const combinedEffectEntries = useMemo(() => [...effectEntries, ...brollDerivedEffects], [effectEntries, brollDerivedEffects]);
   const backgroundEffects = useMemo(
     () =>
-      effectEntries.filter((entry) => {
+      combinedEffectEntries.filter((entry) => {
         const metadata = getEffectMetadata(entry.effectKey as EffectKey);
         return metadata?.category === "background" || entry.effectKey.startsWith("background.");
       }),
-    [effectEntries]
+    [combinedEffectEntries]
   );
   const overlayEffects = useMemo(
     () =>
-      effectEntries.filter((entry) => {
+      combinedEffectEntries.filter((entry) => {
         const metadata = getEffectMetadata(entry.effectKey as EffectKey);
         return metadata?.category !== "background" && !entry.effectKey.startsWith("background.");
       }),
-    [effectEntries]
+    [combinedEffectEntries]
   );
   const sfxEntries = planTracks.sfx ?? [];
 

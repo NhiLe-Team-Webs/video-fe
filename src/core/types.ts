@@ -13,6 +13,7 @@ export type SegmentBroll = {
   duration?: number;
   playbackRate?: number;
   cardScale?: number;
+  backgroundEffect?: string;
 };
 
 export type Segment = {
@@ -55,6 +56,7 @@ export type PlanMeta = {
 };
 
 export type NormalizedSegmentCore = {
+  id?: string;
   clip: string;
   text: string;
   effect: string;

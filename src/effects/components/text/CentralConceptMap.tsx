@@ -1,7 +1,7 @@
 /* eslint-disable @remotion/slow-css-property */
 import React, {useMemo} from "react";
 import {AbsoluteFill, interpolate, useCurrentFrame} from "remotion";
-import {palette, typography, motif} from "../../../styles/designTokens";
+import {palette, typography} from "../../../styles/designTokens";
 
 type NodeItem = {
   label: string;
@@ -114,35 +114,40 @@ export const CentralConceptMap: React.FC<CentralConceptMapProps> = ({
 
         <div
           style={{
-            fontSize: 90,
+            width: radius * 1.3,
+            height: radius * 0.85,
+            maxWidth: 360,
+            maxHeight: 170,
+            fontSize: Math.min(34, radius * 0.26),
             fontWeight: 800,
             textTransform: "uppercase",
-            letterSpacing: 8,
+            letterSpacing: 5,
             color: accentColor,
             opacity: centerOpacity,
             transform: `scale(${centerScale})`,
-            // eslint-disable-next-lirgba(57, 57, 57, 0.35)w-css-property
             textShadow: "0 20px 50px rgba(0,0,0,0.35)",
             fontFamily: typography.headline,
             position: "relative",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "0 16px",
+            overflow: "hidden",
           }}
         >
-          {centralLabel}
-          <div
+          <span
             style={{
-              position: "absolute",
-              top: 12,
-              right: 18,
-              width: 60,
-              height: 38,
-              background: motif.triangleGlow,
-              mixBlendMode: motif.overlayBlend as React.CSSProperties['mixBlendMode'],
-              borderRadius: "0 12px 12px 0",
-              /// eslint-disable-next-line @remotion/slow-css-property
-              boxShadow: "0 15px 35px rgba(200,16,46,0.4)",
-              transform: "skewX(-10deg)",
+              maxWidth: "100%",
+              display: "inline-block",
+              wordBreak: "break-word",
+              whiteSpace: "normal",
+              lineHeight: 1.1,
             }}
-          />
+          >
+            {centralLabel}
+          </span>
+
         </div>
 
       {resolvedNodes.map((node, index) => {

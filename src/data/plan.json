@@ -390,6 +390,23 @@
       "volume": 0.75
     },
     {
+      "id": "user_behaviors_signal",
+      "start": 58.8,
+      "duration": 2.8,
+      "position": "bottom",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "User Behaviors Signal",
+      "keyword": "User Behaviors Signal",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
       "id": "section_coca_cola_case_study",
       "start": 100.5,
       "duration": 2.0,
@@ -435,6 +452,23 @@
       "sfx": "assets/sfx/emphasis/ding.mp3",
       "layout": "bottom",
       "volume": 0.8
+    },
+    {
+      "id": "engagement_boom",
+      "start": 134.0,
+      "duration": 2.6,
+      "position": "bottom",
+      "animation": "bounce",
+      "type": "noteBox",
+      "text": "Engagement Boom",
+      "keyword": "Engagement Boom",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "layout": "bottom",
+      "volume": 0.7
     },
     {
       "id": "fans_into_creators",
@@ -499,6 +533,23 @@
       "sfx": "assets/sfx/emphasis/ding.mp3",
       "layout": "bottom",
       "volume": 0.8
+    },
+    {
+      "id": "hybrid_future_ready",
+      "start": 216.5,
+      "duration": 3.0,
+      "position": "bottom",
+      "animation": "float",
+      "type": "noteBox",
+      "text": "Hybrid Future Ready",
+      "keyword": "Hybrid Future Ready",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "layout": "bottom",
+      "volume": 0.7
     },
     {
       "id": "hyper_personalization",
@@ -597,6 +648,87 @@
       "sfx": "assets/sfx/ui/pop.mp3",
       "layout": "bottom",
       "volume": 0.75
+    },
+    {
+      "id": "ai_makes_it_better_text",
+      "start": 287.0,
+      "duration": 2.4,
+      "position": "bottom",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "AI Makes It Better",
+      "keyword": "AI Makes It Better",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "layout": "bottom",
+      "volume": 0.75
+    },
+    {
+      "id": "embrace_human_ai_text",
+      "start": 293.5,
+      "duration": 2.6,
+      "position": "bottom",
+      "animation": "float",
+      "type": "noteBox",
+      "text": "Embrace Human + AI",
+      "keyword": "Embrace Human + AI",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "partner_with_ai_text",
+      "start": 305.0,
+      "duration": 2.5,
+      "position": "bottom",
+      "animation": "fade",
+      "type": "sectionTitle",
+      "text": "Partner With AI",
+      "keyword": "PARTNER WITH AI",
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "layout": "bottom",
+      "volume": 0.7
+    },
+    {
+      "id": "ai_partnership_cta",
+      "start": 305.4,
+      "duration": 2.8,
+      "position": "bottom",
+      "animation": "zoom",
+      "type": "noteBox",
+      "text": "Partner With AI Today",
+      "keyword": "Partner With AI Today",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/emphasis/ding.mp3",
+      "layout": "bottom",
+      "volume": 0.75
+    },
+    {
+      "id": "human_machine_future_text",
+      "start": 312.0,
+      "duration": 2.4,
+      "position": "bottom",
+      "animation": "slide",
+      "type": "noteBox",
+      "text": "Human + Machine Future",
+      "keyword": "Human + Machine Future",
+      "importance": "primary",
+      "showBottom": true,
+      "safeBottom": 0.18,
+      "safeInsetHorizontal": 0.08,
+      "sfx": "assets/sfx/ui/pop.mp3",
+      "layout": "bottom",
+      "volume": 0.75
     }
   ],
   "tracks": {
@@ -627,6 +759,42 @@
         }
       },
       {
+        "id": "textfx-head_to_head",
+        "start": 24.5,
+        "duration": 2.4,
+        "effectKey": "text.swipeHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "HEAD TO HEAD"
+        }
+      },
+      {
+        "id": "textfx-who_wins",
+        "start": 29.2,
+        "duration": 2.2,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Who Wins?",
+          "keywords": [
+            "Who",
+            "Wins"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-smart_marketers_win",
+        "start": 31.7,
+        "duration": 2.0,
+        "effectKey": "text.sideFloat",
+        "layer": "overlay",
+        "props": {
+          "text": "SMART MARKETERS WIN",
+          "side": "right"
+        }
+      },
+      {
         "id": "textfx-section_marketing_approaches",
         "start": 37.5,
         "duration": 2.0,
@@ -644,6 +812,21 @@
         "layer": "overlay",
         "props": {
           "text": "HUMAN INTUITION"
+        }
+      },
+      {
+        "id": "textfx-emotional_storytelling",
+        "start": 45.1,
+        "duration": 2.4,
+        "effectKey": "text.keywordSubtitleHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Emotional Storytelling",
+          "keywords": [
+            "Emotional",
+            "Storytelling"
+          ],
+          "align": "bottom"
         }
       },
       {
@@ -668,6 +851,76 @@
               "label": "Automation"
             }
           ]
+        }
+      },
+      {
+        "id": "textfx-user_behaviors_signal",
+        "start": 58.8,
+        "duration": 3.0,
+        "effectKey": "text.keywordSubtitleHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "User Behaviors Signal",
+          "keywords": [
+            "User",
+            "Behaviors"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-creativity_calculation",
+        "start": 63.4,
+        "duration": 2.6,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Creativity Meets Calculation",
+          "keywords": [
+            "Creativity",
+            "Calculation"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-fascinating_clash",
+        "start": 71.8,
+        "duration": 2.0,
+        "effectKey": "text.popUp3D",
+        "layer": "overlay",
+        "props": {
+          "text": "FASCINATING CLASH"
+        }
+      },
+      {
+        "id": "textfx-emotion_vs_algorithm",
+        "start": 88.2,
+        "duration": 2.4,
+        "effectKey": "text.keywordSubtitleHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Emotion vs Algorithm",
+          "keywords": [
+            "Emotion",
+            "Algorithm"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-ai_marketing_animal",
+        "start": 95.0,
+        "duration": 2.4,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "AI Marketing Animal",
+          "keywords": [
+            "AI",
+            "Marketing"
+          ],
+          "align": "bottom"
         }
       },
       {
@@ -696,6 +949,17 @@
         }
       },
       {
+        "id": "textfx-brainstorming_sessions",
+        "start": 111.2,
+        "duration": 2.5,
+        "effectKey": "text.sideFloat",
+        "layer": "overlay",
+        "props": {
+          "text": "BRAINSTORMING SESSIONS",
+          "side": "left"
+        }
+      },
+      {
         "id": "textfx-unique_artworks_count",
         "start": 121.0,
         "duration": 4.0,
@@ -707,6 +971,21 @@
             "120",
             "000",
             "Unique"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-engagement_boom",
+        "start": 134.0,
+        "duration": 3.0,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Engagement Boom",
+          "keywords": [
+            "Engagement",
+            "Boom"
           ],
           "align": "bottom"
         }
@@ -742,6 +1021,77 @@
         }
       },
       {
+        "id": "textfx-heinz_ai_draws",
+        "start": 164.0,
+        "duration": 2.8,
+        "effectKey": "text.popUp3D",
+        "layer": "overlay",
+        "props": {
+          "text": "AI DRAWS HEINZ"
+        }
+      },
+      {
+        "id": "textfx-ai_campaign_virality",
+        "start": 172.5,
+        "duration": 2.6,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "AI Campaign Virality",
+          "keywords": [
+            "Campaign",
+            "Virality"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-branding_plus_tech",
+        "start": 182.0,
+        "duration": 2.6,
+        "effectKey": "text.keywordSubtitleHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Branding + Tech",
+          "keywords": [
+            "Branding",
+            "Tech"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-showdown_time",
+        "start": 192.5,
+        "duration": 2.4,
+        "effectKey": "text.swipeHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "SHOWDOWN TIME"
+        }
+      },
+      {
+        "id": "textfx-instant_outputs",
+        "start": 202.0,
+        "duration": 2.6,
+        "effectKey": "text.popUp3D",
+        "layer": "overlay",
+        "props": {
+          "text": "INSTANT OUTPUTS"
+        }
+      },
+      {
+        "id": "textfx-adaptive_creativity",
+        "start": 208.5,
+        "duration": 2.6,
+        "effectKey": "text.sideFloat",
+        "layer": "overlay",
+        "props": {
+          "text": "ADAPTIVE CREATIVITY",
+          "side": "right"
+        }
+      },
+      {
         "id": "textfx-cost_savings_man_hours",
         "start": 211.0,
         "duration": 4.0,
@@ -755,6 +1105,17 @@
             "Man",
             "Hours"
           ]
+        }
+      },
+      {
+        "id": "textfx-hybrid_future_ready",
+        "start": 216.5,
+        "duration": 3.0,
+        "effectKey": "text.sideFloat",
+        "layer": "overlay",
+        "props": {
+          "text": "HYBRID FUTURE READY",
+          "side": "right"
         }
       },
       {
@@ -837,6 +1198,77 @@
             "Creativity"
           ],
           "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-activate_automation",
+        "start": 275.0,
+        "duration": 3.0,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Activate Automation",
+          "keywords": [
+            "Activate",
+            "Automation"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-ai_makes_it_better",
+        "start": 287.0,
+        "duration": 3.0,
+        "effectKey": "text.popUp3D",
+        "layer": "overlay",
+        "props": {
+          "text": "AI MAKES IT BETTER"
+        }
+      },
+      {
+        "id": "textfx-embrace_human_ai",
+        "start": 293.5,
+        "duration": 3.0,
+        "effectKey": "text.keywordColorHighlight",
+        "layer": "overlay",
+        "props": {
+          "text": "Embrace Human + AI",
+          "keywords": [
+            "Human",
+            "AI"
+          ],
+          "align": "bottom"
+        }
+      },
+      {
+        "id": "textfx-partner_with_ai",
+        "start": 305.0,
+        "duration": 3.0,
+        "effectKey": "text.typeOn",
+        "layer": "overlay",
+        "props": {
+          "text": "PARTNER WITH AI"
+        }
+      },
+      {
+        "id": "textfx-ai_partnership_cta",
+        "start": 305.4,
+        "duration": 3.0,
+        "effectKey": "text.popUp3D",
+        "layer": "overlay",
+        "props": {
+          "text": "PARTNER WITH AI TODAY"
+        }
+      },
+      {
+        "id": "textfx-human_machine_future",
+        "start": 312.0,
+        "duration": 2.5,
+        "effectKey": "text.sideFloat",
+        "layer": "overlay",
+        "props": {
+          "text": "HUMAN + MACHINE",
+          "side": "right"
         }
       }
     ]

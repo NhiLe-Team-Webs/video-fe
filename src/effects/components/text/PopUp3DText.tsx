@@ -12,7 +12,7 @@ export type PopUp3DTextProps = {
 
 export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
   text = "DIGITAL MARKETING 101",
-  subtitle = "A BEGINNER'S GUIDE",
+  subtitle = "",
   color = palette.brightestWhite,
   accent = palette.primaryRed,
   durationInFrames = 120,
@@ -73,35 +73,37 @@ export const PopUp3DText: React.FC<PopUp3DTextProps> = ({
         >
           {text}
         </div>
-        <div
-          style={{
-            marginTop: 12,
-            fontSize: 42,
-            fontWeight: 700,
-            letterSpacing: 5,
-            color: accent,
-            fontFamily: typography.body,
-            position: "relative",
-            textTransform: "uppercase",
-            textShadow: "0 20px 45px rgba(0,0,0,0.4)",
-          }}
-        >
-          {subtitle}
+        {subtitle ? (
           <div
             style={{
-              position: "absolute",
-              left: "50%",
-              bottom: -10,
-              width: 220,
-              height: 6,
-              borderRadius: 999,
-              background: `linear-gradient(90deg, ${accent}, ${color})`,
-              transform: "translateX(-50%)",
-              opacity: 0.75,
-              boxShadow: `0 0 20px ${accent}`,
+              marginTop: 12,
+              fontSize: 42,
+              fontWeight: 700,
+              letterSpacing: 5,
+              color: accent,
+              fontFamily: typography.body,
+              position: "relative",
+              textTransform: "uppercase",
+              textShadow: "0 20px 45px rgba(0,0,0,0.4)",
             }}
-          />
-        </div>
+          >
+            {subtitle}
+            <div
+              style={{
+                position: "absolute",
+                left: "50%",
+                bottom: -10,
+                width: 220,
+                height: 6,
+                borderRadius: 999,
+                background: `linear-gradient(90deg, ${accent}, ${color})`,
+                transform: "translateX(-50%)",
+                opacity: 0.75,
+                boxShadow: `0 0 20px ${accent}`,
+              }}
+            />
+          </div>
+        ) : null}
       </div>
     </AbsoluteFill>
   );

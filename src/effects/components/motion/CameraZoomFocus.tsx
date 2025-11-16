@@ -44,7 +44,6 @@ export const CameraZoomFocus: React.FC<CameraZoomFocusProps> = ({
       style={{
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
         transformOrigin: "center",
-        transition: "transform 80ms linear",
       }}
     >
       {children}

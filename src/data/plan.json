@@ -1,3 +1,4 @@
+
 {
   "segments": [
     {
@@ -7,7 +8,7 @@
       "label": "Marketing Revolution & Classic Corner",
       "silenceAfter": false,
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.cross-fade",
         "duration": 0.6
       }
     },
@@ -27,13 +28,12 @@
         "duration": 6.0
       },
       "transitionIn": {
-        "type": "crossfade",
-        "duration": 0.6
+        "type": "transition.slide-right",
+        "duration": 0.7
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.8,
-        "direction": "left"
+        "type": "transition.slide-left",
+        "duration": 0.8
       }
     },
     {
@@ -43,11 +43,11 @@
       "label": "Traditional Marketing Defined",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.dip-to-black",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.dip-to-white",
         "duration": 0.6
       }
     },
@@ -58,13 +58,12 @@
       "label": "AI Marketing Defined",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.soft-wipe",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.7,
-        "direction": "right"
+        "type": "transition.match-dissolve",
+        "duration": 0.7
       }
     },
     {
@@ -74,11 +73,11 @@
       "label": "Coca-Cola Intro & Campaign",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.slide-up",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.slide-down",
         "duration": 0.6
       }
     },
@@ -98,11 +97,11 @@
         "duration": 5.5
       },
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.parallax-push",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.flash-cut",
         "duration": 0.6
       }
     },
@@ -113,13 +112,12 @@
       "label": "Traditional vs AI for Scale",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.whip-pan-right",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.8,
-        "direction": "up"
+        "type": "transition.whip-pan-left",
+        "duration": 0.8
       }
     },
     {
@@ -138,11 +136,11 @@
         "duration": 5.0
       },
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.glitch-wipe",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.punch-focus",
         "duration": 0.6
       }
     },
@@ -153,13 +151,12 @@
       "label": "Heinz Campaign & Unstoppable Mix",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.flip-board",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.7,
-        "direction": "left"
+        "type": "transition.clock-sweep",
+        "duration": 0.7
       }
     },
     {
@@ -178,11 +175,11 @@
         "duration": 5.0
       },
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.light-sweep",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.film-burn",
         "duration": 0.6
       }
     },
@@ -193,11 +190,11 @@
       "label": "Hyper-Personalization & The Truth",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.light-sweep",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.glitch-wipe",
         "duration": 0.6
       }
     },
@@ -217,11 +214,11 @@
         "duration": 4.0
       },
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.cross-fade",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.cross-fade",
         "duration": 0.6
       }
     },
@@ -232,13 +229,12 @@
       "label": "The Hybrid Marketers",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.cross-fade",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.7,
-        "direction": "up"
+        "type": "transition.cross-fade",
+        "duration": 0.7
       }
     },
     {
@@ -257,12 +253,12 @@
         "duration": 4.0
       },
       "transitionIn": {
-        "type": "zoom",
+        "type": "transition.flip-board",
         "duration": 0.7,
         "intensity": 0.2
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.clock-sweep",
         "duration": 0.6
       }
     },
@@ -273,11 +269,11 @@
       "label": "Hack 2: AI Insights",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.cross-fade",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.cross-fade",
         "duration": 0.6
       }
     },
@@ -288,11 +284,11 @@
       "label": "Hack 3: Automation & AI with Human",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.slide-up",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.parallax-push",
         "duration": 0.6
       }
     },
@@ -300,7 +296,7 @@
       "id": "ai_makes_it_better",
       "sourceStart": 284.9,
       "duration": 5.68,
-      "label": "AI Makes it Better",
+      "label": "AI Makes It Better",
       "silenceAfter": false,
       "broll": {
         "id": "ai_makes_it_better-card",
@@ -312,11 +308,11 @@
         "duration": 3.0
       },
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.flash-cut",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.dip-to-white",
         "duration": 0.6
       }
     },
@@ -327,11 +323,11 @@
       "label": "Embrace Both: Human + AI",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.slide-left",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.slide-up",
         "duration": 0.6
       }
     },
@@ -351,11 +347,11 @@
         "duration": 4.0
       },
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.whip-pan-right",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "crossfade",
+        "type": "transition.film-burn",
         "duration": 0.6
       }
     },
@@ -366,13 +362,12 @@
       "label": "Call to Action & Outro",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "crossfade",
+        "type": "transition.film-burn",
         "duration": 0.6
       },
       "transitionOut": {
-        "type": "slide",
-        "duration": 0.8,
-        "direction": "down"
+        "type": "transition.dip-to-black",
+        "duration": 0.8
       }
     }
   ],
@@ -398,7 +393,6 @@
       "start": 15.0,
       "duration": 3.0,
       "position": "bottom",
-      "animation": "pop",
       "type": "noteBox",
       "text": "AI, Automation, AI",
       "keyword": "AI, Automation, AI",
@@ -747,19 +741,6 @@
       "safeBottom": 0.18,
       "safeInsetHorizontal": 0.08,
       "sfx": "assets/sfx/ui/pop.mp3",
-      "layout": "bottom",
-      "volume": 0.7
-    },
-    {
-      "id": "partner_with_ai_text",
-      "start": 305.0,
-      "duration": 2.5,
-      "position": "bottom",
-      "animation": "fade",
-      "type": "sectionTitle",
-      "text": "Partner With AI",
-      "keyword": "PARTNER WITH AI",
-      "sfx": "assets/sfx/emphasis/ding.mp3",
       "layout": "bottom",
       "volume": 0.7
     },
@@ -1336,6 +1317,65 @@
         "props": {
           "text": "HUMAN + MACHINE",
           "side": "right"
+        }
+      },
+      {
+        "id": "chart-timeline-three-hacks",
+        "start": 256.5,
+        "duration": 2.4,
+        "effectKey": "chart.timelineReveal",
+        "layer": "overlay",
+        "props": {
+          "durationInFrames": 144,
+          "items": [
+            {
+              "title": "Hack 1: Human Creativity",
+              "subtitle": "Brainstorm & ideate",
+              "accent": "#fbbf24"
+            },
+            {
+              "title": "Hack 2: AI Insights",
+              "subtitle": "Data-driven decisions",
+              "accent": "#a78bfa"
+            },
+            {
+              "title": "Hack 3: Automation",
+              "subtitle": "Execute & scale",
+              "accent": "#f472b6"
+            }
+          ]
+        }
+      },
+      {
+        "id": "chart-data-coca-cola",
+        "start": 122.0,
+        "duration": 2.8,
+        "effectKey": "chart.dataReveal",
+        "layer": "overlay",
+        "props": {
+          "durationInFrames": 168,
+          "points": [
+            {"label": "Before", "primary": 15, "secondary": 10},
+            {"label": "Mid", "primary": 45, "secondary": 38},
+            {"label": "Peak", "primary": 95, "secondary": 85}
+          ],
+          "showSecondary": true
+        }
+      },
+      {
+        "id": "chart-data-heinz",
+        "start": 208.0,
+        "duration": 2.8,
+        "effectKey": "chart.dataReveal",
+        "layer": "overlay",
+        "props": {
+          "durationInFrames": 168,
+          "points": [
+            {"label": "W1", "primary": 20},
+            {"label": "W2", "primary": 55},
+            {"label": "W3", "primary": 88}
+          ],
+          "showSecondary": false
         }
       }
     ]

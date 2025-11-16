@@ -570,7 +570,90 @@ export const PlanPreviewPanel: React.FC = () => {
     });
     return entries;
   }, [timeline, highlights, fps]);
-  const combinedEffectEntries = useMemo(() => [...effectEntries, ...brollDerivedEffects], [effectEntries, brollDerivedEffects]);
+
+  // Derived chart effects using only TimelineReveal and DataVisualizationReveal
+  const derivedChartOverlayEffects = useMemo(() => {
+    const entries: Array<{
+      id: string;
+      start: number;
+      duration: number;
+      effectKey: string;
+      props?: Record<string, unknown>;
+    }> = [];
+
+    const MIN_EFFECT_SPACING = 4; // seconds between effects
+    let lastEffectEnd = -999;
+
+    // Collect all existing effects (explicit + broll bg) to check for overlaps
+    const allExistingEffects = [...effectEntries, ...brollDerivedEffects];
+
+    // Alternate between TimelineReveal and DataVisualizationReveal
+    // Use segment text as timeline/data content
+    const sortedHighlights = (highlights ?? []).slice().sort((a, b) => a.start - b.start);
+    let useTimeline = true;
+
+    for (const h of sortedHighlights) {
+      if (typeof h.start !== "number") continue;
+      const startSec = h.start;
+      
+      // Skip if too close to last placed effect
+      if (startSec - lastEffectEnd < MIN_EFFECT_SPACING) continue;
+
+      const effectKey = useTimeline ? "chart.timelineReveal" : "chart.dataReveal";
+      const effectDuration = useTimeline ? 2.4 : 2.8; // from effects.json durations
+      const effectEnd = startSec + effectDuration;
+
+      // Check if this effect would overlap with any existing effect
+      const hasOverlap = allExistingEffects.some((existing) => {
+        const existingEnd = existing.start + existing.duration;
+        // Overlap if: new starts before existing ends AND new ends after existing starts
+        return startSec < existingEnd && effectEnd > existing.start;
+      });
+
+      if (hasOverlap) continue;
+
+      // Build props with segment text if available
+      const props: Record<string, unknown> = {
+        durationInFrames: Math.round(effectDuration * fps),
+      };
+
+      if (useTimeline && h.text) {
+        // TimelineReveal expects items array
+        props.items = [
+          {
+            title: String(h.text).slice(0, 40),
+            subtitle: `Step ${Math.floor((highlights?.indexOf(h) ?? 0) + 1)}`,
+            accent: "#fbbf24",
+          },
+        ];
+      } else if (!useTimeline && h.text) {
+        // DataVisualizationReveal expects points array
+        props.points = [
+          {label: "Start", primary: 30},
+          {label: "Mid", primary: 60},
+          {label: "Peak", primary: 90},
+        ];
+      }
+
+      entries.push({
+        id: `derived-chart-${useTimeline ? 'timeline' : 'data'}-${h.id ?? Math.round(startSec * 1000)}`,
+        start: startSec,
+        duration: effectDuration,
+        effectKey,
+        props,
+      });
+
+      lastEffectEnd = effectEnd;
+      useTimeline = !useTimeline; // alternate effects
+    }
+
+    return entries;
+  }, [highlights, fps, effectEntries, brollDerivedEffects]);
+
+  const combinedEffectEntries = useMemo(
+    () => [...effectEntries, ...brollDerivedEffects, ...derivedChartOverlayEffects],
+    [effectEntries, brollDerivedEffects, derivedChartOverlayEffects]
+  );
   const backgroundEffects = useMemo(
     () =>
       combinedEffectEntries.filter((entry) => {

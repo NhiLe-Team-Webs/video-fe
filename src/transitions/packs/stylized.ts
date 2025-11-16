@@ -34,7 +34,7 @@ export const stylizedTransitions: TransitionDefinition[] = [
     tags: ["news", "infographic", "clean"],
     durationInFrames: 32,
     timing: linearTiming({durationInFrames: 32}),
-    presentation: clockWipe({width: DEFAULT_TRANSITION_WIDTH, height: DEFAULT_TRANSITION_HEIGHT}),
+    presentation: clockWipe({width: DEFAULT_TRANSITION_WIDTH, height: DEFAULT_TRANSITION_HEIGHT}) as any,
     sample: {
       enteringLabel: "Data",
       exitingLabel: "Intro",

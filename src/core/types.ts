@@ -66,6 +66,8 @@ export type NormalizedSegmentCore = {
   emotion?: string;
   animationId?: string;
   transitionId?: string;
+  transitionIn?: SegmentTransition;
+  transitionOut?: SegmentTransition;
   sourceStart?: number;
   mute: boolean;
   broll?: SegmentBroll | null;

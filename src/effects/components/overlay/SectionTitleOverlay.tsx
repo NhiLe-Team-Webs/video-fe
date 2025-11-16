@@ -5,13 +5,13 @@ import {palette, typography, motif} from "../../../styles/designTokens";
 export type SectionTitleOverlayProps = {
   title?: string;
   subtitle?: string;
-  durationInFrames: number;
+  durationInFrames?: number;
 };
 
 export const SectionTitleOverlay: React.FC<SectionTitleOverlayProps> = ({
   title = "Strategy vs Tactics",
   subtitle = "Section Break",
-  durationInFrames,
+  durationInFrames = 120,
 }) => {
   const frame = useCurrentFrame();
   const {width, height} = useVideoConfig();

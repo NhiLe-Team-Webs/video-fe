@@ -9,6 +9,6 @@
   },
   "audio": {
     "bgm": "assets/sfx/emotion/applause.mp3",
-    "sfxFallback": "assets/sfx/whoosh/woosh.mp3"
+    "sfxFallback": "assets/sfx/whoosh/whoosh.mp3"
   }
 }

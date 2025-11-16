@@ -226,10 +226,6 @@ export const KeywordSubtitleHighlight: React.FC<
             position: "relative",
             maxWidth: "90%",
             backdropFilter: "blur(8px)",
-            textShadow: `0 8px 18px rgba(15,23,42,0.4), 0 0 22px ${blendWithWhite(
-              accentColor,
-              0.4
-            )}`,
           }}
         >
           {segments.map((segment, index) => {

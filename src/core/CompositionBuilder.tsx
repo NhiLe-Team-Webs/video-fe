@@ -3,11 +3,22 @@ import {Sequence, AbsoluteFill} from "remotion";
 import {VideoLayer} from "./layers/VideoLayer";
 import {AudioLayer} from "./AudioLayer";
 import {PlanEffectsLayer} from "./layers/PlanEffectsLayer";
+import {TransitionManager} from "./layers/TransitionManager";
 import {NoiseBackdrop} from "../effects/components/background/NoiseBackdrop";
 import type {LoadedPlan, NormalizedSegment} from "./types";
+import type {TransitionDefinition} from "../transitions/transitionTypes";
 
 type CompositionBuilderProps = {
   plan: LoadedPlan;
+  theme?: Record<string, unknown>;
+  templateConfig?: Record<string, unknown>;
+  effects?: Record<string, React.FC<Record<string, unknown>>>;
+  resolveAnimation?: (segment: NormalizedSegment) => React.FC<Record<string, unknown>>;
+  resolveTransition?: (params: {
+    segment: NormalizedSegment;
+    nextSegment?: NormalizedSegment;
+    index?: number;
+  }) => TransitionDefinition | null;
 };
 
 const BrollCard: React.FC<{scale: number; file: string}> = ({scale, file}) => {
@@ -176,60 +187,65 @@ const PlanBrollBackgroundLayer: React.FC<{
   );
 };
 
-export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({plan}) => {
+export const CompositionBuilder: React.FC<CompositionBuilderProps> = ({plan, resolveTransition}) => {
   if (!plan.segments.length) {
     return null;
   }
 
+  const renderSegmentContent = (segment: NormalizedSegment, index: number) => (
+    <AbsoluteFill>
+      <VideoLayer
+        clip={segment.clip}
+        startFrom={segment.sourceStart ?? 0}
+        durationSeconds={segment.duration}
+        muted={segment.mute}
+      />
+      {segment.broll?.mode === "card" && segment.broll.file
+        ? (() => {
+            const brollFile = segment.broll?.file;
+            if (!brollFile) {
+              return null;
+            }
+            const windows = resolveBrollWindows(segment, plan.effects, plan.fps);
+            if (!windows.length) {
+              return null;
+            }
+            return windows.map((window, windowIndex) => {
+              const from = window.start - segment.startFrame;
+              const durationInFrames = window.end - window.start;
+              return (
+                <Sequence
+                  key={`broll-${segment.id ?? index}-${windowIndex}`}
+                  from={from}
+                  durationInFrames={durationInFrames}
+                  name={`segment-${segment.id?.toString() ?? index}-broll-${windowIndex}`}
+                >
+                  <BrollCard scale={segment.broll?.cardScale ?? 0.85} file={brollFile} />
+                </Sequence>
+              );
+            });
+          })()
+        : null}
+      {/* background overlay for b-roll windows is rendered in separate PlanBrollBackgroundLayer */}
+      {segment.sfx && (
+        <AudioLayer
+          src={segment.sfx}
+          startFrom={0}
+          endAt={segment.durationInFrames}
+          volume={0.5}
+        />
+      )}
+    </AbsoluteFill>
+  );
+
   return (
     <AbsoluteFill style={{backgroundColor: "#000"}}>
-      {plan.segments.map((segment, index) => (
-        <Sequence key={`segment-${index}`} name={`segment-${index}`} durationInFrames={segment.durationInFrames}>
-          <AbsoluteFill>
-            <VideoLayer
-              clip={segment.clip}
-              startFrom={segment.sourceStart ?? 0}
-              durationSeconds={segment.duration}
-              muted={segment.mute}
-            />
-            {segment.broll?.mode === "card" && segment.broll.file
-              ? (() => {
-                  const brollFile = segment.broll?.file;
-                  if (!brollFile) {
-                    return null;
-                  }
-                  const windows = resolveBrollWindows(segment, plan.effects, plan.fps);
-                  if (!windows.length) {
-                    return null;
-                  }
-                  return windows.map((window, windowIndex) => {
-                    const from = window.start - segment.startFrame;
-                    const durationInFrames = window.end - window.start;
-                    return (
-                      <Sequence
-                        key={`broll-${segment.id ?? index}-${windowIndex}`}
-                        from={from}
-                        durationInFrames={durationInFrames}
-                        name={`segment-${segment.id?.toString() ?? index}-broll-${windowIndex}`}
-                      >
-                        <BrollCard scale={segment.broll?.cardScale ?? 0.85} file={brollFile} />
-                      </Sequence>
-                    );
-                  });
-                })()
-              : null}
-            {/* background overlay for b-roll windows is rendered in the separate PlanBrollBackgroundLayer */}
-            {segment.sfx && (
-              <AudioLayer
-                src={segment.sfx}
-                startFrom={0}
-                endAt={segment.durationInFrames}
-                volume={0.5}
-              />
-            )}
-          </AbsoluteFill>
-        </Sequence>
-      ))}
+      <TransitionManager
+        plan={plan}
+        resolveTransition={resolveTransition}
+      >
+        {renderSegmentContent}
+      </TransitionManager>
       <PlanBrollBackgroundLayer segments={plan.segments} effects={plan.effects} fps={plan.fps} />
       <PlanEffectsLayer entries={plan.effects} fps={plan.fps} showSampleContent={false} layerZIndex={5} />
     </AbsoluteFill>

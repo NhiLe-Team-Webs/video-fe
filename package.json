@@ -56,7 +56,8 @@
     "manifest:client": "tsx scripts/generateClientManifest.ts",
     "effects:classify": "tsx scripts/classifyEffects.ts",
     "lint": "eslint src && tsc",
-    "plan:test": "tsx src/core/testPlanLoader.ts"
+    "plan:test": "tsx src/core/testPlanLoader.ts",
+    "transitions:list": "tsx scripts/listTransitions.ts"
   },
   "sideEffects": [
     "*.css"

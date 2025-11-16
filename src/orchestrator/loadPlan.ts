@@ -106,6 +106,18 @@ const sanitizeSegment = (
     emotion: typeof segment?.emotion === "string" && segment.emotion.length > 0 ? segment.emotion : undefined,
     animationId: typeof segment?.animationId === "string" ? segment.animationId : undefined,
     transitionId: typeof segment?.transitionId === "string" ? segment.transitionId : undefined,
+    transitionIn: segment?.transitionIn && typeof segment.transitionIn === "object" ? {
+      type: typeof segment.transitionIn.type === "string" ? segment.transitionIn.type : undefined,
+      duration: typeof segment.transitionIn.duration === "number" && Number.isFinite(segment.transitionIn.duration) ? segment.transitionIn.duration : undefined,
+      direction: typeof segment.transitionIn.direction === "string" ? segment.transitionIn.direction : undefined,
+      sfx: typeof segment.transitionIn.sfx === "string" ? segment.transitionIn.sfx : undefined,
+    } : undefined,
+    transitionOut: segment?.transitionOut && typeof segment.transitionOut === "object" ? {
+      type: typeof segment.transitionOut.type === "string" ? segment.transitionOut.type : undefined,
+      duration: typeof segment.transitionOut.duration === "number" && Number.isFinite(segment.transitionOut.duration) ? segment.transitionOut.duration : undefined,
+      direction: typeof segment.transitionOut.direction === "string" ? segment.transitionOut.direction : undefined,
+      sfx: typeof segment.transitionOut.sfx === "string" ? segment.transitionOut.sfx : undefined,
+    } : undefined,
     sourceStart: typeof segment?.sourceStart === "number" && Number.isFinite(segment.sourceStart) && segment.sourceStart >= 0 ? segment.sourceStart : undefined,
     mute: typeof segment?.mute === "boolean" ? segment.mute : true,
     broll:

@@ -71,7 +71,7 @@ const buildPath = (points: Array<{x: number; y: number}>): string => {
 
 export type DataVisualizationRevealProps = {
   points?: SeriesPoint[] | string;
-  durationInFrames: number;
+  durationInFrames?: number;
   backgroundColor?: string;
   gridColor?: string;
   primaryColor?: string;
@@ -81,7 +81,7 @@ export type DataVisualizationRevealProps = {
 
 export const DataVisualizationReveal: React.FC<DataVisualizationRevealProps> = ({
   points,
-  durationInFrames,
+  durationInFrames = 120,
   backgroundColor = "#071631",
   gridColor = "rgba(255,255,255,0.15)",
   primaryColor = "#f97316",

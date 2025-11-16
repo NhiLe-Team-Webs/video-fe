@@ -43,9 +43,8 @@
       "label": "Traditional Marketing Defined",
       "silenceAfter": false,
       "transitionIn": {
-        "type": "zoom",
-        "duration": 0.7,
-        "intensity": 0.2
+        "type": "crossfade",
+        "duration": 0.6
       },
       "transitionOut": {
         "type": "crossfade",
@@ -139,9 +138,8 @@
         "duration": 5.0
       },
       "transitionIn": {
-        "type": "zoom",
-        "duration": 0.7,
-        "intensity": 0.2
+        "type": "crossfade",
+        "duration": 0.6
       },
       "transitionOut": {
         "type": "crossfade",
@@ -180,9 +178,8 @@
         "duration": 5.0
       },
       "transitionIn": {
-        "type": "zoom",
-        "duration": 0.7,
-        "intensity": 0.2
+        "type": "crossfade",
+        "duration": 0.6
       },
       "transitionOut": {
         "type": "crossfade",
@@ -385,7 +382,6 @@
       "start": 2.5,
       "duration": 3.0,
       "position": "bottom",
-      "animation": "zoom",
       "type": "noteBox",
       "text": "Marketing Revolution",
       "keyword": "Marketing Revolution",
@@ -466,7 +462,6 @@
       "start": 58.8,
       "duration": 2.8,
       "position": "bottom",
-      "animation": "zoom",
       "type": "noteBox",
       "text": "User Behaviors Signal",
       "keyword": "User Behaviors Signal",

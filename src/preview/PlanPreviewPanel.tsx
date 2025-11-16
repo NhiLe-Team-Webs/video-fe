@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from "react";
-import {AbsoluteFill, Img, Sequence, Video, staticFile, useVideoConfig, useCurrentFrame} from "remotion";
+import {AbsoluteFill, Img, Sequence, Video, staticFile, useVideoConfig, useCurrentFrame, interpolate} from "remotion";
 import {noise3D} from "@remotion/noise";
 import planJson from "../data/plan.json";
 import {TransitionLayer} from "../core/layers/TransitionLayer";
@@ -259,11 +259,70 @@ const computeBrollWindows = (
   }));
 };
 
+const VideoWithZoom: React.FC<{
+  src: string;
+  startFrom: number;
+  endAt: number;
+  highlights: HighlightPlan[];
+  fps: number;
+}> = ({src, startFrom, endAt, highlights, fps}) => {
+  const frame = useCurrentFrame();
+
+  // Find which highlight (if any) is active in this segment's time range
+  const getScaleForFrame = (currentFrame: number): number => {
+    const currentSec = currentFrame / fps;
+    for (const h of highlights) {
+      if (currentSec >= h.start && currentSec < h.start + h.duration) {
+        // Zoom in at start, zoom out at end (faster: 10% + 85% instead of 25% + 75%)
+        const hStart = Math.round(h.start * fps);
+        const hEnd = Math.round((h.start + h.duration) * fps);
+        const zoomInEnd = Math.max(3, Math.floor((hEnd - hStart) * 0.10));
+        const zoomOutStart = Math.max(zoomInEnd + 1, Math.floor((hEnd - hStart) * 0.85));
+        const maxScale = 1.18; // 18% zoom in (slightly more)
+
+        const relativeFrame = currentFrame - hStart;
+        const scale = interpolate(
+          relativeFrame,
+          [0, zoomInEnd, zoomOutStart, hEnd - hStart],
+          [1, maxScale, maxScale, 1],
+          {extrapolateLeft: "clamp", extrapolateRight: "clamp"}
+        );
+        return scale;
+      }
+    }
+    return 1;
+  };
+
+  const scale = getScaleForFrame(frame);
+
+  return (
+    <AbsoluteFill style={{backgroundColor: "#000", overflow: "hidden"}}>
+      <AbsoluteFill
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: "center center",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Video
+          src={src}
+          startFrom={startFrom}
+          endAt={endAt}
+          muted={false}
+          style={{width: "100%", height: "100%", objectFit: "cover"}}
+        />
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 const PlanVideoTrack: React.FC<{
   timeline: TimelineSegment[];
   videoSource: string;
   fps: number;
-}> = ({timeline, videoSource, fps}) => {
+  highlights: HighlightPlan[];
+}> = ({timeline, videoSource, fps, highlights}) => {
   const resolvedSrc = staticFile(videoSource);
   return (
     <AbsoluteFill style={{zIndex: 0}}>
@@ -283,15 +342,13 @@ const PlanVideoTrack: React.FC<{
               effect={mapTransitionEffect(entry.segment.transitionIn ?? entry.segment.transitionOut)}
               durationInFrames={entry.duration}
             >
-              <AbsoluteFill style={{backgroundColor: "#000"}}>
-                <Video
-                  src={resolvedSrc}
-                  startFrom={startFrame}
-                  endAt={endFrame}
-                  muted={false}
-                  style={{width: "100%", height: "100%", objectFit: "cover"}}
-                />
-              </AbsoluteFill>
+              <VideoWithZoom
+                src={resolvedSrc}
+                startFrom={startFrame}
+                endAt={endFrame}
+                highlights={highlights}
+                fps={fps}
+              />
             </TransitionLayer>
           </Sequence>
         );
@@ -411,6 +468,83 @@ export const PlanPreviewPanel: React.FC = () => {
   const videoSource = normalizeAssetPath(plan.meta?.sourceVideo ?? DEFAULT_VIDEO_SOURCE);
   const planTracks: PlanTracks = plan.tracks ?? {};
   const effectEntries = useMemo(() => planTracks.effects ?? [], [planTracks.effects]);
+  const derivedSfxEntries = useMemo(() => {
+    const entries: Array<{
+      id: string;
+      start: number;
+      duration: number;
+      src: string;
+      volume?: number;
+    }> = [];
+
+    const uiPop = "assets/sfx/ui/pop.mp3";
+    const whoosh = "assets/sfx/whoosh/whoosh.mp3";
+    const ding = "assets/sfx/emphasis/ding.mp3";
+    const notif = "assets/sfx/tech/notification.mp3";
+
+    const MIN_SFX_SPACING = 0.8; // seconds between auto sfx
+    const SFX_DURATION = 0.6; // default seconds
+
+    let lastPlaced = -999;
+
+    // Prefer placing sfx near highlights (if they don't already have sfx)
+    const sortedHighlights = (highlights ?? []).slice().sort((a, b) => a.start - b.start);
+    for (const h of sortedHighlights) {
+      if (typeof h.start !== "number") continue;
+      const startSec = h.start;
+      if (h.sfx) {
+        lastPlaced = startSec;
+        continue;
+      }
+      if (startSec - lastPlaced < MIN_SFX_SPACING) continue;
+
+      // choose SFX based on animation/type (some plans may include non-standard fields)
+      const hExtra = h as unknown as {animation?: string; volume?: number};
+      let src = uiPop;
+      if (h.type === "sectionTitle") src = whoosh;
+      else if (hExtra.animation === "fade" || hExtra.animation === "fadeIn") src = notif;
+      else if (hExtra.animation === "pop" || hExtra.animation === "zoom") src = uiPop;
+      else src = ding;
+
+      entries.push({
+        id: `derived-sfx-h-${h.id ?? Math.round(startSec * 1000)}`,
+        start: startSec,
+        duration: SFX_DURATION,
+        src,
+        volume: typeof hExtra.volume === "number" ? hExtra.volume : 0.75,
+      });
+      lastPlaced = startSec;
+    }
+
+    // Add one sfx per b-roll window (soft whoosh) if spacing allows
+    timeline.forEach((seg) => {
+      const broll = seg.segment.broll;
+      if (!broll) return;
+      const windows = computeBrollWindows(seg, highlights, fps);
+      if (!windows.length) return;
+      const w = windows[0];
+      const startSec = w.from / fps;
+      if (startSec - lastPlaced < MIN_SFX_SPACING) return;
+      entries.push({
+        id: `derived-sfx-b-${seg.segment.id ?? seg.from}`,
+        start: startSec,
+        duration: Math.min(1, SFX_DURATION),
+        src: whoosh,
+        volume: 0.6,
+      });
+      lastPlaced = startSec;
+    });
+
+    return entries;
+  }, [highlights, timeline, fps]);
+
+  const sfxEntries = useMemo(() => {
+    const explicit = planTracks.sfx ?? [];
+    // Normalize explicit entries to shape used by PlanTrackSfxLayer (id,start,duration,src,volume)
+    const normalized = explicit.map((e) => ({...e}));
+    // Merge derived entries after explicit ones
+    return [...normalized, ...derivedSfxEntries];
+  }, [planTracks.sfx, derivedSfxEntries]);
   const brollDerivedEffects = useMemo(() => {
     const entries: Array<{
       id: string;
@@ -453,7 +587,7 @@ export const PlanPreviewPanel: React.FC = () => {
       }),
     [combinedEffectEntries]
   );
-  const sfxEntries = planTracks.sfx ?? [];
+  
 
   if (!timeline.length || totalDuration <= 0) {
     return (
@@ -488,7 +622,7 @@ export const PlanPreviewPanel: React.FC = () => {
       />
 
       <Sequence name="video" durationInFrames={totalDuration}>
-        <PlanVideoTrack timeline={timeline} videoSource={videoSource} fps={fps} />
+        <PlanVideoTrack timeline={timeline} videoSource={videoSource} fps={fps} highlights={highlights} />
       </Sequence>
 
       {backgroundEffects.length ? (
